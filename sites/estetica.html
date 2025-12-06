@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumière Estética | Portfólio Dev Sites</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            gold: '#C5A059',      
+                            rose: '#E8DED1',      
+                            dark: '#1A1A1A',      
+                            text: '#4A4A4A',      
+                            bg: '#FAFAFA'         
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Cormorant Garamond', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-gradient': 'linear-gradient(to right, rgba(0,0,0,0.4), rgba(0,0,0,0.1))',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilos Personalizados */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #FAFAFA;
+            color: #4A4A4A;
+        }
+        
+        h1, h2, h3, h4, .font-serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .hero-section {
+            background-image: url('https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+        }
+
+        /* Navbar Scrolled State */
+        .navbar-scrolled {
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            padding-top: 1rem !important;
+            padding-bottom: 1rem !important;
+        }
+        
+        .navbar-scrolled .nav-text {
+            color: #1A1A1A !important;
+        }
+
+        /* Badge da Agência */
+        .agency-badge {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #fff;
+            color: #1A1A1A;
+            padding: 10px 20px;
+            border-radius: 2px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 9999;
+            border: 1px solid #E8DED1;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .agency-badge:hover {
+            transform: translateY(-3px);
+            border-color: #C5A059;
+        }
+
+        /* Botão Dourado Elegante */
+        .btn-gold {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            z-index: 1;
+        }
+        
+        .btn-gold::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background-color: #1A1A1A;
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+        
+        .btn-gold:hover::before {
+            width: 100%;
+        }
+
+        .btn-gold:hover {
+            color: white;
+        }
+
+        /* Modal Demo */
+        #demo-modal {
+            transition: opacity 0.3s ease-in-out;
+        }
+        
+        .demo-image-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            cursor: help;
+        }
+        
+        .img-container:hover .demo-image-overlay {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-gold selection:text-white">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-8 text-white border-b border-white/10">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="text-3xl font-serif italic font-medium tracking-wide nav-text flex items-center gap-2">
+                Lumière<span class="text-brand-gold not-italic text-4xl leading-none">.</span>
+            </a>
+
+            <div class="hidden md:flex items-center space-x-12">
+                <a href="#home" class="nav-text text-sm uppercase tracking-widest hover:text-brand-gold transition-colors">Início</a>
+                <a href="#sobre" class="nav-text text-sm uppercase tracking-widest hover:text-brand-gold transition-colors">A Clínica</a>
+                <a href="#tratamentos" class="nav-text text-sm uppercase tracking-widest hover:text-brand-gold transition-colors">Tratamentos</a>
+                <a href="#" onclick="triggerDemo('link')" class="px-8 py-3 bg-brand-gold text-white text-xs uppercase tracking-widest font-bold btn-gold shadow-lg shadow-brand-gold/20">Agendar</a>
+            </div>
+
+            <button id="mobile-menu-btn" class="md:hidden nav-text hover:text-brand-gold transition-colors">
+                <i data-lucide="menu" class="w-8 h-8 font-light"></i>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-white shadow-xl py-8 px-6 md:hidden border-t border-gray-100 animate-fade-in">
+            <div class="flex flex-col space-y-6 text-center">
+                <a href="#home" class="text-gray-800 text-sm uppercase tracking-widest hover:text-brand-gold">Início</a>
+                <a href="#sobre" class="text-gray-800 text-sm uppercase tracking-widest hover:text-brand-gold">A Clínica</a>
+                <a href="#tratamentos" class="text-gray-800 text-sm uppercase tracking-widest hover:text-brand-gold">Tratamentos</a>
+                <a href="#" onclick="triggerDemo('link')" class="text-brand-gold font-bold text-sm uppercase tracking-widest">Agendar Consulta</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center hero-section">
+        <div class="absolute inset-0 bg-black/30 bg-hero-gradient"></div>
+        <div class="container mx-auto px-6 relative z-10 text-center md:text-left pt-20">
+            <div data-aos="fade-up" data-aos-duration="1000">
+                <p class="text-brand-gold uppercase tracking-[0.3em] text-xs md:text-sm font-semibold mb-6">Estética Avançada & Bem-estar</p>
+                <h1 class="text-5xl md:text-7xl lg:text-8xl text-white font-serif font-light leading-tight mb-8">
+                    Revele a sua <br>
+                    <span class="italic font-normal">melhor versão.</span>
+                </h1>
+                <p class="text-gray-200 text-lg md:text-xl font-light max-w-lg mb-12 leading-relaxed">
+                    Um santuário de beleza onde tecnologia de ponta encontra o cuidado humanizado para resultados naturais e sofisticados.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-6 justify-center md:justify-start">
+                    <a href="#tratamentos" class="px-10 py-4 bg-white text-brand-dark text-xs uppercase tracking-widest font-bold hover:bg-brand-gold hover:text-white transition-all duration-300">
+                        Nossos Tratamentos
+                    </a>
+                    <a href="#sobre" class="px-10 py-4 border border-white/30 text-white text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-brand-dark transition-all duration-300 backdrop-blur-sm">
+                        Conheça o Espaço
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre Section -->
+    <section id="sobre" class="py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="relative img-container" data-aos="fade-right" onclick="triggerDemo('foto')">
+                    <div class="absolute -top-6 -left-6 w-full h-full border border-brand-gold/30 z-0"></div>
+                    <img src="https://images.unsplash.com/photo-1620331313123-6c85717fc318?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Interior da Clínica Minimalista" class="relative z-10 w-full h-[600px] object-cover shadow-2xl grayscale hover:grayscale-0 transition-all duration-1000">
+                    <div class="demo-image-overlay z-20">
+                        <span class="bg-black/70 text-white px-4 py-2 text-xs uppercase tracking-widest border border-white/20 backdrop-blur-sm">Exemplo de Foto</span>
+                    </div>
+                </div>
+                <div data-aos="fade-left">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="h-px w-12 bg-brand-gold"></span>
+                        <span class="text-brand-gold uppercase tracking-widest text-xs font-semibold">Nossa Filosofia</span>
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-serif text-brand-dark mb-8 leading-tight">
+                        A beleza mora nos <br> <span class="italic text-brand-gold">detalhes.</span>
+                    </h2>
+                    <p class="text-gray-500 mb-6 font-light leading-loose text-justify">
+                        Na Lumière, acreditamos que procedimentos estéticos devem realçar sua individualidade, não mascará-la.
+                    </p>
+                    <div class="grid grid-cols-2 gap-8 pt-8 border-t border-gray-100">
+                        <div>
+                            <span class="block text-3xl font-serif text-brand-dark mb-1">10+</span>
+                            <span class="text-xs uppercase tracking-wider text-gray-400">Anos de Experiência</span>
+                        </div>
+                        <div>
+                            <span class="block text-3xl font-serif text-brand-dark mb-1">5k+</span>
+                            <span class="text-xs uppercase tracking-wider text-gray-400">Procedimentos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tratamentos Section -->
+    <section id="tratamentos" class="py-24 bg-brand-rose/20 relative">
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-[#fcfbf9] -z-10 clip-diagonal"></div>
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-20" data-aos="fade-up">
+                <span class="text-brand-gold uppercase tracking-widest text-xs font-semibold">Menu de Serviços</span>
+                <h2 class="text-4xl md:text-5xl font-serif text-brand-dark mt-4 mb-6">Excelência em Cuidado</h2>
+                <div class="w-24 h-px bg-brand-gold mx-auto"></div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-white p-12 shadow-sm hover:shadow-2xl transition-all duration-500 group service-card border border-transparent hover:border-brand-gold/20" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 rounded-full bg-brand-rose/30 flex items-center justify-center mb-8 text-brand-dark group-hover:bg-brand-gold group-hover:text-white transition-colors">
+                        <i data-lucide="sparkles" class="w-6 h-6 stroke-1"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif text-brand-dark mb-4">Harmonização Facial</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-8 font-light">
+                        Preenchimentos estratégicos e toxina botulínica para reestruturar contornos.
+                    </p>
+                    <button onclick="triggerDemo('link')" class="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-brand-gold font-bold group-hover:gap-4 transition-all">
+                        Saiba Mais <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-white p-12 shadow-sm hover:shadow-2xl transition-all duration-500 group service-card border border-transparent hover:border-brand-gold/20" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 rounded-full bg-brand-rose/30 flex items-center justify-center mb-8 text-brand-dark group-hover:bg-brand-gold group-hover:text-white transition-colors">
+                        <i data-lucide="droplets" class="w-6 h-6 stroke-1"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif text-brand-dark mb-4">Bioestimuladores</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-8 font-light">
+                        Tecnologia injetável que estimula seu próprio corpo a produzir colágeno.
+                    </p>
+                    <button onclick="triggerDemo('link')" class="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-brand-gold font-bold group-hover:gap-4 transition-all">
+                        Saiba Mais <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-white p-12 shadow-sm hover:shadow-2xl transition-all duration-500 group service-card border border-transparent hover:border-brand-gold/20" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 rounded-full bg-brand-rose/30 flex items-center justify-center mb-8 text-brand-dark group-hover:bg-brand-gold group-hover:text-white transition-colors">
+                        <i data-lucide="flower-2" class="w-6 h-6 stroke-1"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif text-brand-dark mb-4">Spa & Laser</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-8 font-light">
+                        Protocolos de laser de última geração combinados com rituais de spa.
+                    </p>
+                    <button onclick="triggerDemo('link')" class="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-brand-gold font-bold group-hover:gap-4 transition-all">
+                        Saiba Mais <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial -->
+    <section class="py-24 bg-brand-dark text-white text-center">
+        <div class="container mx-auto px-6 max-w-4xl" data-aos="zoom-in">
+            <i data-lucide="quote" class="w-12 h-12 text-brand-gold mx-auto mb-10 opacity-60"></i>
+            <h3 class="text-3xl md:text-5xl font-serif italic font-light leading-snug mb-12">
+                "Não é apenas sobre estética, é sobre autoestima. A equipe da Lumière tem uma sensibilidade única."
+            </h3>
+            <div class="flex flex-col items-center">
+                <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-brand-gold mb-4 img-container" onclick="triggerDemo('foto')">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Cliente" class="w-full h-full object-cover">
+                    <div class="demo-image-overlay rounded-full">
+                        <span class="text-[10px] text-white font-bold uppercase">Exemplo</span>
+                    </div>
+                </div>
+                <cite class="not-italic uppercase tracking-widest text-sm font-semibold text-brand-gold">Isabela M.</cite>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contato" class="bg-[#111] text-white pt-24 pb-12 border-t border-white/5">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12 mb-20">
+                <div class="md:col-span-1">
+                    <a href="#" class="text-2xl font-serif italic text-white mb-6 block">Lumière.</a>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-6">
+                        Redefinindo os padrões de beleza com ciência, arte e cuidado.
+                    </p>
+                    <div class="flex gap-4">
+                        <button onclick="triggerDemo('link')" class="text-gray-500 hover:text-brand-gold transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></button>
+                        <button onclick="triggerDemo('link')" class="text-gray-500 hover:text-brand-gold transition-colors"><i data-lucide="facebook" class="w-5 h-5"></i></button>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-xs uppercase tracking-widest font-bold text-white mb-8">Menu</h4>
+                    <ul class="space-y-4 text-sm text-gray-500">
+                        <li><button onclick="triggerDemo('link')" class="hover:text-brand-gold transition-colors">Tratamentos Faciais</button></li>
+                        <li><button onclick="triggerDemo('link')" class="hover:text-brand-gold transition-colors">Tratamentos Corporais</button></li>
+                        <li><button onclick="triggerDemo('link')" class="hover:text-brand-gold transition-colors">Protocolos Exclusivos</button></li>
+                        <li><button onclick="triggerDemo('link')" class="hover:text-brand-gold transition-colors">Cartão Presente</button></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xs uppercase tracking-widest font-bold text-white mb-8">Contato</h4>
+                    <ul class="space-y-4 text-sm text-gray-500">
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="map-pin" class="w-4 h-4 mt-1 text-brand-gold"></i>
+                            Rua Oscar Freire, 1000<br>Jardins, São Paulo
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="phone" class="w-4 h-4 text-brand-gold"></i>
+                            (11) 99888-7766
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xs uppercase tracking-widest font-bold text-white mb-8">Newsletter</h4>
+                    <div class="flex flex-col gap-4">
+                        <input type="email" placeholder="Seu melhor e-mail" class="bg-white/5 border border-white/10 px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-gold transition-colors placeholder:text-gray-600">
+                        <button onclick="triggerDemo('link')" class="bg-brand-gold text-white px-4 py-3 text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-brand-dark transition-colors">Inscrever</button>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600">
+                <p>&copy; 2025 Lumière Estética.</p>
+                <div class="flex items-center gap-2 mt-4 md:mt-0">
+                    <span>Design by</span>
+                    <span class="text-white font-bold flex items-center gap-1 uppercase tracking-wider">
+                        <i data-lucide="code-2" class="w-3 h-3 text-brand-gold"></i> Dev Sites
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Badge da Agência -->
+    <div class="agency-badge" onclick="alert('Este é um exemplo de site criado pela Dev Sites.')">
+        <i data-lucide="monitor-check" class="w-4 h-4 text-brand-gold"></i>
+        <span>Exemplo - Dev Sites Agência</span>
+    </div>
+
+    <!-- MODAL DE AVISO (DEMONSTRAÇÃO) -->
+    <div id="demo-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 opacity-0">
+        <div class="bg-white p-8 shadow-2xl max-w-md w-full text-center relative border-t-4 border-brand-gold">
+            <button onclick="closeDemo()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            
+            <div class="w-16 h-16 bg-brand-rose/30 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i id="demo-icon" data-lucide="info" class="w-8 h-8 text-brand-gold"></i>
+            </div>
+            
+            <h3 id="demo-title" class="text-2xl font-serif text-brand-dark mb-3">Elemento Demonstrativo</h3>
+            
+            <p id="demo-text" class="text-gray-500 font-sans text-sm leading-relaxed mb-8">
+                Este link é apenas um exemplo visual. No site final, ele levaria para a página correspondente ou executaria a ação desejada.
+            </p>
+            
+            <button onclick="closeDemo()" class="w-full bg-brand-dark text-white py-3 uppercase tracking-widest text-xs font-bold hover:bg-brand-gold transition-colors">
+                Entendi, voltar ao exemplo
+            </button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Lógica do Modal de Demonstração
+        const modal = document.getElementById('demo-modal');
+        const demoTitle = document.getElementById('demo-title');
+        const demoText = document.getElementById('demo-text');
+        const demoIcon = document.getElementById('demo-icon');
+
+        function triggerDemo(type) {
+            modal.classList.remove('hidden');
+            // Pequeno delay para permitir a transição de opacidade
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+            }, 10);
+
+            if (type === 'foto') {
+                demoTitle.innerText = "Exemplo de Fotografia";
+                demoText.innerText = "Esta imagem é meramente ilustrativa para compor o layout do portfólio. No site real, aqui estariam as fotos do seu estabelecimento.";
+            } else {
+                demoTitle.innerText = "Exemplo de Link";
+                demoText.innerText = "Você clicou em um link ou botão demonstrativo. No site real, isso abriria o WhatsApp, redes sociais ou formulários.";
+            }
+        }
+
+        function closeDemo() {
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Fechar ao clicar fora
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeDemo();
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            AOS.init({ once: true, offset: 50, duration: 1000, easing: 'ease-out-quart' });
+
+            const navbar = document.getElementById('navbar');
+            const navLinks = navbar.querySelectorAll('.nav-text');
+            const logo = navbar.querySelector('a');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('navbar-scrolled');
+                    navLinks.forEach(link => {
+                        link.classList.remove('text-white', 'hover:text-brand-gold');
+                        link.classList.add('text-brand-dark', 'hover:text-brand-gold');
+                    });
+                    navbar.classList.remove('border-white/10');
+                    logo.classList.remove('text-white');
+                    logo.classList.add('text-brand-dark');
+                } else {
+                    navbar.classList.remove('navbar-scrolled');
+                    navLinks.forEach(link => {
+                        link.classList.add('text-white');
+                        link.classList.remove('text-brand-dark');
+                    });
+                    navbar.classList.add('border-white/10');
+                    logo.classList.add('text-white');
+                    logo.classList.remove('text-brand-dark');
+                }
+            });
+
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            if(btn && menu) {
+                btn.addEventListener('click', () => {
+                    menu.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
