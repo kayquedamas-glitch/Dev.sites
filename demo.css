@@ -1,0 +1,79 @@
+/* Reset e Cores Globais */
+body { 
+    background-color: #D4FF00; 
+    color: black; 
+    overflow: hidden; 
+}
+
+/* Fontes */
+.font-display { font-family: 'Archivo Black', sans-serif; }
+.font-mono { font-family: 'Space Mono', monospace; }
+
+/* Botões da Sidebar */
+.sidebar-btn {
+    @apply w-full text-left px-6 py-4 font-display text-xl uppercase border-b-4 border-black hover:bg-black hover:text-[#D4FF00] transition-all flex justify-between items-center cursor-pointer;
+}
+
+.sidebar-btn.active {
+    @apply bg-black text-[#D4FF00] pl-8 shadow-[inset_0_0_20px_rgba(212,255,0,0.2)];
+}
+
+/* Fundo do Preview (Grid de pontos) */
+#preview-area {
+    background-image: radial-gradient(black 1px, transparent 1px);
+    background-size: 30px 30px;
+}
+
+/* Sombra Dura (Brutalista) */
+.mockup-shadow {
+    box-shadow: 15px 15px 0px 0px rgba(0,0,0,1);
+}
+
+.shadow-btn {
+    box-shadow: 4px 4px 0px 0px rgba(0,0,0,1);
+}
+
+/* --------------------
+   MOCKUPS (Molduras)
+   -------------------- */
+
+/* Mockup de Celular */
+.phone-mockup {
+    width: 375px; 
+    height: 80vh; 
+    max-height: 750px;
+    border: 12px solid #000; 
+    border-radius: 40px; 
+    overflow: hidden; 
+    position: relative;
+    background: white; 
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Notch do Celular */
+.phone-mockup::before {
+    content: ''; 
+    position: absolute; 
+    top: 0; 
+    left: 50%; 
+    transform: translateX(-50%);
+    width: 120px; 
+    height: 25px; 
+    background: #000;
+    border-bottom-left-radius: 12px; 
+    border-bottom-right-radius: 12px; 
+    z-index: 20;
+}
+
+/* Mockup de Navegador (Desktop) */
+.browser-mockup {
+    width: 100%; 
+    height: 100%; 
+    border-radius: 0;
+    overflow: hidden; 
+    border: 4px solid #000; 
+    background: white;
+    display: flex; 
+    flex-direction: column; 
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
