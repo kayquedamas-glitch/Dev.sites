@@ -29,16 +29,13 @@
             <!-- Menu Desktop -->
             <div class="hidden md:flex space-x-6 items-center z-10 bg-white p-2 border-2 border-black -rotate-1 hard-shadow-sm">
                 <a href="#servicos" class="nav-link font-mono font-bold text-lg hover:bg-[#D4FF00] px-2 text-black transition-colors uppercase">Soluções</a>
-                
-                <!-- LINK CORRIGIDO PARA A DEMO -->
-                <a href="demo_.html" class="nav-link font-mono font-bold text-lg hover:bg-[#D4FF00] px-2 text-black transition-colors uppercase">Portfólio</a>
-                
+                <a href="demo.html" class="nav-link font-mono font-bold text-lg hover:bg-[#D4FF00] px-2 text-black transition-colors uppercase">Portfólio</a>
                 <a href="#sobre" class="nav-link font-mono font-bold text-lg hover:bg-[#D4FF00] px-2 text-black transition-colors uppercase">A Agência</a>
                 <a href="#contato" class="nav-link font-mono font-bold text-lg hover:bg-[#D4FF00] px-2 text-black transition-colors uppercase">Contato</a>
             </div>
             
             <!-- Botão Orçamento (Desktop) -->
-            <button onclick="document.getElementById('contato').scrollIntoView({ behavior: 'smooth' })" class="hidden md:block font-display text-lg px-6 py-2 border-2 hard-shadow transition-all hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-y-0 bg-[#D4FF00] text-black border-black z-10 rotate-1">
+            <button onclick="chamarNoZap()" class="hidden md:block font-display text-lg px-6 py-2 border-2 hard-shadow transition-all hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-y-0 bg-[#D4FF00] text-black border-black z-10 rotate-1">
                 QUERO MEU SITE
             </button>
 
@@ -52,13 +49,10 @@
         <!-- Mobile Menu Overlay -->
         <div id="mobile-menu" class="fixed inset-0 bg-[#D4FF00] z-40 flex flex-col justify-center items-center space-y-6 hidden transition-opacity duration-300">
             <a href="#servicos" class="mobile-nav-link font-display text-4xl text-black hover:text-white px-4 transform -rotate-2 transition-all">SOLUÇÕES</a>
-            
-            <!-- LINK CORRIGIDO MOBILE -->
-            <a href="demo_.html" class="mobile-nav-link font-display text-4xl text-black hover:text-white px-4 transform rotate-1 transition-all">PORTFÓLIO</a>
-            
+            <a href="demo.html" class="mobile-nav-link font-display text-4xl text-black hover:text-white px-4 transform rotate-1 transition-all">PORTFÓLIO</a>
             <a href="#sobre" class="mobile-nav-link font-display text-4xl text-black hover:text-white px-4 transform -rotate-1 transition-all">A AGÊNCIA</a>
             <a href="#contato" class="mobile-nav-link font-display text-4xl text-black hover:text-white px-4 transform rotate-2 transition-all">CONTATO</a>
-            <button onclick="document.getElementById('contato').scrollIntoView({ behavior: 'smooth' }); document.getElementById('mobile-menu').classList.add('hidden');" class="mt-8 font-display text-2xl px-8 py-4 border-4 border-black bg-white text-black hard-shadow">
+            <button onclick="chamarNoZap(); document.getElementById('mobile-menu').classList.add('hidden');" class="mt-8 font-display text-2xl px-8 py-4 border-4 border-black bg-white text-black hard-shadow">
                 QUERO ORÇAMENTO
             </button>
         </div>
@@ -86,13 +80,12 @@
                     </p>
                     
                     <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                        <a href="#contato" class="bg-black text-[#D4FF00] font-display text-xl md:text-2xl px-8 py-5 hard-border hard-shadow hard-shadow-hover transition-all flex items-center justify-center gap-2 group -rotate-1 hover:rotate-0 w-full sm:w-auto">
+                        <!-- Ação Direta para o WhatsApp -->
+                        <button onclick="chamarNoZap()" class="bg-black text-[#D4FF00] font-display text-xl md:text-2xl px-8 py-5 hard-border hard-shadow hard-shadow-hover transition-all flex items-center justify-center gap-2 group -rotate-1 hover:rotate-0 w-full sm:w-auto">
                             BORA VENDER
                             <i data-lucide="trending-up" class="group-hover:translate-x-1 transition-transform"></i>
-                        </a>
+                        </button>
                         
-                        <!-- BOTÃO "VER EXEMPLOS" CORRIGIDO -->
-                        <!-- Transformei em tag <a> para funcionar como link -->
                         <a href="demo.html" class="bg-white text-black font-display text-xl md:text-2xl px-8 py-5 hard-border hard-shadow hard-shadow-hover transition-all rotate-2 hover:rotate-0 w-full sm:w-auto inline-block text-center cursor-pointer">
                             VER EXEMPLOS
                         </a>
@@ -180,7 +173,7 @@
         </div>
     </section>
 
-    <!-- CARROSSEL DE CLIENTES (Atualizado) -->
+    <!-- CARROSSEL DE CLIENTES -->
     <section id="exemplos" class="py-16 md:py-20 bg-[#f0f0f0] border-b-4 border-black overflow-hidden relative">
         <div class="absolute top-0 left-0 bg-black text-[#D4FF00] px-4 py-1 font-mono font-bold text-xs md:text-sm z-10 border-r-4 border-b-4 border-black rotate-1 shadow-md">
             NEGÓCIOS QUE CONFIAM
@@ -188,25 +181,36 @@
         
         <div class="logo-marquee-container relative flex overflow-hidden py-8 md:py-12 -rotate-1 bg-white border-y-4 border-black scale-105">
             <div class="logo-marquee flex gap-12 md:gap-20 animate-marquee-logos items-center whitespace-nowrap pl-8">
-                <!-- Itens do carrossel (Pizzaria, Barbearia, etc) mantidos do código anterior -->
                 <div class="flex items-center gap-3 opacity-80 hover:opacity-100 grayscale hover:grayscale-0 transition-all cursor-pointer group">
                     <div class="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center border-2 border-black rotate-3">
                         <i data-lucide="pizza" class="text-white w-6 h-6"></i>
                     </div>
                     <span class="font-display text-2xl md:text-3xl text-black">CANTINA DO ZÉ</span>
                 </div>
-                <!-- ... (Outros itens do carrossel) ... -->
                 <div class="flex items-center gap-3 opacity-80 hover:opacity-100 grayscale hover:grayscale-0 transition-all cursor-pointer group">
                     <div class="w-12 h-12 bg-blue-900 rounded-sm flex items-center justify-center border-2 border-black -rotate-2">
                          <i data-lucide="scissors" class="text-white w-6 h-6"></i>
                     </div>
                     <span class="font-marker text-2xl md:text-3xl text-black tracking-wider">BarberShop</span>
                 </div>
+                <div class="flex items-center gap-3 opacity-80 hover:opacity-100 grayscale hover:grayscale-0 transition-all cursor-pointer group">
+                    <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center border-2 border-black rotate-1">
+                        <i data-lucide="flower" class="text-white w-6 h-6"></i>
+                    </div>
+                    <span class="font-display text-2xl md:text-3xl text-black">FLORICULTURA</span>
+                </div>
+                <!-- Repetição para o efeito infinito -->
+                <div class="flex items-center gap-3 opacity-80 hover:opacity-100 grayscale hover:grayscale-0 transition-all cursor-pointer group">
+                    <div class="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center border-2 border-black rotate-3">
+                        <i data-lucide="pizza" class="text-white w-6 h-6"></i>
+                    </div>
+                    <span class="font-display text-2xl md:text-3xl text-black">CANTINA DO ZÉ</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Sobre e Contato (Mantidos) -->
+    <!-- Sobre -->
     <section id="sobre" class="py-20 px-4 bg-black text-[#D4FF00] border-b-4 border-white relative overflow-hidden">
         <div class="container mx-auto max-w-7xl relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -230,21 +234,28 @@
         </div>
     </section>
 
-    <!-- Formulário e Footer (Mantidos) -->
+    <!-- Seção de Contato (Botão Único) -->
     <section id="contato" class="py-20 px-4 bg-[#D4FF00] relative">
         <div class="container mx-auto max-w-3xl">
-            <div class="bg-white border-[6px] border-black hard-shadow p-6 md:p-12 relative rotate-1">
+            <div class="bg-white border-[6px] border-black hard-shadow p-8 md:p-16 relative rotate-1 text-center">
                 <div class="relative z-10">
-                    <h2 class="font-display text-4xl md:text-6xl mb-4 text-black uppercase text-center md:text-left">VAMOS CRESCER?</h2>
-                    <p class="font-mono font-bold mb-8 md:mb-12 max-w-xl text-black text-center md:text-left text-sm md:text-base">Preencha rapidinho e a gente te chama no WhatsApp.</p>
-                    <form id="form-contato" class="space-y-6 md:space-y-8">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-                            <input type="text" class="w-full bg-[#f0f0f0] p-3 md:p-4 font-mono text-black border-4 border-black focus:outline-none focus:bg-[#D4FF00] transition-colors" placeholder="Seu nome" required>
-                            <input type="tel" class="w-full bg-[#f0f0f0] p-3 md:p-4 font-mono text-black border-4 border-black focus:outline-none focus:bg-[#D4FF00] transition-colors" placeholder="(00) 00000-0000" required>
-                        </div>
-                        <textarea rows="4" class="w-full bg-[#f0f0f0] p-3 md:p-4 font-mono text-black border-4 border-black focus:outline-none focus:bg-[#D4FF00] transition-colors resize-none" placeholder="Conte mais sobre sua ideia..."></textarea>
-                        <button type="submit" class="w-full bg-black text-[#D4FF00] font-display text-2xl md:text-3xl py-4 md:py-6 border-4 border-black hover:bg-[#D4FF00] hover:text-black transition-all active:translate-y-1 uppercase tracking-wide cursor-pointer hard-shadow">QUERO ORÇAMENTO</button>
-                    </form>
+                    <h2 class="font-display text-5xl md:text-7xl mb-6 text-black uppercase leading-tight">
+                        VAMOS<br>CRESCER?
+                    </h2>
+                    
+                    <p class="font-mono font-bold mb-10 text-black text-lg md:text-xl max-w-lg mx-auto">
+                        Clique no botão abaixo e fale direto com a gente no WhatsApp.
+                    </p>
+                    
+                    <!-- Botão de Ação Direta -->
+                    <button onclick="chamarNoZap()" class="w-full bg-black text-[#D4FF00] font-display text-2xl md:text-4xl py-6 md:py-8 border-4 border-black hover:bg-[#D4FF00] hover:text-black transition-all active:translate-y-1 uppercase tracking-wide cursor-pointer hard-shadow flex items-center justify-center gap-4 hover:gap-6 group">
+                        CHAMAR NO ZAP
+                        <i data-lucide="message-circle" class="w-10 h-10 group-hover:rotate-12 transition-transform"></i>
+                    </button>
+                    
+                    <p class="mt-6 font-mono text-sm font-bold opacity-60">
+                        Atendimento rápido • Orçamento sem compromisso
+                    </p>
                 </div>
             </div>
         </div>
@@ -254,11 +265,11 @@
         <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
             <div class="text-center md:text-left">
                 <h3 class="font-display text-3xl md:text-4xl mb-2 rotate-2 inline-block">DEVSITES.</h3>
-                <p class="font-mono text-xs md:text-sm opacity-70">© 2024 DevSites Agency.<br>Apoiando o comércio local.</p>
+                <p class="font-mono text-xs md:text-sm opacity-70">© 2025 DevSites Agency.<br>Apoiando o comércio local.</p>
             </div>
             <div class="flex gap-4 md:gap-6 -rotate-1">
                 <a href="#" class="font-mono font-bold text-base md:text-lg hover:text-white hover:bg-black border-2 border-transparent hover:border-[#D4FF00] p-2 transition-all">Instagram</a>
-                <a href="#" class="font-mono font-bold text-base md:text-lg hover:text-white hover:bg-black border-2 border-transparent hover:border-[#D4FF00] p-2 transition-all">WhatsApp</a>
+                <button onclick="chamarNoZap()" class="font-mono font-bold text-base md:text-lg hover:text-white hover:bg-black border-2 border-transparent hover:border-[#D4FF00] p-2 transition-all">WhatsApp</button>
             </div>
         </div>
     </footer>
