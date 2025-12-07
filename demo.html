@@ -8,10 +8,15 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
+        /* --- Estilos Gerais (Desktop) --- */
         body { font-family: 'Space Mono', monospace; background-color: #e5e5e5; overflow: hidden; }
         .font-display { font-family: 'Archivo Black', sans-serif; }
         
-        /* Balões Estilizados */
+        /* Moldura do Celular (Visualização) */
+        .phone-frame { width: 375px; height: 100%; border: 12px solid #1a1a1a; border-radius: 40px; }
+        .pc-frame { width: 100%; height: 100%; border: 0; border-radius: 0; }
+
+        /* Balões (Cards dos Sites) */
         .site-balloon {
             @apply relative bg-white border-4 border-black cursor-pointer transition-all duration-300 overflow-hidden mb-4;
             box-shadow: 6px 6px 0px 0px black;
@@ -20,25 +25,100 @@
         .site-balloon:hover { transform: translate(-2px, -2px); box-shadow: 10px 10px 0px 0px black; }
         .site-balloon.active { background: black; color: #D4FF00; border-color: black; transform: translate(2px, 2px); box-shadow: 2px 2px 0px 0px black; }
         
-        /* Corte na imagem */
-        .balloon-mask {
-            clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
-        }
+        .balloon-mask { clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%); }
 
-        /* Mockups */
-        .phone-frame { width: 375px; height: 100%; border: 12px solid #1a1a1a; border-radius: 40px; }
-        .pc-frame { width: 100%; height: 100%; border: 0; border-radius: 0; }
-        
-        /* Responsividade Sidebar */
+        /* --- MOBILE: MODO BLOCOS OTIMIZADO --- */
         @media (max-width: 768px) {
-            .sidebar { position: absolute; bottom: 0; left: 0; width: 100%; height: 280px; border-top: 4px solid black; border-right: 0; z-index: 50; }
-            .preview-area { height: calc(100vh - 280px); }
+            /* Layout Seguro */
+            body { 
+                overflow-y: auto !important; 
+                height: 100vh !important; /* Altura fixa para evitar pulos */
+                display: flex !important;
+                flex-direction: column !important; /* Ordem natural */
+            }
+
+            /* 1. Área de Visualização (Topo) */
+            /* Usamos 'order: -1' para jogar ela pro topo visualmente */
+            .preview-area {
+                order: -1 !important;
+                height: 70vh !important; /* Mais espaço para ver o site inteiro */
+                width: 100% !important;
+                padding: 0 !important;
+                border-bottom: 4px solid black;
+                flex: none !important;
+                background: #e5e5e5;
+                position: relative;
+                z-index: 20;
+            }
+
+            /* Iframe Fullscreen */
+            .phone-frame, .pc-frame, #frame-wrapper {
+                width: 100% !important;
+                height: 100% !important;
+                border: none !important;
+                border-radius: 0 !important;
+            }
+
+            /* 2. Área dos Blocos (Baixo) */
+            .sidebar {
+                order: 0 !important;
+                width: 100% !important;
+                flex: 1 !important;
+                min-height: auto !important;
+                border: none !important;
+                overflow: hidden !important; /* Remove rolagem dupla */
+                display: flex !important;
+                flex-direction: column !important;
+            }
+
+            /* Cabeçalho "Demos ao Vivo" */
+            .sidebar > div:first-child {
+                padding: 10px 15px !important;
+            }
+            .sidebar h1 { font-size: 1rem !important; }
+
+            /* Grid de Blocos */
+            .sidebar .flex-1 {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr; /* 2 Blocos lado a lado */
+                gap: 10px;
+                padding: 10px !important;
+                background: #f4f4f4 !important;
+                overflow-y: auto !important; /* Rola só os blocos se precisar */
+            }
+
+            /* Estilo dos Blocos Verticais */
+            .site-balloon {
+                width: 100% !important;
+                height: 140px !important;
+                margin-bottom: 0 !important;
+                display: flex !important;
+                flex-direction: column !important;
+            }
+
+            .site-balloon > div:first-child {
+                height: 40% !important;
+                padding: 6px !important;
+            }
+            .site-balloon h2 { font-size: 1rem !important; }
+            .site-balloon span { font-size: 0.6rem !important; }
+
+            .site-balloon > div:last-child {
+                width: 100% !important;
+                height: 60% !important;
+                clip-path: none !important;
+                border-top: 2px solid black;
+            }
+            
+            /* Botão Comercial Fixo */
+            .sidebar .border-t-4 {
+                padding: 10px !important;
+            }
         }
     </style>
 </head>
 <body class="h-screen flex flex-col md:flex-row">
 
-    <!-- Sidebar / Menu Inferior -->
     <aside class="sidebar w-full md:w-[420px] bg-[#f4f4f4] border-r-4 border-black flex flex-col shadow-2xl overflow-hidden">
         <div class="p-4 bg-black text-[#D4FF00] flex justify-between items-center">
             <h1 class="font-display text-2xl leading-none">DEMOS<br>AO VIVO</h1>
@@ -46,7 +126,6 @@
         </div>
 
         <div class="flex-1 overflow-y-auto p-4 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIi8+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiNkZGQiLz4KPC9zdmc+')]">
-            <!-- Balão 1 -->
             <div onclick="loadSite('sites/hamburgueria.html', this)" class="site-balloon active flex">
                 <div class="flex-1 p-4 flex flex-col justify-center z-10">
                     <span class="text-[10px] font-bold opacity-70">CASE #01</span>
@@ -56,7 +135,6 @@
                     <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&q=80" class="w-full h-full object-cover">
                 </div>
             </div>
-            <!-- Balão 2 -->
             <div onclick="loadSite('sites/estetica.html', this)" class="site-balloon flex">
                 <div class="flex-1 p-4 flex flex-col justify-center z-10">
                     <span class="text-[10px] font-bold opacity-70">CASE #02</span>
@@ -66,7 +144,6 @@
                     <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=400&q=80" class="w-full h-full object-cover">
                 </div>
             </div>
-             <!-- Balão 3 -->
              <div onclick="loadSite('sites/moda.html', this)" class="site-balloon flex">
                 <div class="flex-1 p-4 flex flex-col justify-center z-10">
                     <span class="text-[10px] font-bold opacity-70">CASE #03</span>
@@ -78,11 +155,10 @@
             </div>
         </div>
 
-        <!-- Botão Comercial -->
         <div class="p-4 border-t-4 border-black bg-white">
-            <div class="flex gap-2 mb-2 justify-center">
-                <button onclick="setView('desktop')" class="text-xs font-bold border-2 border-black px-2 py-1 hover:bg-black hover:text-[#D4FF00]">PC</button>
-                <button onclick="setView('mobile')" class="text-xs font-bold border-2 border-black px-2 py-1 hover:bg-black hover:text-[#D4FF00]">CELULAR</button>
+            <div class="flex gap-2 mb-2 justify-center md:flex">
+                <button onclick="setView('desktop')" class="hidden md:block text-xs font-bold border-2 border-black px-2 py-1 hover:bg-black hover:text-[#D4FF00]">PC</button>
+                <button onclick="setView('mobile')" class="hidden md:block text-xs font-bold border-2 border-black px-2 py-1 hover:bg-black hover:text-[#D4FF00]">CELULAR</button>
             </div>
             <a href="https://wa.me/553182748728" target="_blank" class="block w-full py-3 bg-[#D4FF00] border-2 border-black text-black font-display text-center text-lg hover:bg-black hover:text-[#D4FF00] transition-colors shadow-[4px_4px_0px_0px_black] active:translate-x-1 active:translate-y-1 active:shadow-none">
                 FALAR COM COMERCIAL 💬
@@ -90,7 +166,6 @@
         </div>
     </aside>
 
-    <!-- Área de Visualização -->
     <main class="preview-area flex-1 bg-gray-200 flex justify-center items-center relative overflow-hidden p-4">
         <div class="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:20px_20px]"></div>
         
@@ -102,9 +177,13 @@
     <script>
         lucide.createIcons();
         function loadSite(url, el) {
-            document.getElementById('viewer').src = url;
+            const viewer = document.getElementById('viewer');
+            viewer.src = url;
             document.querySelectorAll('.site-balloon').forEach(b => b.classList.remove('active'));
             el.classList.add('active');
+            
+            // Correção: Força a página a rolar para o topo quando troca de site
+            window.scrollTo(0, 0);
         }
         function setView(mode) {
             const wrap = document.getElementById('frame-wrapper');
