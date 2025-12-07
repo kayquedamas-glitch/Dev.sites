@@ -12,11 +12,11 @@
         body { font-family: 'Space Mono', monospace; background-color: #e5e5e5; overflow: hidden; }
         .font-display { font-family: 'Archivo Black', sans-serif; }
         
-        /* Moldura do Celular (Visualização) */
+        /* Molduras */
         .phone-frame { width: 375px; height: 100%; border: 12px solid #1a1a1a; border-radius: 40px; }
         .pc-frame { width: 100%; height: 100%; border: 0; border-radius: 0; }
 
-        /* Balões (Cards dos Sites) */
+        /* Balões (Cards) */
         .site-balloon {
             @apply relative bg-white border-4 border-black cursor-pointer transition-all duration-300 overflow-hidden mb-4;
             box-shadow: 6px 6px 0px 0px black;
@@ -27,92 +27,94 @@
         
         .balloon-mask { clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%); }
 
-        /* --- MOBILE: MODO BLOCOS OTIMIZADO --- */
+        /* Botão Voltar (Exclusivo Mobile) */
+        #mobile-back-btn { display: none; }
+
+        /* --- MOBILE: MODO "APP" (LISTA -> DETALHE) --- */
         @media (max-width: 768px) {
-            /* Layout Seguro */
             body { 
                 overflow-y: auto !important; 
-                height: 100vh !important; /* Altura fixa para evitar pulos */
+                height: 100vh !important;
                 display: flex !important;
-                flex-direction: column !important; /* Ordem natural */
+                flex-direction: column !important;
             }
 
-            /* 1. Área de Visualização (Topo) */
-            /* Usamos 'order: -1' para jogar ela pro topo visualmente */
-            .preview-area {
-                order: -1 !important;
-                height: 70vh !important; /* Mais espaço para ver o site inteiro */
+            /* 1. Sidebar (Lista de Sites) */
+            /* Agora ela ocupa a tela toda inicialmente */
+            .sidebar {
                 width: 100% !important;
-                padding: 0 !important;
-                border-bottom: 4px solid black;
-                flex: none !important;
-                background: #e5e5e5;
-                position: relative;
-                z-index: 20;
+                height: 100% !important;
+                border: none !important;
+                display: flex !important;
+                flex-direction: column !important;
+                z-index: 10;
             }
 
-            /* Iframe Fullscreen */
+            /* 2. Área de Visualização (Preview) */
+            /* Escondida por padrão no mobile */
+            .preview-area {
+                display: none !important; /* SEGREDO: Começa invisível */
+                position: fixed !important;
+                top: 0; left: 0; right: 0; bottom: 0;
+                width: 100% !important;
+                height: 100% !important;
+                z-index: 100; /* Fica por cima de tudo quando ativa */
+                background: #e5e5e5;
+                padding: 0 !important;
+            }
+
+            /* Quando a classe .is-open é adicionada via JS */
+            .preview-area.is-open {
+                display: flex !important;
+                flex-direction: column;
+            }
+
+            /* Botão Voltar Flutuante */
+            #mobile-back-btn {
+                display: flex;
+                position: absolute;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 200;
+                background: black;
+                color: #D4FF00;
+                padding: 10px 20px;
+                border: 2px solid white;
+                font-weight: bold;
+                border-radius: 50px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+                align-items: center;
+                gap: 8px;
+            }
+
+            /* Ajustes visuais da grade mobile */
+            .sidebar .flex-1 {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+                padding: 15px !important;
+                align-content: start;
+            }
+
+            .site-balloon {
+                width: 100% !important;
+                height: 150px !important;
+                margin-bottom: 0 !important;
+                display: flex !important;
+                flex-direction: column !important;
+            }
+            
+            .site-balloon > div:first-child { height: 40% !important; padding: 5px !important; }
+            .site-balloon > div:last-child { height: 60% !important; border-top: 2px solid black; clip-path: none !important; }
+            .site-balloon h2 { font-size: 1rem !important; }
+
+            /* Iframe Full */
             .phone-frame, .pc-frame, #frame-wrapper {
                 width: 100% !important;
                 height: 100% !important;
                 border: none !important;
                 border-radius: 0 !important;
-            }
-
-            /* 2. Área dos Blocos (Baixo) */
-            .sidebar {
-                order: 0 !important;
-                width: 100% !important;
-                flex: 1 !important;
-                min-height: auto !important;
-                border: none !important;
-                overflow: hidden !important; /* Remove rolagem dupla */
-                display: flex !important;
-                flex-direction: column !important;
-            }
-
-            /* Cabeçalho "Demos ao Vivo" */
-            .sidebar > div:first-child {
-                padding: 10px 15px !important;
-            }
-            .sidebar h1 { font-size: 1rem !important; }
-
-            /* Grid de Blocos */
-            .sidebar .flex-1 {
-                display: grid !important;
-                grid-template-columns: 1fr 1fr; /* 2 Blocos lado a lado */
-                gap: 10px;
-                padding: 10px !important;
-                background: #f4f4f4 !important;
-                overflow-y: auto !important; /* Rola só os blocos se precisar */
-            }
-
-            /* Estilo dos Blocos Verticais */
-            .site-balloon {
-                width: 100% !important;
-                height: 140px !important;
-                margin-bottom: 0 !important;
-                display: flex !important;
-                flex-direction: column !important;
-            }
-
-            .site-balloon > div:first-child {
-                height: 40% !important;
-                padding: 6px !important;
-            }
-            .site-balloon h2 { font-size: 1rem !important; }
-            .site-balloon span { font-size: 0.6rem !important; }
-
-            .site-balloon > div:last-child {
-                width: 100% !important;
-                height: 60% !important;
-                clip-path: none !important;
-                border-top: 2px solid black;
-            }
-            
-            /* Botão Comercial Fixo */
-            .sidebar .border-t-4 {
-                padding: 10px !important;
             }
         }
     </style>
@@ -120,13 +122,14 @@
 <body class="h-screen flex flex-col md:flex-row">
 
     <aside class="sidebar w-full md:w-[420px] bg-[#f4f4f4] border-r-4 border-black flex flex-col shadow-2xl overflow-hidden">
-        <div class="p-4 bg-black text-[#D4FF00] flex justify-between items-center">
+        <div class="p-4 bg-black text-[#D4FF00] flex justify-between items-center shrink-0">
             <h1 class="font-display text-2xl leading-none">DEMOS<br>AO VIVO</h1>
             <a href="index.html" class="text-xs hover:underline font-bold">← VOLTAR</a>
         </div>
 
         <div class="flex-1 overflow-y-auto p-4 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIi8+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiNkZGQiLz4KPC9zdmc+')]">
-            <div onclick="loadSite('sites/hamburgueria.html', this)" class="site-balloon active flex">
+            
+            <div onclick="loadSite('sites/hamburgueria.html', this)" class="site-balloon flex">
                 <div class="flex-1 p-4 flex flex-col justify-center z-10">
                     <span class="text-[10px] font-bold opacity-70">CASE #01</span>
                     <h2 class="font-display text-2xl leading-none">BURGER</h2>
@@ -155,7 +158,7 @@
             </div>
         </div>
 
-        <div class="p-4 border-t-4 border-black bg-white">
+        <div class="p-4 border-t-4 border-black bg-white shrink-0">
             <div class="flex gap-2 mb-2 justify-center md:flex">
                 <button onclick="setView('desktop')" class="hidden md:block text-xs font-bold border-2 border-black px-2 py-1 hover:bg-black hover:text-[#D4FF00]">PC</button>
                 <button onclick="setView('mobile')" class="hidden md:block text-xs font-bold border-2 border-black px-2 py-1 hover:bg-black hover:text-[#D4FF00]">CELULAR</button>
@@ -166,25 +169,52 @@
         </div>
     </aside>
 
-    <main class="preview-area flex-1 bg-gray-200 flex justify-center items-center relative overflow-hidden p-4">
+    <main id="preview-box" class="preview-area flex-1 bg-gray-200 flex justify-center items-center relative overflow-hidden p-4">
+        
+        <button id="mobile-back-btn" onclick="closePreview()">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i> ESCOLHER OUTRO
+        </button>
+
         <div class="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:20px_20px]"></div>
         
         <div id="frame-wrapper" class="pc-frame bg-white shadow-2xl transition-all duration-500 overflow-hidden relative">
-            <iframe id="viewer" src="sites/hamburgueria.html" class="w-full h-full border-0"></iframe>
+            <iframe id="viewer" src="about:blank" class="w-full h-full border-0"></iframe>
         </div>
     </main>
 
     <script>
         lucide.createIcons();
+
+        // Carrega o primeiro site apenas se for Desktop
+        if (window.innerWidth > 768) {
+            document.getElementById('viewer').src = 'sites/hamburgueria.html';
+            document.querySelector('.site-balloon').classList.add('active');
+        }
+
         function loadSite(url, el) {
             const viewer = document.getElementById('viewer');
+            const previewBox = document.getElementById('preview-box');
+            
+            // Carrega URL e atualiza visual ativo
             viewer.src = url;
             document.querySelectorAll('.site-balloon').forEach(b => b.classList.remove('active'));
             el.classList.add('active');
             
-            // Correção: Força a página a rolar para o topo quando troca de site
-            window.scrollTo(0, 0);
+            // NO MOBILE: Abre a tela de visualização
+            if (window.innerWidth <= 768) {
+                previewBox.classList.add('is-open');
+            }
         }
+
+        function closePreview() {
+            // Fecha a visualização no mobile e volta pra lista
+            const previewBox = document.getElementById('preview-box');
+            previewBox.classList.remove('is-open');
+            
+            // Opcional: Limpar o iframe para parar vídeos/sons? 
+            // document.getElementById('viewer').src = 'about:blank';
+        }
+
         function setView(mode) {
             const wrap = document.getElementById('frame-wrapper');
             if(mode === 'mobile') {
