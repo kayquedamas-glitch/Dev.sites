@@ -14,7 +14,7 @@ const btnMobile = document.getElementById('btn-mobile');
 
 // URLs Fictícias
 const fakeDomains = {
-    'sites/hamburgueria.html': 'https://zest-burger.delivery',
+    'sites/hamburgueria.html': 'https://bravus-burguer.delivery',
     'sites/estetica.html': 'https://lumiere-clinica.com.br',
     'sites/moda.html': 'https://aura-store.com'
 };
