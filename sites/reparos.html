@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOS Reparos - Soluções Residenciais Premium</title>
+    
+    <!-- Fonte Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Lenis Scroll -->
+    <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            green: '#10B981',
+                            dark: '#022C22',
+                            light: '#ECFDF5'
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FAFAFA;
+            color: #1F2937;
+            overflow-x: hidden;
+        }
+
+        /* Background Grid Sofisticado */
+        .bg-grid {
+            background-size: 50px 50px;
+            background-image: linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
+            mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+        }
+
+        /* Efeito de Vidro */
+        .glass {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        /* Botão Pulsante */
+        .btn-pulse { position: relative; overflow: hidden; }
+        .btn-pulse::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.2);
+            transform: scale(0);
+            border-radius: 9999px;
+            animation: ripple 2s infinite;
+        }
+        @keyframes ripple {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+
+        /* Cards Hover */
+        .service-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px -10px rgba(16, 185, 129, 0.15);
+            border-color: #10B981;
+        }
+
+        /* Badge da Agência */
+        .agency-badge {
+            position: fixed; bottom: 20px; right: 20px;
+            background: #0f172a; color: #fff;
+            padding: 10px 20px; border-radius: 50px;
+            font-size: 0.75rem; font-weight: 600;
+            display: flex; align-items: center; gap: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            z-index: 9999; cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .agency-badge:hover { transform: translateY(-3px); }
+
+        /* Modal Demo */
+        #demo-modal { transition: opacity 0.3s ease-in-out; }
+    </style>
+</head>
+<body class="relative">
+
+    <!-- Background Decorativo -->
+    <div class="fixed inset-0 z-0 bg-grid pointer-events-none"></div>
+    <div class="fixed top-0 right-0 w-[500px] h-[500px] bg-brand-green/10 rounded-full blur-[100px] -z-10 animate-float"></div>
+    <div class="fixed bottom-0 left-0 w-[500px] h-[500px] bg-blue-100 rounded-full blur-[100px] -z-10 animate-float" style="animation-delay: 2s;"></div>
+
+    <!-- Header Flutuante -->
+    <header class="fixed w-full z-50 top-0 py-6 px-4">
+        <div class="container mx-auto max-w-6xl">
+            <div class="glass rounded-2xl px-6 py-4 flex justify-between items-center shadow-lg shadow-black/5" data-aos="fade-down" data-aos-duration="1000">
+                <!-- Logo -->
+                <div class="flex items-center gap-2 cursor-pointer group">
+                    <div class="bg-brand-green p-2.5 rounded-xl text-white shadow-lg shadow-brand-green/30 group-hover:scale-110 transition-transform">
+                        <i data-lucide="wrench" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xl font-bold tracking-tight text-gray-900">SOS<span class="text-brand-green">Reparos</span></span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <nav class="hidden md:flex gap-8 text-sm font-medium text-gray-600">
+                    <a href="#servicos" class="hover:text-brand-green transition-colors">Serviços</a>
+                    <a href="#como-funciona" class="hover:text-brand-green transition-colors">Como Funciona</a>
+                    <a href="#depoimentos" class="hover:text-brand-green transition-colors">Avaliações</a>
+                </nav>
+
+                <!-- CTA Header -->
+                <div class="hidden md:flex items-center gap-4">
+                    <button onclick="triggerDemo('link')" class="text-sm font-semibold text-gray-600 hover:text-gray-900 transition-colors">Área do Técnico</button>
+                    <button onclick="triggerDemo('link')" class="bg-gray-900 hover:bg-black text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-all flex items-center gap-2 hover:shadow-lg hover:-translate-y-0.5">
+                        <i data-lucide="phone" class="w-4 h-4"></i> (11) 99999-9999
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-gray-600" onclick="toggleMenu()">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden absolute top-24 left-4 right-4 bg-white rounded-2xl shadow-2xl border border-gray-100 p-6 flex-col gap-4 z-50 transform origin-top transition-all">
+            <a href="#servicos" class="text-lg font-medium text-gray-800" onclick="toggleMenu()">Serviços</a>
+            <a href="#como-funciona" class="text-lg font-medium text-gray-800" onclick="toggleMenu()">Como Funciona</a>
+            <a href="#depoimentos" class="text-lg font-medium text-gray-800" onclick="toggleMenu()">Depoimentos</a>
+            <hr class="border-gray-100">
+            <button onclick="triggerDemo('link')" class="bg-brand-green text-white w-full py-4 rounded-xl font-bold shadow-lg shadow-brand-green/20">Chamar Técnico Agora</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="relative z-10 pt-40 pb-20 px-6">
+        <div class="container mx-auto text-center max-w-5xl">
+            
+            <!-- Badge -->
+            <div data-aos="fade-up" class="inline-flex items-center gap-2 bg-white border border-green-100 px-4 py-2 rounded-full mb-8 shadow-sm">
+                <span class="relative flex h-2.5 w-2.5">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+                </span>
+                <span class="text-xs font-bold text-green-700 uppercase tracking-wide">Técnicos online na sua região</span>
+            </div>
+
+            <!-- Título Principal -->
+            <h1 data-aos="fade-up" data-aos-delay="100" class="text-5xl md:text-7xl font-extrabold text-gray-900 tracking-tight leading-[1.1] mb-8">
+                Reparos residenciais <br class="hidden md:block" />
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-green to-emerald-600">rápidos e confiáveis.</span>
+            </h1>
+
+            <!-- Subtítulo -->
+            <p data-aos="fade-up" data-aos-delay="200" class="text-lg md:text-xl text-gray-500 mb-12 max-w-2xl mx-auto leading-relaxed">
+                Esqueça a espera e a incerteza. Conectamos você aos melhores eletricistas, encanadores e técnicos certificados em minutos.
+            </p>
+
+            <!-- Botões de Ação -->
+            <div data-aos="fade-up" data-aos-delay="300" class="flex flex-col sm:flex-row justify-center gap-4 mb-20">
+                <button onclick="triggerDemo('link')" class="btn-pulse bg-brand-green hover:bg-emerald-500 text-white px-8 py-4 rounded-xl text-lg font-bold transition-all shadow-xl shadow-brand-green/30 flex items-center justify-center gap-2 hover:-translate-y-1">
+                    <i data-lucide="message-circle" class="w-5 h-5"></i>
+                    Solicitar via WhatsApp
+                </button>
+                <a href="#servicos" class="bg-white hover:bg-gray-50 text-gray-700 border border-gray-200 px-8 py-4 rounded-xl text-lg font-semibold transition-all flex items-center justify-center gap-2 hover:shadow-lg hover:-translate-y-1">
+                    Ver todos os serviços
+                </a>
+            </div>
+
+            <!-- Mockup Interativo (Animado) -->
+            <div data-aos="zoom-in-up" data-aos-delay="400" class="relative mx-auto w-full max-w-4xl perspective-1000" onclick="triggerDemo('foto')">
+                <div class="relative bg-white rounded-2xl shadow-2xl border border-gray-200 p-3 md:p-4 overflow-hidden transform hover:rotate-x-2 transition-transform duration-700 cursor-pointer group">
+                    <div class="bg-slate-50 rounded-xl aspect-video flex items-center justify-center relative overflow-hidden">
+                        <!-- Mapa Fundo -->
+                        <div class="absolute inset-0 bg-[url('https://upload.wikimedia.org/wikipedia/commons/e/ec/World_map_blank_without_borders.svg')] opacity-10 bg-cover"></div>
+                        
+                        <!-- Elementos da UI -->
+                        <div class="absolute inset-0 flex flex-col items-center justify-center">
+                            <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg mb-6 animate-float">
+                                <i data-lucide="map-pin" class="w-10 h-10 text-brand-green fill-brand-green/20"></i>
+                            </div>
+                            <p class="text-gray-400 font-medium">Acompanhamento em Tempo Real</p>
+                        </div>
+
+                        <!-- Card Flutuante 1 (Eletricista) -->
+                        <div class="absolute bottom-8 right-8 bg-white p-4 pr-8 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-4 animate-float" style="animation-delay: 1s;">
+                            <div class="relative">
+                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="Tecnico" class="w-12 h-12 rounded-full bg-gray-100">
+                                <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></div>
+                            </div>
+                            <div>
+                                <p class="font-bold text-gray-900 text-sm">João Silva</p>
+                                <p class="text-brand-green text-xs font-bold flex items-center gap-1">
+                                    <i data-lucide="zap" class="w-3 h-3"></i> Eletricista • 4.9 ★
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Card Flutuante 2 (Status) -->
+                        <div class="absolute top-8 left-8 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-xl animate-float" style="animation-delay: 0.5s;">
+                            <p class="text-xs font-bold flex items-center gap-2">
+                                <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span> Chegando em 12 min
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Glow Effect -->
+                <div class="absolute -inset-4 bg-brand-green/20 rounded-[2rem] blur-2xl -z-10 opacity-50 group-hover:opacity-75 transition-opacity"></div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Seção Serviços (Cards Modernos) -->
+    <section id="servicos" class="py-24 relative z-10 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-20" data-aos="fade-up">
+                <span class="text-brand-green font-bold tracking-wider text-sm uppercase">Nossas Especialidades</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-2 mb-4">Resolvendo tudo na sua casa</h2>
+                <p class="text-gray-500 max-w-2xl mx-auto">Tudo o que sua casa precisa para funcionar perfeitamente, executado por quem entende.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="service-card bg-white p-8 rounded-3xl shadow-lg shadow-gray-100 border border-gray-100 group cursor-pointer" onclick="triggerDemo('link')" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-500 group-hover:text-white transition-colors duration-300">
+                        <i data-lucide="zap" class="w-7 h-7 text-blue-600 group-hover:text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Elétrica</h3>
+                    <p class="text-gray-500 leading-relaxed mb-6 text-sm">Instalação de chuveiros, troca de fiação, quadros de distribuição e reparos em tomadas.</p>
+                    <div class="flex items-center text-blue-600 font-bold text-sm group-hover:translate-x-2 transition-transform">
+                        Solicitar Orçamento <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="service-card bg-white p-8 rounded-3xl shadow-lg shadow-gray-100 border border-gray-100 group cursor-pointer" onclick="triggerDemo('link')" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-14 h-14 bg-cyan-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-cyan-500 group-hover:text-white transition-colors duration-300">
+                        <i data-lucide="droplets" class="w-7 h-7 text-cyan-600 group-hover:text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Hidráulica</h3>
+                    <p class="text-gray-500 leading-relaxed mb-6 text-sm">Vazamentos, desentupimentos, instalação de torneiras e manutenção de encanamentos.</p>
+                    <div class="flex items-center text-cyan-600 font-bold text-sm group-hover:translate-x-2 transition-transform">
+                        Solicitar Orçamento <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="service-card bg-white p-8 rounded-3xl shadow-lg shadow-gray-100 border border-gray-100 group cursor-pointer" onclick="triggerDemo('link')" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-14 h-14 bg-orange-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-orange-500 group-hover:text-white transition-colors duration-300">
+                        <i data-lucide="wind" class="w-7 h-7 text-orange-600 group-hover:text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Ar Condicionado</h3>
+                    <p class="text-gray-500 leading-relaxed mb-6 text-sm">Instalação, limpeza profunda, recarga de gás e manutenção preventiva.</p>
+                    <div class="flex items-center text-orange-600 font-bold text-sm group-hover:translate-x-2 transition-transform">
+                        Solicitar Orçamento <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="py-20 bg-gray-900 text-white relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-brand-green/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div data-aos="fade-up">
+                    <div class="text-4xl font-extrabold text-brand-green mb-2">5k+</div>
+                    <div class="text-gray-400 text-sm font-medium">Reparos Realizados</div>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-4xl font-extrabold text-brand-green mb-2">4.9</div>
+                    <div class="text-gray-400 text-sm font-medium">Avaliação Média</div>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-4xl font-extrabold text-brand-green mb-2">60min</div>
+                    <div class="text-gray-400 text-sm font-medium">Chegada Média</div>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-4xl font-extrabold text-brand-green mb-2">120+</div>
+                    <div class="text-gray-400 text-sm font-medium">Técnicos Ativos</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Clean -->
+    <footer class="bg-white border-t border-gray-100 pt-16 pb-8 relative z-10">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex items-center justify-center gap-2 mb-8">
+                <div class="bg-gray-100 p-2 rounded-lg">
+                    <i data-lucide="wrench" class="w-6 h-6 text-gray-500"></i>
+                </div>
+                <span class="text-xl font-bold text-gray-800">SOS Reparos</span>
+            </div>
+            
+            <div class="flex justify-center gap-6 mb-8">
+                 <button onclick="triggerDemo('link')" class="p-3 rounded-full bg-gray-50 hover:bg-brand-green hover:text-white transition-all hover:scale-110"><i data-lucide="instagram" class="w-5 h-5"></i></button>
+                 <button onclick="triggerDemo('link')" class="p-3 rounded-full bg-gray-50 hover:bg-brand-green hover:text-white transition-all hover:scale-110"><i data-lucide="facebook" class="w-5 h-5"></i></button>
+                 <button onclick="triggerDemo('link')" class="p-3 rounded-full bg-gray-50 hover:bg-brand-green hover:text-white transition-all hover:scale-110"><i data-lucide="linkedin" class="w-5 h-5"></i></button>
+            </div>
+            
+            <div class="border-t border-gray-100 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
+                <p>&copy; 2025 SOS Reparos Ltda. Todos os direitos reservados.</p>
+                <div class="flex items-center gap-2 mt-4 md:mt-0">
+                    <span>Design by</span>
+                    <span class="text-gray-900 font-bold flex items-center gap-1">
+                        <i data-lucide="code-2" class="w-3 h-3 text-brand-green"></i> DEV SITES
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Badge da Agência -->
+    <div class="agency-badge" onclick="alert('Este é um modelo de site técnico criado pela Dev Sites.')">
+        <i data-lucide="monitor" class="w-4 h-4 text-brand-green"></i>
+        <span>Exemplo - Dev Sites Agência</span>
+    </div>
+
+    <!-- MODAL DE AVISO (DEMONSTRAÇÃO) -->
+    <div id="demo-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-gray-900/60 backdrop-blur-sm p-4 opacity-0">
+        <div class="bg-white p-8 rounded-3xl shadow-2xl max-w-md w-full text-center relative transform transition-all scale-95" id="modal-content">
+            <button onclick="closeDemo()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 transition-colors bg-gray-100 p-2 rounded-full">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            
+            <div class="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse">
+                <i id="demo-icon" data-lucide="info" class="w-10 h-10 text-brand-green"></i>
+            </div>
+            
+            <h3 id="demo-title" class="text-2xl font-bold text-gray-900 mb-2">Modo Demonstração</h3>
+            
+            <p id="demo-text" class="text-gray-500 leading-relaxed mb-8">
+                Este é um site modelo para portfólio. Em um projeto real, este botão realizaria a ação de contato ou agendamento.
+            </p>
+            
+            <button onclick="closeDemo()" class="w-full bg-gray-900 text-white py-4 rounded-xl font-bold hover:bg-black transition-all hover:shadow-lg transform hover:-translate-y-1">
+                Entendi, voltar ao site
+            </button>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Inicializa os ícones
+        lucide.createIcons();
+
+        // Inicializa Scroll Suave (Lenis)
+        if (typeof Lenis !== 'undefined') {
+            const lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                smooth: true,
+            });
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+            requestAnimationFrame(raf);
+        }
+
+        // Inicializa Animações (AOS)
+        AOS.init({
+            once: true,
+            offset: 100,
+            duration: 800,
+            easing: 'ease-out-cubic',
+        });
+
+        // Lógica do Modal
+        const modal = document.getElementById('demo-modal');
+        const modalContent = document.getElementById('modal-content');
+        const demoTitle = document.getElementById('demo-title');
+        const demoText = document.getElementById('demo-text');
+
+        function triggerDemo(type) {
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }, 10);
+
+            if (type === 'foto') {
+                demoTitle.innerText = "Painel Interativo";
+                demoText.innerText = "Esta área representa um painel de controle ou rastreamento em tempo real, funcionalidade avançada que oferecemos em planos premium.";
+            } else {
+                demoTitle.innerText = "Link de Demonstração";
+                demoText.innerText = "Você clicou em um botão de ação. No site real do seu negócio, isso abriria o WhatsApp, telefone ou formulário de agendamento.";
+            }
+        }
+
+        function closeDemo() {
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+        
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeDemo(); });
+
+        // Toggle Menu Mobile
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
+        }
+    </script>
+</body>
+</html>
