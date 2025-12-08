@@ -17,15 +17,23 @@
     <!-- Ícones Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- Lenis (Scroll Suave) -->
+    <!-- Lenis (Scroll Suave - O Segredo da Fluidez) -->
     <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
 
     <style>
-        /* --- ESTILO NEO-BRUTALISTA REFINADO --- */
+        /* --- ESTILO NEO-BRUTALISTA (Mantendo sua essência) --- */
         
         :root {
             --brand-lime: #D4FF00;
             --brand-black: #111111;
+        }
+
+        html.lenis {
+            height: auto;
+        }
+
+        .lenis.lenis-smooth {
+            scroll-behavior: auto;
         }
 
         body {
@@ -33,23 +41,23 @@
             background-image: radial-gradient(#000000 1px, transparent 1px);
             background-size: 24px 24px;
             color: var(--brand-black);
-            overflow-x: hidden; /* Evita scroll lateral indesejado */
+            overflow-x: hidden;
         }
 
-        /* Sombras "Duras" com transição suave */
+        /* Sombras "Duras" com transição suave (O toque profissional) */
         .hard-shadow { 
-            box-shadow: 5px 5px 0px 0px rgba(0,0,0,1); 
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 6px 6px 0px 0px rgba(0,0,0,1); 
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Curva elástica */
         }
         
         .hard-shadow:hover { 
-            box-shadow: 8px 8px 0px 0px rgba(0,0,0,1); 
-            transform: translate(-3px, -3px); 
+            box-shadow: 10px 10px 0px 0px rgba(0,0,0,1); 
+            transform: translate(-4px, -4px); 
         }
         
         .hard-shadow:active { 
             box-shadow: 2px 2px 0px 0px rgba(0,0,0,1); 
-            transform: translate(2px, 2px); 
+            transform: translate(4px, 4px); 
         }
 
         /* Bordas consistentes */
@@ -59,7 +67,7 @@
         .font-display { font-family: 'Archivo Black', sans-serif; letter-spacing: -0.05em; }
         .font-mono { font-family: 'Space Mono', monospace; }
         
-        /* Texto com contorno (Stroke) */
+        /* Texto com contorno */
         .text-stroke-black { 
             -webkit-text-stroke: 2px black; 
             color: transparent; 
@@ -67,28 +75,21 @@
         }
         .text-stroke-black:hover { color: var(--brand-lime); }
 
-        /* Animação Marquee (Faixa correndo) */
+        /* Animação Marquee */
         @keyframes marquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
         .animate-marquee { display: inline-block; animation: marquee 30s linear infinite; }
 
-        /* Scrollbar Personalizada */
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: #fff; border-left: 2px solid #000; }
-        ::-webkit-scrollbar-thumb { background: #000; border: 2px solid #fff; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--brand-lime); }
-
-        /* Ajustes de Seleção */
+        /* Seleção */
         ::selection { background: #000; color: var(--brand-lime); }
     </style>
 </head>
 <body class="min-h-screen font-sans">
 
-    <!-- Navbar Responsiva -->
+    <!-- Navbar -->
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-6">
-        <!-- Fundo dinâmico da Navbar -->
         <div id="navbar-bg" class="absolute inset-0 bg-white border-b-4 border-black transition-transform duration-500 -translate-y-full transform origin-top"></div>
         
         <div class="container mx-auto px-6 md:px-12 flex justify-between items-center relative">
@@ -104,8 +105,8 @@
                 <a href="#contato" class="font-mono font-bold text-base hover:text-[#D4FF00] hover:bg-black px-2 py-1 transition-colors uppercase">Contato</a>
             </div>
             
-            <!-- Botão Orçamento (Desktop) -->
-            <button onclick="document.getElementById('contato').scrollIntoView({ behavior: 'smooth' })" class="hidden md:block font-display text-lg px-6 py-2 border-2 border-black bg-[#D4FF00] text-black hard-shadow hover:bg-black hover:text-[#D4FF00] z-10 rotate-1">
+            <!-- Botão Orçamento -->
+            <button onclick="document.getElementById('contato').scrollIntoView({ behavior: 'smooth' })" class="hidden md:block font-display text-lg px-6 py-2 border-2 border-black bg-[#D4FF00] text-black hard-shadow hover:bg-black hover:text-[#D4FF00] z-10 rotate-1 transition-all">
                 QUERO MEU SITE
             </button>
 
@@ -116,7 +117,7 @@
             </button>
         </div>
 
-        <!-- Mobile Menu Overlay -->
+        <!-- Mobile Menu -->
         <div id="mobile-menu" class="fixed inset-0 bg-[#D4FF00] z-40 flex flex-col justify-center items-center space-y-8 hidden transition-opacity duration-300">
             <a href="#exemplos" onclick="toggleMobileMenu()" class="font-display text-5xl text-black hover:text-white px-4 transform rotate-1 transition-all hover:scale-110">PORTFÓLIO</a>
             <a href="#sobre" onclick="toggleMobileMenu()" class="font-display text-5xl text-black hover:text-white px-4 transform -rotate-1 transition-all hover:scale-110">A AGÊNCIA</a>
@@ -159,28 +160,21 @@
                     </div>
                 </div>
                 
-                <!-- Visual Hero (Imagem Interativa) -->
+                <!-- Visual Hero (Interativo) -->
                 <div class="flex-1 w-full max-w-md lg:max-w-full relative mt-12 lg:mt-0" data-aos="fade-left" data-aos-duration="1200">
                    <div class="relative w-full aspect-square max-w-[500px] mx-auto group perspective-1000">
-                      <!-- Fundo Decorativo -->
                       <div class="absolute inset-0 bg-black rotate-6 rounded-xl border-2 border-black transition-transform duration-500 group-hover:rotate-12"></div>
                       <div class="absolute inset-0 bg-[#D4FF00] -rotate-3 rounded-xl border-2 border-black transition-transform duration-500 group-hover:-rotate-6"></div>
                       
-                      <!-- Card Principal -->
                       <div class="absolute inset-0 bg-white rotate-0 border-4 border-black rounded-xl flex flex-col overflow-hidden transition-transform duration-500 hover:scale-[1.02] shadow-2xl">
-                         <!-- Browser Header -->
                          <div class="h-14 bg-black flex items-center px-4 gap-2">
                              <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
                              <div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
                              <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
                              <div class="ml-4 h-6 w-full bg-gray-800 rounded-full opacity-50"></div>
                          </div>
-                         
-                         <!-- Conteúdo -->
                          <div class="flex-1 p-8 bg-gray-50 flex flex-col items-center justify-center text-center relative overflow-hidden">
-                             <!-- Grid Background no card -->
                              <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 10px 10px;"></div>
-                             
                              <div class="relative z-10 transform transition-transform duration-500 group-hover:translate-y-[-10px]">
                                 <div class="bg-[#D4FF00] p-4 rounded-full border-4 border-black mb-4 inline-block shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
                                     <i data-lucide="rocket" class="w-12 h-12 text-black"></i>
@@ -188,8 +182,6 @@
                                 <h3 class="font-display text-5xl mb-2 leading-none">SEU SITE</h3>
                                 <p class="font-mono text-sm bg-black text-white inline-block px-3 py-1 -rotate-2">ONLINE 24H POR DIA</p>
                              </div>
-                             
-                             <!-- Sticker de Preço -->
                              
                          </div>
                       </div>
@@ -223,17 +215,15 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
                 
                 <!-- Projeto 1: Hamburgueria -->
-                <a href="site/hamburgueria.html" target="_blank" class="group relative block" data-aos="fade-up" data-aos-delay="100">
-                    <!-- Fundo Sombra -->
+                <!-- LINK ATUALIZADO PARA DEMO.HTML -->
+                <a href="demo.html?site=hamburgueria" class="group relative block" data-aos="fade-up" data-aos-delay="100">
                     <div class="absolute inset-0 bg-black translate-x-3 translate-y-3 rounded-xl transition-transform group-hover:translate-x-5 group-hover:translate-y-5"></div>
                     
-                    <!-- Card Principal -->
                     <div class="relative bg-white border-4 border-black rounded-xl overflow-hidden transition-transform group-hover:-translate-y-1 group-hover:-translate-x-1">
                         <div class="h-64 overflow-hidden border-b-4 border-black bg-orange-100 relative">
                             <div class="absolute inset-0 bg-black/10 z-10 group-hover:bg-transparent transition-colors"></div>
                             <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Zest Burger" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
                             
-                            <!-- Tag Flutuante -->
                             <div class="absolute top-4 left-4 bg-orange-500 text-white text-xs font-bold px-3 py-1 uppercase border-2 border-black z-20">
                                 Gastronomia
                             </div>
@@ -251,7 +241,7 @@
                 </a>
 
                 <!-- Projeto 2: Estética -->
-                <a href="site/estetica.html" target="_blank" class="group relative block" data-aos="fade-up" data-aos-delay="200">
+                <a href="demo.html?site=estetica" class="group relative block" data-aos="fade-up" data-aos-delay="200">
                     <div class="absolute inset-0 bg-black translate-x-3 translate-y-3 rounded-xl transition-transform group-hover:translate-x-5 group-hover:translate-y-5"></div>
                     <div class="relative bg-white border-4 border-black rounded-xl overflow-hidden transition-transform group-hover:-translate-y-1 group-hover:-translate-x-1">
                         <div class="h-64 overflow-hidden border-b-4 border-black bg-rose-100 relative">
@@ -274,7 +264,7 @@
                 </a>
 
                 <!-- Projeto 3: Moda -->
-                <a href="site/moda.html" target="_blank" class="group relative block" data-aos="fade-up" data-aos-delay="300">
+                <a href="demo.html?site=moda" class="group relative block" data-aos="fade-up" data-aos-delay="300">
                     <div class="absolute inset-0 bg-black translate-x-3 translate-y-3 rounded-xl transition-transform group-hover:translate-x-5 group-hover:translate-y-5"></div>
                     <div class="relative bg-white border-4 border-black rounded-xl overflow-hidden transition-transform group-hover:-translate-y-1 group-hover:-translate-x-1">
                         <div class="h-64 overflow-hidden border-b-4 border-black bg-gray-200 relative">
@@ -297,7 +287,7 @@
                 </a>
 
                 <!-- Projeto 4: SOS Reparos -->
-                <a href="site/reparos.html" target="_blank" class="group relative block" data-aos="fade-up" data-aos-delay="400">
+                <a href="demo.html?site=reparos" class="group relative block" data-aos="fade-up" data-aos-delay="400">
                     <div class="absolute inset-0 bg-black translate-x-3 translate-y-3 rounded-xl transition-transform group-hover:translate-x-5 group-hover:translate-y-5"></div>
                     <div class="relative bg-white border-4 border-black rounded-xl overflow-hidden transition-transform group-hover:-translate-y-1 group-hover:-translate-x-1">
                         <div class="h-64 overflow-hidden border-b-4 border-black bg-green-100 relative">
@@ -331,7 +321,7 @@
         </div>
     </section>
 
-    <!-- Sobre a Agência (Renovado) -->
+    <!-- Sobre a Agência -->
     <section id="sobre" class="py-24 px-6 bg-black text-[#D4FF00] border-b-4 border-white relative overflow-hidden">
         <div class="container mx-auto max-w-7xl relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -350,7 +340,7 @@
                     </div>
                 </div>
 
-                <!-- Stats (Visualmente mais forte) -->
+                <!-- Stats -->
                 <div class="grid grid-cols-2 gap-6 rotate-1" data-aos="fade-left">
                     <div class="bg-black border-4 border-white p-8 hover:bg-white hover:text-black transition-colors group relative text-center shadow-[8px_8px_0px_0px_#D4FF00]">
                         <div class="font-display text-5xl md:text-7xl mb-2 group-hover:scale-110 transition-transform">200+</div>
@@ -365,10 +355,9 @@
         </div>
     </section>
 
-    <!-- Formulário de Contato -->
+    <!-- Formulário -->
     <section id="contato" class="py-24 px-6 bg-[#D4FF00] relative">
         <div class="container mx-auto max-w-4xl">
-            <!-- Container Branco -->
             <div class="bg-white border-[6px] border-black hard-shadow p-8 md:p-16 relative -rotate-1" data-aos="zoom-in-up">
                 
                 <div class="absolute -top-6 -right-6 w-20 h-20 bg-[#D4FF00] border-4 border-black z-10 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center transform rotate-12">
@@ -454,7 +443,7 @@
             easing: 'ease-out-cubic',
         });
 
-        // Inicializa Lenis (Scroll Suave)
+        // Inicializa Lenis (Scroll Suave) - O Segredo da Fluidez
         if (typeof Lenis !== 'undefined') {
             const lenis = new Lenis({
                 duration: 1.2,
