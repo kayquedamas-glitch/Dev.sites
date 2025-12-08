@@ -1,21 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-BR" class="scroll-smooth">
 <head>
-<link rel="icon" href="icon.png">
+    <link rel="icon" href="icon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aura Fashion | Portfólio Dev Sites</title>
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
-    <!-- Google Fonts: Playfair Display (Editorial) + Lato (Clean) -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <script>
@@ -26,7 +22,7 @@
                         brand: {
                             black: '#111111',
                             gray: '#F5F5F5',
-                            accent: '#D4AF37' /* Toque dourado sutil */
+                            accent: '#D4AF37'
                         }
                     },
                     fontFamily: {
@@ -39,14 +35,10 @@
     </script>
 
     <style>
-        /* Estilos Customizados */
         body { font-family: 'Lato', sans-serif; color: #111; }
         h1, h2, h3, .editorial-font { font-family: 'Playfair Display', serif; }
-
-        /* Cursor Customizado para Imagens */
         .shop-cursor { cursor: crosshair; }
 
-        /* Navbar Scrolled */
         .navbar-scrolled {
             background-color: rgba(255, 255, 255, 0.98);
             border-bottom: 1px solid #eee;
@@ -54,10 +46,8 @@
             padding-bottom: 1rem !important;
         }
         
-        .navbar-scrolled .nav-item { color: #111 !important; }
-        .navbar-scrolled .logo-text { color: #111 !important; }
+        .navbar-scrolled .nav-item, .navbar-scrolled .logo-text { color: #111 !important; }
 
-        /* Overlay de Demo nas Imagens */
         .demo-img-container { position: relative; overflow: hidden; }
         .demo-img-overlay {
             position: absolute; inset: 0;
@@ -72,7 +62,6 @@
             font-weight: bold;
         }
 
-        /* Botão Fashion */
         .btn-fashion {
             border-bottom: 1px solid black;
             padding-bottom: 2px;
@@ -84,7 +73,6 @@
             padding-left: 5px;
         }
 
-        /* Badge da Agência */
         .agency-badge {
             position: fixed; bottom: 20px; right: 20px;
             background: #000; color: #fff;
@@ -98,18 +86,14 @@
 </head>
 <body class="antialiased bg-white">
 
-    <!-- Navbar -->
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-6 text-white border-b border-white/10 mix-blend-difference z-50">
         <div class="container mx-auto px-6 flex justify-between items-center">
-            <!-- Mobile Menu Icon -->
             <button id="mobile-menu-btn" class="md:hidden nav-item"><i data-lucide="menu" class="w-6 h-6"></i></button>
 
-            <!-- Logo -->
             <a href="#" class="text-3xl editorial-font font-bold tracking-tight logo-text flex-1 md:flex-none text-center md:text-left">
                 AURA<span class="text-xs font-sans font-light tracking-[0.3em] ml-2 block md:inline mt-1 md:mt-0">STORE</span>
             </a>
 
-            <!-- Desktop Menu -->
             <div class="hidden md:flex space-x-8 text-xs font-bold tracking-widest uppercase">
                 <a href="#home" class="nav-item hover:opacity-70 transition-opacity">New In</a>
                 <a href="#categorias" class="nav-item hover:opacity-70 transition-opacity">Coleções</a>
@@ -117,7 +101,6 @@
                 <a href="#footer" class="nav-item hover:opacity-70 transition-opacity text-red-500">Sale</a>
             </div>
 
-            <!-- Icons -->
             <div class="flex space-x-6 nav-item">
                 <button onclick="triggerDemo('link')" class="hover:scale-110 transition-transform"><i data-lucide="search" class="w-5 h-5"></i></button>
                 <button onclick="triggerDemo('link')" class="hover:scale-110 transition-transform relative">
@@ -127,7 +110,6 @@
             </div>
         </div>
 
-        <!-- Mobile Menu (Hidden) -->
         <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-white text-black py-8 shadow-xl border-t">
             <div class="flex flex-col items-center space-y-6 text-sm tracking-widest uppercase font-bold">
                 <a href="#home">New In</a>
@@ -138,11 +120,9 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section id="home" class="relative h-screen w-full overflow-hidden">
-        <!-- Imagem de Fundo -->
         <div class="absolute inset-0">
-            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Fashion Model" class="w-full h-full object-cover object-top opacity-90">
+            <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=1920&auto=format&fit=crop" alt="Fashion Model" class="w-full h-full object-cover object-top opacity-90">
             <div class="absolute inset-0 bg-black/20"></div>
         </div>
 
@@ -157,7 +137,6 @@
         </div>
     </section>
 
-    <!-- Categorias / Grid -->
     <section id="categorias" class="py-20 bg-white">
         <div class="container mx-auto px-6">
             <div class="flex justify-between items-end mb-12">
@@ -166,9 +145,8 @@
             </div>
 
             <div class="grid md:grid-cols-3 gap-1">
-                <!-- Card 1 -->
                 <div class="relative h-[500px] group demo-img-container cursor-pointer" onclick="triggerDemo('product')">
-                    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Roupas">
+                    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Roupas">
                     <div class="absolute bottom-8 left-8 z-10">
                         <h3 class="text-white text-2xl editorial-font italic">Apparel</h3>
                         <span class="text-white text-xs uppercase tracking-widest border-b border-white pb-1">Shop Now</span>
@@ -176,19 +154,17 @@
                     <div class="demo-img-overlay"><span class="demo-badge">Ver Catálogo</span></div>
                 </div>
 
-                <!-- Card 2 -->
                 <div class="relative h-[500px] group demo-img-container cursor-pointer" onclick="triggerDemo('product')">
-                    <img src="https://images.unsplash.com/photo-1509319117193-518fa814423d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Acessórios">
+                    <img src="https://acdn-us.mitiendanube.com/stores/001/045/117/products/capa-de-produto-1024x1024-1001-7e40e20773b0722a8516782219983815-640-0.webp" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Acessórios">
                     <div class="absolute bottom-8 left-8 z-10">
-                        <h3 class="text-white text-2xl editorial-font italic">Acessórios</h3>
+                        <h3 class="text-white text-2xl editorial-font italic">Jóias & Acessórios</h3>
                         <span class="text-white text-xs uppercase tracking-widest border-b border-white pb-1">Shop Now</span>
                     </div>
                     <div class="demo-img-overlay"><span class="demo-badge">Ver Catálogo</span></div>
                 </div>
 
-                <!-- Card 3 -->
                 <div class="relative h-[500px] group demo-img-container cursor-pointer" onclick="triggerDemo('product')">
-                    <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Óculos">
+                    <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Óculos">
                     <div class="absolute bottom-8 left-8 z-10">
                         <h3 class="text-white text-2xl editorial-font italic">Eyewear</h3>
                         <span class="text-white text-xs uppercase tracking-widest border-b border-white pb-1">Shop Now</span>
@@ -199,7 +175,6 @@
         </div>
     </section>
 
-    <!-- Destaque / Filosofia -->
     <section id="sobre" class="py-24 bg-brand-gray">
         <div class="container mx-auto px-6">
             <div class="grid md:grid-cols-2 gap-12 items-center">
@@ -223,14 +198,13 @@
                     </div>
                 </div>
                 <div class="order-1 md:order-2 demo-img-container cursor-pointer" onclick="triggerDemo('product')">
-                    <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Lifestyle" class="w-full h-[600px] object-cover grayscale hover:grayscale-0 transition-all duration-700">
+                    <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=800&auto=format&fit=crop" alt="Lifestyle" class="w-full h-[600px] object-cover grayscale hover:grayscale-0 transition-all duration-700">
                     <div class="demo-img-overlay"><span class="demo-badge text-xs">Ver Editorial</span></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- New Arrivals Slider (Simulado) -->
     <section class="py-20 bg-white border-b border-gray-100">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
@@ -239,10 +213,9 @@
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-12">
-                <!-- Produto 1 -->
                 <div class="group cursor-pointer" onclick="triggerDemo('product')">
                     <div class="relative overflow-hidden mb-4">
-                        <img src="https://images.unsplash.com/photo-1550614000-4b9519e02d48?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Blazer" class="w-full h-80 object-cover hover:scale-105 transition-transform duration-500">
+                        <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=600&auto=format&fit=crop" alt="Blazer" class="w-full h-80 object-cover hover:scale-105 transition-transform duration-500">
                         <div class="absolute top-2 left-2 bg-black text-white text-[10px] px-2 py-1 uppercase font-bold">New</div>
                         <div class="absolute bottom-0 w-full bg-white/90 py-3 text-center translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                             <span class="text-xs uppercase tracking-widest font-bold">Quick View</span>
@@ -252,10 +225,9 @@
                     <p class="text-gray-500 text-sm mt-1">R$ 489,00</p>
                 </div>
 
-                <!-- Produto 2 -->
                 <div class="group cursor-pointer" onclick="triggerDemo('product')">
                     <div class="relative overflow-hidden mb-4">
-                        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Bolsa" class="w-full h-80 object-cover hover:scale-105 transition-transform duration-500">
+                        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=600&auto=format&fit=crop" alt="Bolsa" class="w-full h-80 object-cover hover:scale-105 transition-transform duration-500">
                         <div class="absolute bottom-0 w-full bg-white/90 py-3 text-center translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                             <span class="text-xs uppercase tracking-widest font-bold">Quick View</span>
                         </div>
@@ -264,10 +236,9 @@
                     <p class="text-gray-500 text-sm mt-1">R$ 299,00</p>
                 </div>
 
-                <!-- Produto 3 -->
                 <div class="group cursor-pointer" onclick="triggerDemo('product')">
                     <div class="relative overflow-hidden mb-4">
-                        <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Óculos de Sol" class="w-full h-80 object-cover hover:scale-105 transition-transform duration-500">
+                        <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=80&w=600&auto=format&fit=crop" alt="Óculos de Sol" class="w-full h-80 object-cover hover:scale-105 transition-transform duration-500">
                         <div class="absolute top-2 left-2 bg-red-600 text-white text-[10px] px-2 py-1 uppercase font-bold">Sale</div>
                         <div class="absolute bottom-0 w-full bg-white/90 py-3 text-center translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                             <span class="text-xs uppercase tracking-widest font-bold">Quick View</span>
@@ -277,10 +248,9 @@
                     <p class="text-gray-500 text-sm mt-1"><span class="line-through text-xs mr-2">R$ 250</span> R$ 180,00</p>
                 </div>
 
-                <!-- Produto 4 -->
                 <div class="group cursor-pointer" onclick="triggerDemo('product')">
                     <div class="relative overflow-hidden mb-4">
-                        <img src="https://images.unsplash.com/photo-1605763240004-7e93b172d754?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Vestido" class="w-full h-80 object-cover hover:scale-105 transition-transform duration-500">
+                        <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=600&auto=format&fit=crop" alt="Vestido" class="w-full h-80 object-cover hover:scale-105 transition-transform duration-500">
                         <div class="absolute bottom-0 w-full bg-white/90 py-3 text-center translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                             <span class="text-xs uppercase tracking-widest font-bold">Quick View</span>
                         </div>
@@ -292,35 +262,33 @@
         </div>
     </section>
 
-    <!-- Instagram / Social Proof -->
     <section class="py-12 bg-white">
         <div class="container mx-auto px-6 text-center">
             <i data-lucide="instagram" class="w-6 h-6 mx-auto mb-4"></i>
             <h3 class="editorial-font text-xl mb-8">@aura.store</h3>
             <div class="grid grid-cols-3 md:grid-cols-6 gap-2">
                 <div class="aspect-square bg-gray-100 cursor-pointer demo-img-container" onclick="triggerDemo('social')">
-                    <img src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover grayscale hover:grayscale-0 transition">
+                    <img src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?q=80&w=300&auto=format&fit=crop" class="w-full h-full object-cover grayscale hover:grayscale-0 transition">
                 </div>
                 <div class="aspect-square bg-gray-100 cursor-pointer demo-img-container" onclick="triggerDemo('social')">
-                    <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover grayscale hover:grayscale-0 transition">
+                    <img src="https://images.unsplash.com/photo-1485968579580-b6d095142e6e?q=80&w=300&auto=format&fit=crop" class="w-full h-full object-cover grayscale hover:grayscale-0 transition">
                 </div>
                 <div class="aspect-square bg-gray-100 cursor-pointer demo-img-container" onclick="triggerDemo('social')">
-                    <img src="https://images.unsplash.com/photo-1532453288672-3a27e9be9efd?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover grayscale hover:grayscale-0 transition">
+                    <img src="https://images.unsplash.com/photo-1532453288672-3a27e9be9efd?q=80&w=300&auto=format&fit=crop" class="w-full h-full object-cover grayscale hover:grayscale-0 transition">
                 </div>
                 <div class="aspect-square bg-gray-100 cursor-pointer demo-img-container hidden md:block" onclick="triggerDemo('social')">
-                    <img src="https://images.unsplash.com/photo-1529139574466-a302d20525a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover grayscale hover:grayscale-0 transition">
+                    <img src="https://acdn-us.mitiendanube.com/stores/001/045/117/products/lus-modelo-fev-23-1191-b826f30b166cdb9e5f16787442068628-640-0.webp" class="w-full h-full object-cover grayscale hover:grayscale-0 transition">
                 </div>
                 <div class="aspect-square bg-gray-100 cursor-pointer demo-img-container hidden md:block" onclick="triggerDemo('social')">
-                    <img src="https://images.unsplash.com/photo-1515347619252-60a6bf4fffce?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover grayscale hover:grayscale-0 transition">
+                    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=300&auto=format&fit=crop" class="w-full h-full object-cover grayscale hover:grayscale-0 transition">
                 </div>
                 <div class="aspect-square bg-gray-100 cursor-pointer demo-img-container hidden md:block" onclick="triggerDemo('social')">
-                    <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover grayscale hover:grayscale-0 transition">
+                    <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=1920&auto=format&fit=crop" class="w-full h-full object-cover grayscale hover:grayscale-0 transition">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer id="footer" class="bg-black text-white py-16">
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between gap-12 mb-12 border-b border-gray-800 pb-12">
@@ -379,21 +347,17 @@
         </div>
     </footer>
 
-    <!-- Agency Badge -->
     <div class="agency-badge shadow-2xl" onclick="triggerDemo('site')">
         <i data-lucide="monitor" class="w-4 h-4"></i>
         <span>Exemplo - Dev Sites Agência</span>
     </div>
 
-    <!-- MODAL DE AVISO (DEMONSTRAÇÃO) -->
     <div id="demo-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-white/10 backdrop-blur-md p-4 opacity-0 transition-opacity duration-300">
         <div class="bg-white p-10 max-w-md w-full text-center relative shadow-[0_0_50px_rgba(0,0,0,0.1)] border border-gray-100">
-            <!-- Botão Fechar -->
             <button onclick="closeDemo()" class="absolute top-4 right-4 text-black hover:opacity-50 transition">
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
             
-            <!-- Conteúdo -->
             <div class="mb-6">
                 <h3 class="editorial-font text-3xl italic mb-2">Aura Fashion.</h3>
                 <div class="w-10 h-px bg-black mx-auto"></div>
@@ -411,10 +375,8 @@
         </div>
     </div>
 
-    <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Modal Logic
         const modal = document.getElementById('demo-modal');
         const demoTitle = document.getElementById('demo-title');
         const demoText = document.getElementById('demo-text');
@@ -443,19 +405,15 @@
             setTimeout(() => modal.classList.add('hidden'), 300);
         }
 
-        // Close on outside click
         modal.addEventListener('click', (e) => {
             if (e.target === modal) closeDemo();
         });
 
-        // Init Styles & Scripts
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
             AOS.init({ once: true, offset: 50, duration: 1000 });
 
-            // Navbar Scroll Effect (White on scroll, Transparent on top)
             const navbar = document.getElementById('navbar');
-            const navText = document.querySelectorAll('.nav-item, .logo-text');
             
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 50) {
@@ -469,7 +427,6 @@
                 }
             });
 
-            // Mobile Menu
             const btn = document.getElementById('mobile-menu-btn');
             const menu = document.getElementById('mobile-menu');
             if(btn) {
