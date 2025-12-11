@@ -1,498 +1,232 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-     <link rel="icon" href="assents/icon.png">
+    <link rel="icon" href="assents/icon.png">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DEVSITES - Digitalize Seu Comércio</title>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Apresentação | DevSites</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Permanent+Marker&display=swap" rel="stylesheet">
-    
     <script src="https://unpkg.com/lucide@latest"></script>
-
-    <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
-
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --brand-lime: #D4FF00;
-            --brand-black: #111111;
-        }
-
-        html.lenis { height: auto; }
-        .lenis.lenis-smooth { scroll-behavior: auto; }
-
-        body {
-            background-color: #ffffff;
-            background-image: radial-gradient(#000000 1px, transparent 1px);
-            background-size: 24px 24px;
-            color: var(--brand-black);
-            overflow-x: hidden;
-        }
-
-        .hard-shadow { 
-            box-shadow: 4px 4px 0px 0px rgba(0,0,0,1);
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
+        /* --- Estilos Gerais --- */
+        body { font-family: 'Space Mono', monospace; background-color: #e5e5e5; overflow: hidden; height: 100vh; width: 100vw; }
+        .font-display { font-family: 'Archivo Black', sans-serif; }
         
-        @media (min-width: 768px) {
-            .hard-shadow { box-shadow: 6px 6px 0px 0px rgba(0,0,0,1); }
+        /* --- MOLDURAS (FRAMES) --- */
+        #frame-wrapper {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background: white;
         }
+
+        /* 1. ESTILO CELULAR (Apenas para Desktop) */
+        .phone-frame { 
+            width: 380px; 
+            height: 800px; 
+            max-height: 90vh;
+            border: 8px solid #1a1a1a; 
+            border-radius: 35px;
+            box-shadow: 0 0 0 2px #444, 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            position: relative;
+            margin: auto;
+        }
+        .phone-frame::after {
+            content: ''; position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+            width: 12px; height: 12px; background: #000; border-radius: 50%; z-index: 50;
+            box-shadow: inset 0 0 3px rgba(255,255,255,0.2); pointer-events: none;
+        }
+        .phone-frame .browser-ui {
+            height: 60px; background: #ffffff; border-bottom: 1px solid #f0f0f0;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 15px 16px 0 16px; font-size: 12px; gap: 10px;
+        }
+        .phone-frame .url-bar {
+            background: #f1f3f4; border: none; border-radius: 20px;
+            height: 32px; justify-content: flex-start; padding-left: 12px; padding-right: 12px;
+        }
+
+        /* 2. ESTILO PC (Apenas para Desktop) */
+        .pc-frame { 
+            width: 90%; height: 85%; max-width: 1400px;
+            border: 1px solid #ccc; border-radius: 12px;
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.25);
+            margin: auto;
+        }
+        .pc-frame .browser-ui {
+            height: 44px; background: #f3f4f6; border-bottom: 1px solid #e5e7eb;
+            display: flex; align-items: center; padding: 0 16px; gap: 16px;
+        }
+        .pc-frame .url-bar {
+            flex: 1; background: white; border: 1px solid #e5e7eb; border-radius: 6px;
+            height: 28px; display: flex; align-items: center; justify-content: center;
+            font-size: 11px; color: #6b7280; gap: 6px; min-width: 0; overflow: hidden;
+        }
+
+        .traffic-light { width: 12px; height: 12px; border-radius: 50%; }
+        .red { background: #ff5f56; } .yellow { background: #ffbd2e; } .green { background: #27c93f; }
         
-        .hard-shadow:active { 
-            box-shadow: 2px 2px 0px 0px rgba(0,0,0,1); 
-            transform: translate(2px, 2px); 
-        }
+        iframe { flex: 1; border: none; background: white; width: 100%; height: 100%; }
 
-        .font-display { font-family: 'Archivo Black', sans-serif; letter-spacing: -0.05em; }
-        .font-mono { font-family: 'Space Mono', monospace; }
-        
-        .text-stroke-black { 
-            -webkit-text-stroke: 1px black;
-            color: transparent; 
+        /* Botão Lateral */
+        .site-balloon {
+            @apply relative bg-white border-4 border-black cursor-pointer transition-all duration-300 overflow-hidden mb-4;
+            box-shadow: 6px 6px 0px 0px black;
+            height: 120px;
         }
-        @media (min-width: 768px) {
-            .text-stroke-black { -webkit-text-stroke: 2px black; }
-        }
+        .site-balloon:hover { transform: translate(-2px, -2px); box-shadow: 10px 10px 0px 0px black; }
+        .site-balloon.active { background: black; color: #D4FF00; border-color: black; transform: translate(2px, 2px); box-shadow: 2px 2px 0px 0px black; }
 
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        .animate-marquee { display: inline-block; animation: marquee 20s linear infinite; }
+        /* --- RESPONSIVIDADE MOBILE REAL --- */
+        @media (max-width: 768px) {
+            body { 
+                margin: 0; padding: 0; 
+                height: 100dvh; /* Altura dinâmica para mobile */
+                width: 100vw;
+                background: white;
+            }
+            
+            /* Esconde Sidebar e decorações no celular */
+            .sidebar, .browser-ui, #mobile-back-btn, .pc-controls, .mobile-controls { 
+                display: none !important; 
+            }
+            
+            /* Área de Preview ocupa 100% da tela */
+            .preview-area {
+                position: fixed; inset: 0;
+                width: 100% !important; height: 100dvh !important;
+                padding: 0 !important; margin: 0 !important;
+                background: white; z-index: 9999;
+                display: block !important;
+            }
 
-        /* Estilo do Modal de Senha */
-        .glass-modal {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-        }
-        .shake {
-            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
-        }
-        @keyframes shake {
-            10%, 90% { transform: translate3d(-1px, 0, 0); }
-            20%, 80% { transform: translate3d(2px, 0, 0); }
-            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
-            40%, 60% { transform: translate3d(4px, 0, 0); }
+            /* Reseta as molduras para ser tela cheia */
+            #frame-wrapper {
+                width: 100% !important; height: 100% !important;
+                border: none !important; border-radius: 0 !important;
+                box-shadow: none !important; margin: 0 !important;
+                max-height: none !important;
+            }
+
+            /* Garante que o iframe role suavemente */
+            iframe {
+                height: 100% !important; width: 100% !important;
+                -webkit-overflow-scrolling: touch;
+            }
         }
     </style>
 </head>
-<body class="min-h-screen font-sans">
+<body class="h-screen flex flex-col md:flex-row">
 
-    <!-- NAVBAR -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-4 md:py-6">
-        <div id="navbar-bg" class="absolute inset-0 bg-white border-b-4 border-black transition-transform duration-500 -translate-y-full transform origin-top"></div>
+    <aside class="sidebar w-full md:w-[350px] bg-[#f4f4f4] border-r-4 border-black flex flex-col shadow-2xl overflow-hidden">
+        <div class="p-6 bg-black text-[#D4FF00] flex justify-between items-center shrink-0">
+            <div>
+                <span class="text-[10px] font-bold tracking-widest opacity-70">PAINEL DE</span>
+                <h1 class="font-display text-2xl leading-none">APRESENTAÇÃO</h1>
+            </div>
+            
+        </div>
+
+        <div class="flex-1 overflow-y-auto p-6 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIi8+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiNkZGQiLz4KPC9zdmc+')]">
+            
+            <div class="text-sm font-bold mb-4 uppercase tracking-widest text-gray-500">Projeto Ativo:</div>
+
+            <div id="btn-demo" onclick="reloadFrame()" class="site-balloon active flex flex-col justify-center p-6">
+                <div class="flex items-center gap-4">
+                    <div class="bg-[#D4FF00] text-black p-3 rounded-full border-2 border-black">
+                        <i data-lucide="layout" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <span class="text-[10px] font-bold opacity-70 block mb-1">DEMONSTRAÇÃO</span>
+                        <h2 class="font-display text-xl leading-none">SITE CLIENTE</h2>
+                    </div>
+                </div>
+                <div class="mt-4 text-[10px] opacity-60 font-mono">
+                    • Clique para recarregar<br>
+                    • Visualizando: sites/demostração.html
+                </div>
+            </div>
+
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mt-6">
+                <p class="text-xs text-blue-800 font-bold mb-1">DICA:</p>
+                <p class="text-xs text-blue-600 leading-relaxed font-mono">
+                    Ao abrir este link no celular, a barra lateral sumirá automaticamente e o cliente verá apenas o site em tela cheia.
+                </p>
+            </div>
+        </div>
+
+        <div class="p-6 border-t-4 border-black bg-white shrink-0">
+            <div class="text-xs font-bold uppercase tracking-widest text-center mb-3">Modo de Visualização (PC):</div>
+            <div class="flex gap-2 mb-4 justify-center">
+                <button onclick="setView('desktop')" class="flex-1 text-xs font-bold border-2 border-black px-2 py-3 bg-black text-[#D4FF00] hover:opacity-80 transition-opacity" id="btn-desktop">
+                    <i data-lucide="monitor" class="w-4 h-4 mx-auto mb-1"></i> PC
+                </button>
+                <button onclick="setView('mobile')" class="flex-1 text-xs font-bold border-2 border-black px-2 py-3 hover:bg-black hover:text-[#D4FF00] transition-colors" id="btn-mobile">
+                    <i data-lucide="smartphone" class="w-4 h-4 mx-auto mb-1"></i> CELULAR
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <main id="preview-box" class="preview-area flex-1 bg-gray-200 flex justify-center items-center relative overflow-hidden p-4">
         
-        <div class="container mx-auto px-4 md:px-12 flex justify-between items-center relative">
-            <a href="#hero" class="font-display text-xl md:text-3xl z-10 p-2 bg-black text-[#D4FF00] border-2 border-transparent hover:border-[#D4FF00] transition-all rotate-1 md:rotate-2 shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]">
-                DEVSITES.
-            </a>
-
-            <div class="hidden md:flex space-x-4 items-center z-10 bg-white px-4 py-3 border-2 border-black -rotate-1 hard-shadow">
-                <a href="#exemplos" class="font-mono font-bold text-base hover:text-[#D4FF00] hover:bg-black px-2 py-1 transition-colors uppercase">Portfólio</a>
-                <a href="#sobre" class="font-mono font-bold text-base hover:text-[#D4FF00] hover:bg-black px-2 py-1 transition-colors uppercase">A Agência</a>
-                
-                <!-- BOTÃO ÁREA DO CLIENTE (DESKTOP) -->
-                <button onclick="openClientModal()" class="font-mono font-bold text-base bg-black text-white hover:text-black hover:bg-[#D4FF00] px-4 py-1 transition-colors uppercase border border-black flex items-center gap-2">
-                    <i data-lucide="lock" class="w-4 h-4"></i>
-                    Área do Cliente
-                </button>
-            </div>
+        <div class="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:20px_20px]"></div>
+        
+        <div id="frame-wrapper" class="pc-frame bg-white shadow-2xl transition-all duration-500 overflow-hidden relative">
             
-            <a href="https://wa.me/553182748728" target="_blank" class="hidden md:block font-display text-lg px-6 py-2 border-2 border-black bg-[#D4FF00] text-black hard-shadow hover:bg-black hover:text-[#D4FF00] z-10 rotate-1 transition-all flex items-center gap-2">
-                <i data-lucide="message-circle" class="w-5 h-5"></i>
-                ZAP
-            </a>
-
-            <!-- CONTROLES MOBILE (VIP + MENU) -->
-            <div class="flex items-center gap-3 md:hidden z-50">
-                <button onclick="openClientModal()" class="bg-black text-[#D4FF00] font-display text-xs px-3 py-2 border-2 border-white shadow-md active:scale-95 transition-all flex items-center gap-1">
-                    <i data-lucide="lock" class="w-3 h-3"></i> VIP
-                </button>
-
-                <button onclick="toggleMobileMenu()" class="bg-black text-[#D4FF00] p-2 border-2 border-white transform active:scale-95 transition-transform shadow-lg">
-                    <i data-lucide="menu" id="icon-menu" class="w-6 h-6"></i>
-                    <i data-lucide="x" id="icon-x" class="w-6 h-6 hidden"></i>
-                </button>
-            </div>
-        </div>
-
-        <div id="mobile-menu" class="fixed inset-0 bg-[#D4FF00] z-40 flex flex-col justify-center items-center space-y-6 hidden transition-opacity duration-300 px-6">
-            <a href="#exemplos" onclick="toggleMobileMenu()" class="font-display text-4xl text-black hover:text-white px-4 border-b-4 border-transparent hover:border-black transition-all">PORTFÓLIO</a>
-            <a href="#sobre" onclick="toggleMobileMenu()" class="font-display text-4xl text-black hover:text-white px-4 border-b-4 border-transparent hover:border-black transition-all">A AGÊNCIA</a>
-            
-            <a href="https://wa.me/553182748728" target="_blank" class="mt-8 font-display text-xl w-full py-5 border-4 border-black bg-white text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center gap-3">
-                <i data-lucide="message-circle" class="w-6 h-6"></i>
-                CHAMAR NO WHATS
-            </a>
-        </div>
-    </nav>
-
-    <!-- HERO SECTION -->
-    <section id="hero" class="min-h-screen pt-28 pb-12 px-4 md:px-6 flex flex-col justify-center relative overflow-hidden">
-        <div class="container mx-auto max-w-7xl relative z-10">
-            <div class="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
-                
-                <div class="flex-1 text-center lg:text-left w-full" data-aos="fade-right" data-aos-duration="1000">
-                    <div class="inline-block bg-white border-2 border-black px-3 py-1 font-mono font-bold text-xs md:text-sm mb-6 -rotate-2 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
-                         🏪 DO BAIRRO PARA O MUNDO
-                    </div>
-                    
-                    <h1 class="font-display text-5xl sm:text-7xl md:text-9xl leading-[0.9] mb-8 tracking-tighter relative">
-                        <span class="block">SEU NEGÓCIO</span>
-                        <span class="block text-stroke-black relative z-10 ml-0 md:ml-4">MERECE UM</span>
-                        <span class="block bg-black text-[#D4FF00] inline-block px-2 md:px-4 -rotate-1 mt-2 shadow-[6px_6px_0px_0px_rgba(200,200,200,1)]">SITE PROFISSA</span>
-                    </h1>
-                    
-                    <p class="font-mono text-base md:text-xl font-bold max-w-xl mx-auto lg:mx-0 mb-10 border-l-4 border-black pl-4 md:pl-6 bg-white/80 backdrop-blur-sm py-2 text-gray-800 text-left md:text-left">
-                        Chega de depender só do Instagram. Tenha um site próprio para sua <span class="bg-[#D4FF00] px-1 border border-black">padaria</span>, <span class="bg-[#D4FF00] px-1 border border-black">loja</span> ou <span class="bg-[#D4FF00] px-1 border border-black">clínica</span>.
-                    </p>
-                    
-                    <div class="flex flex-col gap-4 justify-center lg:justify-start">
-                        <a href="https://wa.me/553182748728" target="_blank" class="bg-black text-[#D4FF00] font-display text-xl px-10 py-5 hard-shadow border-2 border-black flex items-center justify-center gap-3 w-full sm:w-auto hover:bg-[#D4FF00] hover:text-black transition-colors">
-                            BORA VENDER
-                            <i data-lucide="message-circle"></i>
-                        </a>
-                        <button onclick="document.getElementById('exemplos').scrollIntoView({behavior: 'smooth'})" class="bg-white text-black font-display text-xl px-10 py-5 hard-shadow border-2 border-black w-full sm:w-auto hover:bg-gray-100">
-                            VER EXEMPLOS
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="hidden lg:block flex-1 w-full relative" data-aos="fade-left" data-aos-duration="1200">
-                   <div class="relative w-full aspect-square max-w-[500px] mx-auto group perspective-1000">
-                      <div class="absolute inset-0 bg-black rotate-6 rounded-xl border-2 border-black transition-transform duration-500 group-hover:rotate-12"></div>
-                      <div class="absolute inset-0 bg-[#D4FF00] -rotate-3 rounded-xl border-2 border-black transition-transform duration-500 group-hover:-rotate-6"></div>
-                      
-                      <div class="absolute inset-0 bg-white rotate-0 border-4 border-black rounded-xl flex flex-col overflow-hidden transition-transform duration-500 hover:scale-[1.02] shadow-2xl">
-                         <div class="h-14 bg-black flex items-center px-4 gap-2">
-                             <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
-                             <div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
-                             <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
-                         </div>
-                         <div class="flex-1 p-8 bg-gray-50 flex flex-col items-center justify-center text-center relative overflow-hidden">
-                             <div class="relative z-10">
-                                <div class="bg-[#D4FF00] p-4 rounded-full border-4 border-black mb-4 inline-block shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                                    <i data-lucide="rocket" class="w-12 h-12 text-black"></i>
-                                </div>
-                                <h3 class="font-display text-5xl mb-2 leading-none">SEU SITE</h3>
-                                <p class="font-mono text-sm bg-black text-white inline-block px-3 py-1 -rotate-2">ONLINE 24H POR DIA</p>
-                             </div>
-                         </div>
-                      </div>
-                   </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="bg-black text-[#D4FF00] py-4 md:py-6 border-y-4 border-black overflow-hidden whitespace-nowrap relative rotate-0 md:-rotate-1 z-20 shadow-xl">
-        <div class="inline-block animate-marquee font-display text-2xl md:text-5xl">
-            CARDÁPIO DIGITAL • DELIVERY • AGENDAMENTO • E-COMMERCE • PÁGINA DE VENDAS • GOOGLE MAPS • SEO LOCAL • CARDÁPIO DIGITAL • DELIVERY •
-        </div>
-    </div>
-
-    <!-- EXEMPLOS -->
-    <section id="exemplos" class="py-16 md:py-24 px-4 md:px-6 bg-[#f4f4f4] border-b-4 border-black relative z-10">
-        <div class="container mx-auto max-w-7xl">
-            <div class="text-center mb-12 md:mb-20" data-aos="fade-up">
-                <span class="bg-black text-white font-mono px-4 py-2 text-sm md:text-lg font-bold -rotate-2 inline-block mb-4 shadow-[3px_3px_0px_0px_#D4FF00]">CONFIRA NOSSOS TRABALHOS</span>
-                <h2 class="font-display text-4xl md:text-7xl text-black leading-none uppercase mt-2">
-                    Modelos Prontos
-                </h2>
-                <p class="mt-4 font-mono text-gray-600 max-w-2xl mx-auto text-sm md:text-lg">
-                    Toque em um modelo para ver.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-                              <a href="demo.html?site=moda" class="block relative group" data-aos="fade-up">
-                    <div class="relative bg-white border-4 border-black rounded-xl overflow-hidden hard-shadow">
-                        <div class="h-56 md:h-64 overflow-hidden border-b-4 border-black bg-gray-200 relative">
-                            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Aura" class="w-full h-full object-cover">
-                            <div class="absolute top-4 left-4 bg-gray-700 text-white text-xs font-bold px-3 py-1 uppercase border-2 border-black z-20">Varejo</div>
-                        </div>
-                        <div class="p-6 md:p-8">
-                            <div class="flex justify-between items-center mb-2">
-                                <h3 class="font-display text-2xl md:text-3xl">AURA FASHION</h3>
-                                <i data-lucide="arrow-right" class="w-6 h-6"></i>
-                            </div>
-                            <p class="font-mono text-xs md:text-sm text-gray-600">Catálogo virtual estilo editorial de moda.</p>
-                        </div>
-                    </div>
-                </a>
-                
-                
-
-                <a href="demo.html?site=estetica" class="block relative group" data-aos="fade-up">
-                    <div class="relative bg-white border-4 border-black rounded-xl overflow-hidden hard-shadow">
-                        <div class="h-56 md:h-64 overflow-hidden border-b-4 border-black bg-rose-100 relative">
-                            <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Lumière" class="w-full h-full object-cover">
-                            <div class="absolute top-4 left-4 bg-rose-400 text-white text-xs font-bold px-3 py-1 uppercase border-2 border-black z-20">Beleza</div>
-                        </div>
-                        <div class="p-6 md:p-8">
-                            <div class="flex justify-between items-center mb-2">
-                                <h3 class="font-display text-2xl md:text-3xl">LUMIÈRE</h3>
-                                <i data-lucide="arrow-right" class="w-6 h-6"></i>
-                            </div>
-                            <p class="font-mono text-xs md:text-sm text-gray-600">Design minimalista focado em agendamentos.</p>
-                        </div>
-                    </div>
-                </a>
-
-  
-
-                <a href="demo.html?site=reparos" class="block relative group" data-aos="fade-up">
-                    <div class="relative bg-white border-4 border-black rounded-xl overflow-hidden hard-shadow">
-                        <div class="h-56 md:h-64 overflow-hidden border-b-4 border-black bg-green-100 relative">
-                            <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="SOS" class="w-full h-full object-cover">
-                            <div class="absolute top-4 left-4 bg-green-600 text-white text-xs font-bold px-3 py-1 uppercase border-2 border-black z-20">Serviços</div>
-                        </div>
-                        <div class="p-6 md:p-8">
-                            <div class="flex justify-between items-center mb-2">
-                                <h3 class="font-display text-2xl md:text-3xl">SOS REPAROS</h3>
-                                <i data-lucide="arrow-right" class="w-6 h-6"></i>
-                            </div>
-                            <p class="font-mono text-xs md:text-sm text-gray-600">Site clean para técnicos e manutenções.</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="demo.html?site=hamburgueria" class="block relative group" data-aos="fade-up">
-                    <div class="relative bg-white border-4 border-black rounded-xl overflow-hidden hard-shadow">
-                        <div class="h-56 md:h-64 overflow-hidden border-b-4 border-black bg-orange-100 relative">
-                            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Bravos burguer" class="w-full h-full object-cover">
-                            <div class="absolute top-4 left-4 bg-orange-500 text-white text-xs font-bold px-3 py-1 uppercase border-2 border-black z-20">Gastronomia</div>
-                        </div>
-                        <div class="p-6 md:p-8">
-                            <div class="flex justify-between items-center mb-2">
-                                <h3 class="font-display text-2xl md:text-3xl">BRAVUS BURGUER</h3>
-                                <i data-lucide="arrow-right" class="w-6 h-6"></i>
-                            </div>
-                            <p class="font-mono text-xs md:text-sm text-gray-600">Site completo para delivery com cardápio digital.</p>
-                        </div>
-                    </div>
-                </a>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- SOBRE -->
-    <section id="sobre" class="py-16 md:py-24 px-4 md:px-6 bg-black text-[#D4FF00] border-b-4 border-white relative overflow-hidden">
-        <div class="container mx-auto max-w-7xl relative z-10">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-center">
-                <div class="text-center lg:text-left" data-aos="fade-right">
-                    <span class="font-mono text-white text-xs md:text-sm uppercase tracking-widest border border-white px-3 py-1 mb-6 inline-block">Quem Somos</span>
-                    <h2 class="font-display text-5xl md:text-8xl mb-6 md:mb-8 leading-none text-[#D4FF00]">
-                        SOMOS A<br>DEVSITES
-                    </h2>
-                    <div class="space-y-4 md:space-y-6 font-mono text-base md:text-xl text-white max-w-lg mx-auto lg:mx-0">
-                        <p class="border-l-4 border-[#D4FF00] pl-4 md:pl-6 text-left leading-relaxed">
-                            A gente sabe que você não tem tempo a perder. Enquanto você cuida do seu negócio, a gente coloca ele na internet.
-                        </p>
-                        <p class="text-left leading-relaxed text-gray-400">
-                            Sem "tecniquês". Design único e entrega rápida.
-                        </p>
-                    </div>
+            <div class="browser-ui">
+                <div class="pc-controls">
+                    <div class="traffic-light red"></div>
+                    <div class="traffic-light yellow"></div>
+                    <div class="traffic-light green"></div>
                 </div>
 
-                <div class="grid grid-cols-2 gap-4 md:gap-6 rotate-0 md:rotate-1 mt-8 md:mt-0" data-aos="fade-up">
-                    <div class="bg-black border-2 md:border-4 border-white p-4 md:p-8 text-center shadow-[4px_4px_0px_0px_#D4FF00]">
-                        <div class="font-display text-4xl md:text-7xl mb-2">200+</div>
-                        <div class="font-mono font-bold text-[10px] md:text-sm bg-[#D4FF00] text-black inline-block px-2 border border-black">CLIENTES</div>
-                    </div>
-                    <div class="bg-black border-2 md:border-4 border-white p-4 md:p-8 text-center shadow-[4px_4px_0px_0px_#D4FF00]">
-                        <div class="font-display text-4xl md:text-7xl mb-2">50</div>
-                        <div class="font-mono font-bold text-[10px] md:text-sm bg-[#D4FF00] text-black inline-block px-2 border border-black">CIDADES</div>
-                    </div>
+                <div class="url-bar">
+                    <i data-lucide="lock" class="w-3 h-3 text-green-600"></i>
+                    <span class="truncate font-mono">cliente-demo.devsites.com</span>
+                </div>
+
+                <div class="mobile-controls">
+                    <i data-lucide="menu" class="w-5 h-5 text-gray-500"></i>
                 </div>
             </div>
+
+            <iframe id="viewer" src="sites/demostração.html" class="w-full h-full border-0"></iframe>
         </div>
-    </section>
+    </main>
 
-    <!-- CONTATO -->
-    <section id="contato" class="py-16 md:py-24 px-4 md:px-6 bg-[#D4FF00] relative">
-        <div class="container mx-auto max-w-4xl">
-            <div class="bg-white border-[4px] md:border-[6px] border-black hard-shadow p-8 md:p-16 relative rotate-0 md:-rotate-1 text-center" data-aos="zoom-in-up">
-                
-                <div class="relative z-10 flex flex-col items-center justify-center">
-                    
-                    <div class="bg-black text-[#D4FF00] p-4 rounded-full border-4 border-[#D4FF00] mb-6 shadow-xl">
-                        <i data-lucide="message-circle" class="w-10 h-10 md:w-16 md:h-16"></i>
-                    </div>
-
-                    <h2 class="font-display text-4xl md:text-7xl mb-6 text-black uppercase leading-none">
-                        VAMOS CRESCER?
-                    </h2>
-                    
-                    <p class="font-mono font-bold mb-10 max-w-xl text-gray-600 text-sm md:text-xl leading-relaxed">
-                        Sem formulários chatos. Clique no botão abaixo e fale diretamente com a gente no WhatsApp para começar seu projeto.
-                    </p>
-
-                    <a href="https://wa.me/553182748728" target="_blank" class="w-full md:w-auto bg-black text-[#D4FF00] font-display text-xl md:text-3xl py-5 px-10 border-4 border-black hover:bg-[#25D366] hover:text-white hover:border-black transition-all uppercase tracking-wide cursor-pointer hard-shadow flex items-center justify-center gap-4 group">
-                        <i data-lucide="phone" class="group-hover:rotate-12 transition-transform"></i>
-                        CHAMAR NO WHATS
-                    </a>
-                    
-                    <p class="font-mono text-xs text-gray-400 mt-6">
-                        Atendimento rápido de Seg a Sex, das 09h às 18h.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="bg-black text-[#D4FF00] py-10 px-6 border-t-8 border-[#D4FF00]">
-        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-            <div class="text-center md:text-left">
-                <h3 class="font-display text-3xl mb-2 inline-block border-2 border-[#D4FF00] p-2 rotate-0 md:rotate-2">DEVSITES.</h3>
-                <p class="font-mono text-xs opacity-70 mt-4">© 2025 DevSites Agency.<br>Apoiando o comércio local.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- MODAL DE SENHA DO CLIENTE -->
-    <div id="client-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 glass-modal opacity-0 transition-opacity duration-300">
-        <div id="modal-content" class="bg-white border-4 border-black p-8 max-w-md w-full shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] relative transform scale-95 transition-transform duration-300">
-            <button onclick="closeClientModal()" class="absolute top-4 right-4 text-gray-400 hover:text-black">
-                <i data-lucide="x" class="w-8 h-8"></i>
-            </button>
-            
-            <div class="text-center mb-6">
-                <div class="inline-block bg-[#D4FF00] border-2 border-black p-3 mb-4 rounded-full">
-                    <i data-lucide="lock" class="w-8 h-8 text-black"></i>
-                </div>
-                <h3 class="font-display text-3xl uppercase leading-none mb-2">Área Restrita</h3>
-                <p class="font-mono text-sm text-gray-600">Digite o código do projeto para acessar a demonstração.</p>
-            </div>
-            
-            <div class="space-y-4">
-                <input type="password" id="project-code" placeholder="CÓDIGO DO PROJETO" class="w-full bg-gray-100 border-4 border-black p-4 font-mono text-center text-xl uppercase placeholder:text-gray-400 focus:outline-none focus:bg-[#D4FF00]/20 transition-colors">
-                
-                <button onclick="checkProjectCode()" class="w-full bg-black text-[#D4FF00] font-display text-xl py-4 hover:bg-[#D4FF00] hover:text-black hover:border-black border-4 border-transparent transition-all uppercase">
-                    Acessar Projeto
-                </button>
-                
-                <p id="error-message" class="text-red-600 font-mono text-xs text-center font-bold hidden bg-red-100 p-2 border border-red-500">
-                    CÓDIGO INCORRETO. TENTE NOVAMENTE.
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         lucide.createIcons();
-        
-        AOS.init({
-            once: true,
-            offset: 50,
-            duration: 800,
-            easing: 'ease-out-cubic',
-        });
 
-        if (typeof Lenis !== 'undefined') {
-            const lenis = new Lenis({
-                duration: 1.2,
-                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                smooth: true,
-            });
-            function raf(time) {
-                lenis.raf(time);
-                requestAnimationFrame(raf);
-            }
-            requestAnimationFrame(raf);
-        }
-        
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            const iconMenu = document.getElementById('icon-menu');
-            const iconX = document.getElementById('icon-x');
-            
-            menu.classList.toggle('hidden');
-            iconMenu.classList.toggle('hidden');
-            iconX.classList.toggle('hidden');
-            
-            document.body.classList.toggle('overflow-hidden');
+        function reloadFrame() {
+            const iframe = document.getElementById('viewer');
+            iframe.src = iframe.src;
         }
 
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar-bg');
-            if (window.scrollY > 20) {
-                navbar.classList.remove('-translate-y-full');
+        function setView(mode) {
+            // Apenas funciona no Desktop para simular
+            if(window.innerWidth <= 768) return;
+
+            const wrap = document.getElementById('frame-wrapper');
+            const btnDesk = document.getElementById('btn-desktop');
+            const btnMob = document.getElementById('btn-mobile');
+
+            if(mode === 'mobile') {
+                wrap.classList.remove('pc-frame');
+                wrap.classList.add('phone-frame');
+                
+                btnMob.classList.add('bg-black', 'text-[#D4FF00]');
+                btnDesk.classList.remove('bg-black', 'text-[#D4FF00]');
             } else {
-                navbar.classList.add('-translate-y-full');
-            }
-        });
+                wrap.classList.remove('phone-frame');
+                wrap.classList.add('pc-frame');
 
-        /* --- LÓGICA DO MODAL DE SENHA --- */
-        const clientModal = document.getElementById('client-modal');
-        const modalContent = document.getElementById('modal-content');
-        const codeInput = document.getElementById('project-code');
-        const errorMsg = document.getElementById('error-message');
-
-        // Códigos de Acesso (Dicionário: Código -> Nome do Site)
-        // Adicione aqui os códigos e os arquivos correspondentes
-        const ACCESS_CODES = {
-            "DEV2025": "demostração", // Padrão
-            "X2254": "cliente1" // Novo cliente
-        };
-
-        function openClientModal() {
-            clientModal.classList.remove('hidden');
-            // Pequeno delay para animação CSS
-            setTimeout(() => {
-                clientModal.classList.remove('opacity-0');
-                modalContent.classList.remove('scale-95');
-                modalContent.classList.add('scale-100');
-            }, 10);
-            codeInput.value = '';
-            errorMsg.classList.add('hidden');
-            codeInput.focus();
-        }
-
-        function closeClientModal() {
-            clientModal.classList.add('opacity-0');
-            modalContent.classList.remove('scale-100');
-            modalContent.classList.add('scale-95');
-            setTimeout(() => {
-                clientModal.classList.add('hidden');
-            }, 300);
-        }
-
-        function checkProjectCode() {
-            const input = codeInput.value.toUpperCase().trim(); // Converte para maiúsculo e remove espaços
-            
-            if (ACCESS_CODES.hasOwnProperty(input)) {
-                // Sucesso: Redireciona para o demo com o site correto
-                // O site é passado como parâmetro na URL (ex: demo.html?site=cliente1)
-                const siteName = ACCESS_CODES[input];
-                window.location.href = `demo.html?site=${siteName}`;
-            } else {
-                // Erro: Treme o modal e mostra erro
-                errorMsg.classList.remove('hidden');
-                modalContent.classList.add('shake');
-                setTimeout(() => modalContent.classList.remove('shake'), 500);
-                codeInput.value = '';
-                codeInput.focus();
+                btnDesk.classList.add('bg-black', 'text-[#D4FF00]');
+                btnMob.classList.remove('bg-black', 'text-[#D4FF00]');
             }
         }
-
-        // Permitir dar Enter para enviar
-        codeInput.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                checkProjectCode();
-            }
-        });
-
-        // Fechar ao clicar fora
-        clientModal.addEventListener('click', (e) => {
-            if (e.target === clientModal) closeClientModal();
-        });
     </script>
 </body>
 </html>
