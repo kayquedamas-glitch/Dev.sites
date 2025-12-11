@@ -3,17 +3,19 @@
 <head>
     <link rel="icon" href="assents/icon.png">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Apresentação | DevSites</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Showcase V1 | DevSites</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
         /* --- Estilos Gerais --- */
-        body { font-family: 'Space Mono', monospace; background-color: #e5e5e5; overflow: hidden; height: 100vh; width: 100vw; }
+        body { font-family: 'Space Mono', monospace; background-color: #e5e5e5; overflow: hidden; }
         .font-display { font-family: 'Archivo Black', sans-serif; }
         
         /* --- MOLDURAS (FRAMES) --- */
+
+        /* Wrapper Genérico (Flex Column para Barra + Site) */
         #frame-wrapper {
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
@@ -22,55 +24,125 @@
             background: white;
         }
 
-        /* 1. ESTILO CELULAR (Apenas para Desktop) */
+        /* 1. ESTILO SAMSUNG GALAXY */
         .phone-frame { 
             width: 380px; 
             height: 800px; 
             max-height: 90vh;
+            
+            /* Chassi */
             border: 8px solid #1a1a1a; 
             border-radius: 35px;
-            box-shadow: 0 0 0 2px #444, 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            
+            box-shadow: 
+                0 0 0 2px #444,
+                0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            
             position: relative;
-            margin: auto;
-        }
-        .phone-frame::after {
-            content: ''; position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
-            width: 12px; height: 12px; background: #000; border-radius: 50%; z-index: 50;
-            box-shadow: inset 0 0 3px rgba(255,255,255,0.2); pointer-events: none;
-        }
-        .phone-frame .browser-ui {
-            height: 60px; background: #ffffff; border-bottom: 1px solid #f0f0f0;
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 15px 16px 0 16px; font-size: 12px; gap: 10px;
-        }
-        .phone-frame .url-bar {
-            background: #f1f3f4; border: none; border-radius: 20px;
-            height: 32px; justify-content: flex-start; padding-left: 12px; padding-right: 12px;
         }
 
-        /* 2. ESTILO PC (Apenas para Desktop) */
+        /* Câmera (Furo na tela) */
+        .phone-frame::after {
+            content: '';
+            position: absolute;
+            top: 12px; left: 50%; transform: translateX(-50%);
+            width: 12px; height: 12px;
+            background: #000;
+            border-radius: 50%;
+            z-index: 50;
+            box-shadow: inset 0 0 3px rgba(255,255,255,0.2);
+            pointer-events: none;
+        }
+
+        /* Barra de Navegador Mobile */
+        .phone-frame .browser-ui {
+            height: 60px;
+            background: #ffffff;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            padding-top: 15px; /* Espaço para status bar imaginária */
+            font-size: 12px;
+            gap: 10px; /* Espaço entre URL e Menu */
+        }
+
+        /* Esconde elementos de PC no Mobile */
+        .phone-frame .pc-controls { display: none; }
+        
+        /* CORREÇÃO: Width auto para não esmagar a barra de URL */
+        .phone-frame .mobile-controls { display: flex; width: auto; align-items: center; gap: 10px; flex-shrink: 0; }
+
+        /* Arredondamento interno no Mobile */
+        .phone-frame iframe { border-radius: 0 0 28px 28px; }
+
+
+        /* 2. ESTILO JANELA PC (BROWSER) */
         .pc-frame { 
-            width: 90%; height: 85%; max-width: 1400px;
-            border: 1px solid #ccc; border-radius: 12px;
+            width: 90%; 
+            height: 85%;
+            max-width: 1400px;
+            border: 1px solid #ccc;
+            border-radius: 12px;
             box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.25);
-            margin: auto;
         }
+
+        /* Barra de Navegador PC */
         .pc-frame .browser-ui {
-            height: 44px; background: #f3f4f6; border-bottom: 1px solid #e5e7eb;
-            display: flex; align-items: center; padding: 0 16px; gap: 16px;
+            height: 44px;
+            background: #f3f4f6;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            gap: 16px;
         }
-        .pc-frame .url-bar {
-            flex: 1; background: white; border: 1px solid #e5e7eb; border-radius: 6px;
-            height: 28px; display: flex; align-items: center; justify-content: center;
-            font-size: 11px; color: #6b7280; gap: 6px; min-width: 0; overflow: hidden;
-        }
+
+        /* Esconde elementos Mobile no PC */
+        .pc-frame .mobile-controls { display: none; }
+        .pc-frame .pc-controls { display: flex; gap: 8px; }
 
         .traffic-light { width: 12px; height: 12px; border-radius: 50%; }
-        .red { background: #ff5f56; } .yellow { background: #ffbd2e; } .green { background: #27c93f; }
-        
-        iframe { flex: 1; border: none; background: white; width: 100%; height: 100%; }
+        .red { background: #ff5f56; }
+        .yellow { background: #ffbd2e; }
+        .green { background: #27c93f; }
 
-        /* Botão Lateral */
+        /* Barra de URL (Comum mas estilizada diferente) */
+        .url-bar {
+            flex: 1;
+            background: white;
+            border: 1px solid #e5e7eb; /* PC Style default */
+            border-radius: 6px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: #6b7280;
+            gap: 6px;
+            
+            /* Garante que o texto trunque corretamente */
+            min-width: 0; 
+            overflow: hidden;
+        }
+
+        /* Ajuste URL Mobile */
+        .phone-frame .url-bar {
+            background: #f1f3f4;
+            border: none;
+            border-radius: 20px; /* Mais redondo no mobile */
+            height: 32px;
+            justify-content: flex-start;
+            padding-left: 12px;
+            padding-right: 12px;
+        }
+
+        /* Iframe Genérico */
+        iframe { flex: 1; border: none; background: white; }
+
+
+        /* --- OUTROS --- */
         .site-balloon {
             @apply relative bg-white border-4 border-black cursor-pointer transition-all duration-300 overflow-hidden mb-4;
             box-shadow: 6px 6px 0px 0px black;
@@ -78,155 +150,169 @@
         }
         .site-balloon:hover { transform: translate(-2px, -2px); box-shadow: 10px 10px 0px 0px black; }
         .site-balloon.active { background: black; color: #D4FF00; border-color: black; transform: translate(2px, 2px); box-shadow: 2px 2px 0px 0px black; }
+        
+        .balloon-mask { clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%); }
+        #mobile-back-btn { display: none; }
 
-        /* --- RESPONSIVIDADE MOBILE REAL --- */
+        /* Responsividade Mobile (App real) */
         @media (max-width: 768px) {
-            body { 
-                margin: 0; padding: 0; 
-                height: 100dvh; /* Altura dinâmica para mobile */
-                width: 100vw;
-                background: white;
-            }
-            
-            /* Esconde Sidebar e decorações no celular */
-            .sidebar, .browser-ui, #mobile-back-btn, .pc-controls, .mobile-controls { 
-                display: none !important; 
-            }
-            
-            /* Área de Preview ocupa 100% da tela */
-            .preview-area {
-                position: fixed; inset: 0;
-                width: 100% !important; height: 100dvh !important;
-                padding: 0 !important; margin: 0 !important;
-                background: white; z-index: 9999;
-                display: block !important;
-            }
-
-            /* Reseta as molduras para ser tela cheia */
-            #frame-wrapper {
-                width: 100% !important; height: 100% !important;
-                border: none !important; border-radius: 0 !important;
-                box-shadow: none !important; margin: 0 !important;
-                max-height: none !important;
-            }
-
-            /* Garante que o iframe role suavemente */
-            iframe {
-                height: 100% !important; width: 100% !important;
-                -webkit-overflow-scrolling: touch;
-            }
+            body { overflow-y: auto !important; height: 100vh !important; display: flex !important; flex-direction: column !important; }
+            .sidebar { width: 100% !important; height: 100% !important; border: none !important; z-index: 10; }
+            .preview-area { display: none !important; position: fixed !important; top: 0; left: 0; right: 0; bottom: 0; width: 100% !important; height: 100% !important; z-index: 100; background: #e5e5e5; padding: 0 !important; }
+            .preview-area.is-open { display: flex !important; flex-direction: column; }
+            #mobile-back-btn { display: flex; position: absolute; top: 15px; left: 50%; transform: translateX(-50%); z-index: 200; background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(4px); color: #000; border: 1px solid rgba(0,0,0,0.2); padding: 6px 14px; border-radius: 50px; font-weight: bold; font-size: 0.7rem; align-items: center; gap: 5px; }
+            /* Reset frames */
+            .phone-frame, .pc-frame, #frame-wrapper { width: 100% !important; height: 100% !important; border: none !important; border-radius: 0 !important; max-height: none !important; box-shadow: none !important; }
+            .phone-frame::after { display: none; }
+            .browser-ui { display: none !important; } /* Esconde barra fake no celular real p/ ganhar espaço */
         }
     </style>
 </head>
 <body class="h-screen flex flex-col md:flex-row">
 
-    <aside class="sidebar w-full md:w-[350px] bg-[#f4f4f4] border-r-4 border-black flex flex-col shadow-2xl overflow-hidden">
-        <div class="p-6 bg-black text-[#D4FF00] flex justify-between items-center shrink-0">
-            <div>
-                <span class="text-[10px] font-bold tracking-widest opacity-70">PAINEL DE</span>
-                <h1 class="font-display text-2xl leading-none">APRESENTAÇÃO</h1>
-            </div>
-            
+    <!-- Sidebar -->
+    <aside class="sidebar w-full md:w-[420px] bg-[#f4f4f4] border-r-4 border-black flex flex-col shadow-2xl overflow-hidden">
+        <div class="p-4 bg-black text-[#D4FF00] flex justify-between items-center shrink-0">
+            <h1 class="font-display text-2xl leading-none">DEMOS<br>AO VIVO</h1>
+            <a href="index.html" class="text-xs hover:underline font-bold">← VOLTAR</a>
         </div>
 
-        <div class="flex-1 overflow-y-auto p-6 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIi8+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiNkZGQiLz4KPC9zdmc+')]">
-            
-            <div class="text-sm font-bold mb-4 uppercase tracking-widest text-gray-500">Projeto Ativo:</div>
-
-            <div id="btn-demo" onclick="reloadFrame()" class="site-balloon active flex flex-col justify-center p-6">
-                <div class="flex items-center gap-4">
-                    <div class="bg-[#D4FF00] text-black p-3 rounded-full border-2 border-black">
-                        <i data-lucide="layout" class="w-6 h-6"></i>
-                    </div>
-                    <div>
-                        <span class="text-[10px] font-bold opacity-70 block mb-1">DEMONSTRAÇÃO</span>
-                        <h2 class="font-display text-xl leading-none">SITE CLIENTE</h2>
-                    </div>
+        <div class="flex-1 overflow-y-auto p-4 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIi8+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiNkZGQiLz4KPC9zdmc+')]">
+            <div id="btn-hamburgueria" onclick="loadSite('sites/hamburgueria.html', 'bravus-burguer.delivery', this)" class="site-balloon flex">
+                <div class="flex-1 p-4 flex flex-col justify-center z-10">
+                    <span class="text-[10px] font-bold opacity-70">CASE #01</span>
+                    <h2 class="font-display text-2xl leading-none">BURGER</h2>
                 </div>
-                <div class="mt-4 text-[10px] opacity-60 font-mono">
-                    • Clique para recarregar<br>
-                    • Visualizando: sites/demostração.html
+                <div class="w-1/2 h-full bg-gray-300 balloon-mask relative">
+                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&q=80" class="w-full h-full object-cover">
                 </div>
             </div>
-
-            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mt-6">
-                <p class="text-xs text-blue-800 font-bold mb-1">DICA:</p>
-                <p class="text-xs text-blue-600 leading-relaxed font-mono">
-                    Ao abrir este link no celular, a barra lateral sumirá automaticamente e o cliente verá apenas o site em tela cheia.
-                </p>
+            <div id="btn-estetica" onclick="loadSite('sites/estetica.html', 'lumiere-clinica.com.br', this)" class="site-balloon flex">
+                <div class="flex-1 p-4 flex flex-col justify-center z-10">
+                    <span class="text-[10px] font-bold opacity-70">CASE #02</span>
+                    <h2 class="font-display text-2xl leading-none">ESTÉTICA</h2>
+                </div>
+                <div class="w-1/2 h-full bg-gray-300 balloon-mask relative">
+                    <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=400&q=80" class="w-full h-full object-cover">
+                </div>
+            </div>
+             <div id="btn-moda" onclick="loadSite('sites/moda.html', 'aura-store.com', this)" class="site-balloon flex">
+                <div class="flex-1 p-4 flex flex-col justify-center z-10">
+                    <span class="text-[10px] font-bold opacity-70">CASE #03</span>
+                    <h2 class="font-display text-2xl leading-none">MODA</h2>
+                </div>
+                <div class="w-1/2 h-full bg-gray-300 balloon-mask relative">
+                    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400&q=80" class="w-full h-full object-cover">
+                </div>
+            </div>
+            <div id="btn-reparos" onclick="loadSite('sites/reparos.html', 'sos-reparos.com.br', this)" class="site-balloon flex">
+                <div class="flex-1 p-4 flex flex-col justify-center z-10">
+                    <span class="text-[10px] font-bold opacity-70">CASE #04</span>
+                    <h2 class="font-display text-2xl leading-none">REPAROS</h2>
+                </div>
+                <div class="w-1/2 h-full bg-gray-300 balloon-mask relative">
+                    <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400&q=80" class="w-full h-full object-cover">
+                </div>
             </div>
         </div>
 
-        <div class="p-6 border-t-4 border-black bg-white shrink-0">
-            <div class="text-xs font-bold uppercase tracking-widest text-center mb-3">Modo de Visualização (PC):</div>
-            <div class="flex gap-2 mb-4 justify-center">
-                <button onclick="setView('desktop')" class="flex-1 text-xs font-bold border-2 border-black px-2 py-3 bg-black text-[#D4FF00] hover:opacity-80 transition-opacity" id="btn-desktop">
-                    <i data-lucide="monitor" class="w-4 h-4 mx-auto mb-1"></i> PC
-                </button>
-                <button onclick="setView('mobile')" class="flex-1 text-xs font-bold border-2 border-black px-2 py-3 hover:bg-black hover:text-[#D4FF00] transition-colors" id="btn-mobile">
-                    <i data-lucide="smartphone" class="w-4 h-4 mx-auto mb-1"></i> CELULAR
-                </button>
+        <div class="p-4 border-t-4 border-black bg-white shrink-0">
+            <div class="flex gap-2 mb-2 justify-center md:flex">
+                <button onclick="setView('desktop')" class="hidden md:block text-xs font-bold border-2 border-black px-2 py-1 hover:bg-black hover:text-[#D4FF00] transition-colors">PC</button>
+                <button onclick="setView('mobile')" class="hidden md:block text-xs font-bold border-2 border-black px-2 py-1 hover:bg-black hover:text-[#D4FF00] transition-colors">CELULAR</button>
             </div>
+            <a href="https://wa.me/553182748728" target="_blank" class="block w-full py-3 bg-[#D4FF00] border-2 border-black text-black font-display text-center text-lg hover:bg-black hover:text-[#D4FF00] transition-colors shadow-[4px_4px_0px_0px_black] active:translate-x-1 active:translate-y-1 active:shadow-none">
+                FALAR COM COMERCIAL 💬
+            </a>
         </div>
     </aside>
 
+    <!-- Preview Area -->
     <main id="preview-box" class="preview-area flex-1 bg-gray-200 flex justify-center items-center relative overflow-hidden p-4">
-        
+       
+
         <div class="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:20px_20px]"></div>
         
+        <!-- Frame Wrapper: Contém a barra e o Iframe -->
         <div id="frame-wrapper" class="pc-frame bg-white shadow-2xl transition-all duration-500 overflow-hidden relative">
             
+            <!-- Barra de Navegador (Muda estilo via CSS) -->
             <div class="browser-ui">
+                <!-- Controles PC -->
                 <div class="pc-controls">
                     <div class="traffic-light red"></div>
                     <div class="traffic-light yellow"></div>
                     <div class="traffic-light green"></div>
                 </div>
 
+                <!-- Barra de URL Unificada -->
                 <div class="url-bar">
                     <i data-lucide="lock" class="w-3 h-3 text-green-600"></i>
-                    <span class="truncate font-mono">cliente-demo.devsites.com</span>
+                    <span id="url-text" class="truncate">devsites.demo</span>
                 </div>
 
+                <!-- Controles Mobile -->
                 <div class="mobile-controls">
+                    <!-- O URL BAR acima se adapta via CSS flex -->
                     <i data-lucide="menu" class="w-5 h-5 text-gray-500"></i>
                 </div>
             </div>
 
-            <iframe id="viewer" src="sites/demostração.html" class="w-full h-full border-0"></iframe>
+            <iframe id="viewer" src="about:blank" class="w-full h-full border-0"></iframe>
         </div>
     </main>
 
     <script>
         lucide.createIcons();
 
-        function reloadFrame() {
-            const iframe = document.getElementById('viewer');
-            iframe.src = iframe.src;
+        function init() {
+            const params = new URLSearchParams(window.location.search);
+            const site = params.get('site') || 'hamburgueria';
+            
+            const sites = {
+                'hamburgueria': { url: 'sites/hamburgueria.html', domain: 'bravus-burguer.delivery', id: 'btn-hamburgueria' },
+                'estetica': { url: 'sites/estetica.html', domain: 'lumiere-clinica.com.br', id: 'btn-estetica' },
+                'moda': { url: 'sites/moda.html', domain: 'aura-store.com', id: 'btn-moda' },
+                'reparos': { url: 'sites/reparos.html', domain: 'sos-reparos.com.br', id: 'btn-reparos' }
+            };
+
+            const target = sites[site];
+            if (target) {
+                loadSite(target.url, target.domain, document.getElementById(target.id));
+                if (window.innerWidth <= 768 && params.has('site')) {
+                    document.getElementById('preview-box').classList.add('is-open');
+                }
+            }
+        }
+
+        function loadSite(url, domain, el) {
+            document.getElementById('viewer').src = url;
+            document.getElementById('url-text').innerText = domain;
+            
+            document.querySelectorAll('.site-balloon').forEach(b => b.classList.remove('active'));
+            if(el) el.classList.add('active');
+            
+            if (window.innerWidth <= 768) {
+                document.getElementById('preview-box').classList.add('is-open');
+            }
+        }
+
+        function closePreview() {
+            document.getElementById('preview-box').classList.remove('is-open');
         }
 
         function setView(mode) {
-            // Apenas funciona no Desktop para simular
-            if(window.innerWidth <= 768) return;
-
             const wrap = document.getElementById('frame-wrapper');
-            const btnDesk = document.getElementById('btn-desktop');
-            const btnMob = document.getElementById('btn-mobile');
-
             if(mode === 'mobile') {
                 wrap.classList.remove('pc-frame');
                 wrap.classList.add('phone-frame');
-                
-                btnMob.classList.add('bg-black', 'text-[#D4FF00]');
-                btnDesk.classList.remove('bg-black', 'text-[#D4FF00]');
             } else {
                 wrap.classList.remove('phone-frame');
                 wrap.classList.add('pc-frame');
-
-                btnDesk.classList.add('bg-black', 'text-[#D4FF00]');
-                btnMob.classList.remove('bg-black', 'text-[#D4FF00]');
             }
         }
+
+        init();
     </script>
 </body>
 </html>
