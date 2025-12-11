@@ -63,10 +63,26 @@
             100% { transform: translateX(-50%); }
         }
         .animate-marquee { display: inline-block; animation: marquee 20s linear infinite; }
+
+        /* Estilo do Modal de Senha */
+        .glass-modal {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+        }
+        .shake {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
     </style>
 </head>
 <body class="min-h-screen font-sans">
 
+    <!-- NAVBAR -->
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-4 md:py-6">
         <div id="navbar-bg" class="absolute inset-0 bg-white border-b-4 border-black transition-transform duration-500 -translate-y-full transform origin-top"></div>
         
@@ -75,15 +91,20 @@
                 DEVSITES.
             </a>
 
-            <div class="hidden md:flex space-x-8 items-center z-10 bg-white px-6 py-3 border-2 border-black -rotate-1 hard-shadow">
+            <div class="hidden md:flex space-x-4 items-center z-10 bg-white px-4 py-3 border-2 border-black -rotate-1 hard-shadow">
                 <a href="#exemplos" class="font-mono font-bold text-base hover:text-[#D4FF00] hover:bg-black px-2 py-1 transition-colors uppercase">Portfólio</a>
                 <a href="#sobre" class="font-mono font-bold text-base hover:text-[#D4FF00] hover:bg-black px-2 py-1 transition-colors uppercase">A Agência</a>
-                <a href="#contato" class="font-mono font-bold text-base hover:text-[#D4FF00] hover:bg-black px-2 py-1 transition-colors uppercase">Contato</a>
+                
+                <!-- BOTÃO ÁREA DO CLIENTE (DESKTOP) -->
+                <button onclick="openClientModal()" class="font-mono font-bold text-base bg-black text-white hover:text-black hover:bg-[#D4FF00] px-4 py-1 transition-colors uppercase border border-black flex items-center gap-2">
+                    <i data-lucide="lock" class="w-4 h-4"></i>
+                    Área do Cliente
+                </button>
             </div>
             
             <a href="https://wa.me/553182748728" target="_blank" class="hidden md:block font-display text-lg px-6 py-2 border-2 border-black bg-[#D4FF00] text-black hard-shadow hover:bg-black hover:text-[#D4FF00] z-10 rotate-1 transition-all flex items-center gap-2">
                 <i data-lucide="message-circle" class="w-5 h-5"></i>
-                CHAMAR NO ZAP
+                ZAP
             </a>
 
             <button onclick="toggleMobileMenu()" class="md:hidden z-50 bg-black text-[#D4FF00] p-2 border-2 border-white transform active:scale-95 transition-transform shadow-lg">
@@ -95,7 +116,11 @@
         <div id="mobile-menu" class="fixed inset-0 bg-[#D4FF00] z-40 flex flex-col justify-center items-center space-y-6 hidden transition-opacity duration-300 px-6">
             <a href="#exemplos" onclick="toggleMobileMenu()" class="font-display text-4xl text-black hover:text-white px-4 border-b-4 border-transparent hover:border-black transition-all">PORTFÓLIO</a>
             <a href="#sobre" onclick="toggleMobileMenu()" class="font-display text-4xl text-black hover:text-white px-4 border-b-4 border-transparent hover:border-black transition-all">A AGÊNCIA</a>
-            <a href="#contato" onclick="toggleMobileMenu()" class="font-display text-4xl text-black hover:text-white px-4 border-b-4 border-transparent hover:border-black transition-all">FALAR AGORA</a>
+            
+            <!-- BOTÃO ÁREA DO CLIENTE (MOBILE) -->
+            <button onclick="openClientModal(); toggleMobileMenu()" class="font-display text-3xl bg-black text-white hover:text-[#D4FF00] px-6 py-2 border-4 border-transparent hover:border-white transition-all">
+                <i data-lucide="lock" class="w-6 h-6 inline mb-1 mr-2"></i>ÁREA VIP
+            </button>
             
             <a href="https://wa.me/553182748728" target="_blank" class="mt-8 font-display text-xl w-full py-5 border-4 border-black bg-white text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center gap-3">
                 <i data-lucide="message-circle" class="w-6 h-6"></i>
@@ -104,6 +129,7 @@
         </div>
     </nav>
 
+    <!-- HERO SECTION -->
     <section id="hero" class="min-h-screen pt-28 pb-12 px-4 md:px-6 flex flex-col justify-center relative overflow-hidden">
         <div class="container mx-auto max-w-7xl relative z-10">
             <div class="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
@@ -167,6 +193,7 @@
         </div>
     </div>
 
+    <!-- EXEMPLOS -->
     <section id="exemplos" class="py-16 md:py-24 px-4 md:px-6 bg-[#f4f4f4] border-b-4 border-black relative z-10">
         <div class="container mx-auto max-w-7xl">
             <div class="text-center mb-12 md:mb-20" data-aos="fade-up">
@@ -251,6 +278,7 @@
         </div>
     </section>
 
+    <!-- SOBRE -->
     <section id="sobre" class="py-16 md:py-24 px-4 md:px-6 bg-black text-[#D4FF00] border-b-4 border-white relative overflow-hidden">
         <div class="container mx-auto max-w-7xl relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-center">
@@ -283,6 +311,7 @@
         </div>
     </section>
 
+    <!-- CONTATO -->
     <section id="contato" class="py-16 md:py-24 px-4 md:px-6 bg-[#D4FF00] relative">
         <div class="container mx-auto max-w-4xl">
             <div class="bg-white border-[4px] md:border-[6px] border-black hard-shadow p-8 md:p-16 relative rotate-0 md:-rotate-1 text-center" data-aos="zoom-in-up">
@@ -314,6 +343,7 @@
         </div>
     </section>
 
+    <!-- FOOTER -->
     <footer class="bg-black text-[#D4FF00] py-10 px-6 border-t-8 border-[#D4FF00]">
         <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
             <div class="text-center md:text-left">
@@ -322,6 +352,35 @@
             </div>
         </div>
     </footer>
+
+    <!-- MODAL DE SENHA DO CLIENTE -->
+    <div id="client-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 glass-modal opacity-0 transition-opacity duration-300">
+        <div id="modal-content" class="bg-white border-4 border-black p-8 max-w-md w-full shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] relative transform scale-95 transition-transform duration-300">
+            <button onclick="closeClientModal()" class="absolute top-4 right-4 text-gray-400 hover:text-black">
+                <i data-lucide="x" class="w-8 h-8"></i>
+            </button>
+            
+            <div class="text-center mb-6">
+                <div class="inline-block bg-[#D4FF00] border-2 border-black p-3 mb-4 rounded-full">
+                    <i data-lucide="lock" class="w-8 h-8 text-black"></i>
+                </div>
+                <h3 class="font-display text-3xl uppercase leading-none mb-2">Área Restrita</h3>
+                <p class="font-mono text-sm text-gray-600">Digite o código do projeto para acessar a demonstração.</p>
+            </div>
+            
+            <div class="space-y-4">
+                <input type="password" id="project-code" placeholder="CÓDIGO DO PROJETO" class="w-full bg-gray-100 border-4 border-black p-4 font-mono text-center text-xl uppercase placeholder:text-gray-400 focus:outline-none focus:bg-[#D4FF00]/20 transition-colors">
+                
+                <button onclick="checkProjectCode()" class="w-full bg-black text-[#D4FF00] font-display text-xl py-4 hover:bg-[#D4FF00] hover:text-black hover:border-black border-4 border-transparent transition-all uppercase">
+                    Acessar Projeto
+                </button>
+                
+                <p id="error-message" class="text-red-600 font-mono text-xs text-center font-bold hidden bg-red-100 p-2 border border-red-500">
+                    CÓDIGO INCORRETO. TENTE NOVAMENTE.
+                </p>
+            </div>
+        </div>
+    </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
@@ -366,6 +425,71 @@
             } else {
                 navbar.classList.add('-translate-y-full');
             }
+        });
+
+        /* --- LÓGICA DO MODAL DE SENHA --- */
+        const clientModal = document.getElementById('client-modal');
+        const modalContent = document.getElementById('modal-content');
+        const codeInput = document.getElementById('project-code');
+        const errorMsg = document.getElementById('error-message');
+
+        // Códigos de Acesso (Dicionário: Código -> Nome do Site)
+        // Adicione aqui os códigos e os arquivos correspondentes
+        const ACCESS_CODES = {
+            "DEV2025": "demostração", // Padrão
+            "X2254": "cliente1" // Novo cliente
+        };
+
+        function openClientModal() {
+            clientModal.classList.remove('hidden');
+            // Pequeno delay para animação CSS
+            setTimeout(() => {
+                clientModal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }, 10);
+            codeInput.value = '';
+            errorMsg.classList.add('hidden');
+            codeInput.focus();
+        }
+
+        function closeClientModal() {
+            clientModal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => {
+                clientModal.classList.add('hidden');
+            }, 300);
+        }
+
+        function checkProjectCode() {
+            const input = codeInput.value.toUpperCase().trim(); // Converte para maiúsculo e remove espaços
+            
+            if (ACCESS_CODES.hasOwnProperty(input)) {
+                // Sucesso: Redireciona para o demo com o site correto
+                // O site é passado como parâmetro na URL (ex: demo.html?site=cliente1)
+                const siteName = ACCESS_CODES[input];
+                window.location.href = `demo.html?site=${siteName}`;
+            } else {
+                // Erro: Treme o modal e mostra erro
+                errorMsg.classList.remove('hidden');
+                modalContent.classList.add('shake');
+                setTimeout(() => modalContent.classList.remove('shake'), 500);
+                codeInput.value = '';
+                codeInput.focus();
+            }
+        }
+
+        // Permitir dar Enter para enviar
+        codeInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                checkProjectCode();
+            }
+        });
+
+        // Fechar ao clicar fora
+        clientModal.addEventListener('click', (e) => {
+            if (e.target === clientModal) closeClientModal();
         });
     </script>
 </body>
