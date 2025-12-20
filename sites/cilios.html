@@ -1,42 +1,37 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Studio Bella | Cílios de Boneca & Cuidados</title>
+    <title>Andreza Moreira | Cílios Jundiaí</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- AOS Animation -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Fontes (Mais sofisticadas para autoridade) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@200;400;500;700&display=swap" rel="stylesheet">
     
-    <!-- Google Fonts: Playfair Display, Quicksand (Fofo) & Great Vibes (Cursiva) -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Quicksand:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
-    
-    <!-- Lucide Icons -->
+    <!-- Ícones -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
+    <!-- Configurações de Estilo: Paleta Black & Gold -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        brand: {
-                            light: '#FFF0F5',    /* Lavender Blush (Fundo) */
-                            pink: '#FFB7C5',     /* Rosa Cerejeira */
-                            darkPink: '#E68FAC', /* Rosa Mais Escuro */
-                            text: '#704F56',     /* Marrom Rosado (Texto) */
-                            gold: '#E6C2BF'      /* Rose Gold Suave */
-                        }
+                        'brand-black': '#050505',
+                        'brand-dark': '#111111',
+                        'brand-gold': '#D4AF37',       /* Ouro Clássico */
+                        'brand-gold-light': '#F3E5AB', /* Ouro Claro para brilho */
+                        'brand-gray': '#2A2A2A',
                     },
                     fontFamily: {
-                        serif: ['Playfair Display', 'serif'],
-                        body: ['Quicksand', 'sans-serif'],
-                        cursive: ['Great Vibes', 'cursive'],
+                        'serif': ['"Cormorant Garamond"', 'serif'],
+                        'sans': ['"Montserrat"', 'sans-serif'],
                     },
                     backgroundImage: {
-                        'sparkle': "url('https://www.transparenttextures.com/patterns/stardust.png')",
+                        'gold-gradient': 'linear-gradient(135deg, #D4AF37 0%, #F3E5AB 50%, #B8860B 100%)',
                     }
                 }
             }
@@ -44,416 +39,358 @@
     </script>
 
     <style>
-        /* Estilo Geral Fofo */
-        body {
-            font-family: 'Quicksand', sans-serif;
-            background-color: #FFF0F5;
-            color: #704F56;
-            overflow-x: hidden;
-            background-image: url('https://www.transparenttextures.com/patterns/subtle-white-feathers.png');
+        html { scroll-behavior: smooth; }
+        body { background-color: #050505; color: #f5f5f5; }
+
+        /* Textos Dourados com efeito metálico */
+        .text-gold {
+            background: linear-gradient(to bottom, #D4AF37, #F3E5AB, #D4AF37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0px 0px 20px rgba(212, 175, 55, 0.2);
         }
+
+        /* Botão Dourado Premium */
+        .btn-gold {
+            background: linear-gradient(90deg, #D4AF37 0%, #c49f2b 100%);
+            color: #000;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .btn-gold::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(90deg, #F3E5AB 0%, #D4AF37 100%);
+            z-index: -1;
+            transition: opacity 0.4s;
+            opacity: 0;
+        }
+        .btn-gold:hover::before { opacity: 1; }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2); }
+
+        /* Efeito de Vidro (Glassmorphism) Dark */
+        .glass-card {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        /* Animações */
+        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.8s, transform 0.8s; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
         
-        h1, h2, h3 { font-family: 'Playfair Display', serif; }
-        .font-cursive { font-family: 'Great Vibes', cursive; }
-
-        /* Botão "Princesa" */
-        .btn-princess {
-            background: linear-gradient(135deg, #FFB7C5 0%, #FF9EAA 100%);
-            color: white;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255, 183, 197, 0.4);
-            border: 2px solid white;
+        /* Divisor Dourado Fino */
+        .gold-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+            margin: 2rem 0;
+            opacity: 0.5;
         }
-        .btn-princess:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 25px rgba(255, 158, 170, 0.5);
-        }
-
-        /* Card Arredondado e Fofo */
-        .card-cute {
-            background: white;
-            border-radius: 30px;
-            border: 1px solid #FFF0F5;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .card-cute:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(230, 143, 172, 0.15);
-            border-color: #FFB7C5;
-        }
-
-        /* Imagem com Borda Decorada */
-        .img-frame {
-            border-radius: 40px;
-            border: 8px solid white;
-            box-shadow: 0 10px 30px rgba(112, 79, 86, 0.1);
-        }
-
-        /* Badge Flutuante */
-        .float-heart {
-            animation: float 3s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        /* Navbar Vidro */
-        .glass-nav {
-            background: rgba(255, 240, 245, 0.8);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-        }
-
-        /* Badge Agência */
-        .agency-badge {
-            position: fixed; bottom: 20px; right: 20px;
-            background: #fff; color: #E68FAC;
-            padding: 8px 16px; border-radius: 50px;
-            font-size: 0.75rem; font-weight: bold;
-            display: flex; align-items: center; gap: 8px;
-            box-shadow: 0 5px 15px rgba(230, 143, 172, 0.2);
-            z-index: 9999; cursor: pointer; border: 2px solid #FFF0F5;
-            transition: transform 0.3s;
-        }
-        .agency-badge:hover { transform: translateY(-3px); }
     </style>
 </head>
-<body>
+<body class="font-sans antialiased overflow-x-hidden">
 
     <!-- Navbar -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 glass-nav">
-        <div class="container mx-auto px-6 flex justify-between items-center">
-            <a href="#" class="flex items-center gap-2 group">
-                <div class="w-10 h-10 bg-brand-pink rounded-full flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform">
-                    <i data-lucide="heart" class="w-5 h-5 fill-current"></i>
+    <nav class="fixed w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/5" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-24">
+                <!-- Logo -->
+                <div class="flex flex-col items-start cursor-pointer group" onclick="window.scrollTo(0,0)">
+                    <span class="font-serif text-3xl font-semibold text-gold tracking-wide group-hover:opacity-80 transition">Andreza Moreira</span>
+                    <span class="text-[10px] tracking-[0.3em] text-gray-400 uppercase ml-1">Cílios Jundiaí</span>
                 </div>
-                <span class="font-cursive text-3xl text-brand-darkPink drop-shadow-sm">Studio Bella</span>
-            </a>
+                
+                <!-- Menu Desktop -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#inicio" class="text-sm font-medium text-gray-300 hover:text-brand-gold transition uppercase tracking-wider">Início</a>
+                    <a href="#sobre" class="text-sm font-medium text-gray-300 hover:text-brand-gold transition uppercase tracking-wider">A Artista</a>
+                    <a href="#servicos" class="text-sm font-medium text-gray-300 hover:text-brand-gold transition uppercase tracking-wider">Técnicas</a>
+                    <a href="#cursos" class="text-sm font-medium text-gray-300 hover:text-brand-gold transition uppercase tracking-wider">Cursos</a>
+                    <a href="#contato" class="btn-gold px-6 py-2 rounded-sm text-xs font-bold tracking-widest uppercase">Agendar</a>
+                </div>
 
-            <div class="hidden md:flex items-center space-x-8 text-sm font-bold text-brand-text">
-                <a href="#home" class="hover:text-brand-pink transition-colors">Início</a>
-                <a href="#servicos" class="hover:text-brand-pink transition-colors">Serviços</a>
-                <a href="#sobre" class="hover:text-brand-pink transition-colors">Sobre Mim</a>
-                <button onclick="triggerDemo('link')" class="btn-princess px-6 py-2 text-xs uppercase tracking-widest font-bold">
-                    Agendar 💖
-                </button>
+                <!-- Mobile Menu Icon -->
+                <div class="md:hidden text-brand-gold cursor-pointer" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                    <i data-lucide="menu" class="w-8 h-8"></i>
+                </div>
             </div>
-
-            <button id="mobile-menu-btn" class="md:hidden text-brand-darkPink">
-                <i data-lucide="menu" class="w-8 h-8"></i>
-            </button>
         </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-white border-b-4 border-brand-pink shadow-xl py-6 px-6 md:hidden rounded-b-3xl">
-            <div class="flex flex-col space-y-4 text-center">
-                <a href="#home" class="text-brand-text font-bold hover:text-brand-pink">Início</a>
-                <a href="#servicos" class="text-brand-text font-bold hover:text-brand-pink">Serviços</a>
-                <a href="#sobre" class="text-brand-text font-bold hover:text-brand-pink">Sobre Mim</a>
-                <button onclick="triggerDemo('link')" class="text-brand-darkPink font-bold">Quero Ficar Linda</button>
+        <!-- Menu Mobile -->
+        <div id="mobile-menu" class="hidden bg-black border-b border-brand-gold/20 absolute w-full">
+            <div class="px-4 pt-2 pb-6 space-y-2 text-center">
+                <a href="#inicio" class="block py-3 text-gray-300 hover:text-brand-gold border-b border-white/5">INÍCIO</a>
+                <a href="#sobre" class="block py-3 text-gray-300 hover:text-brand-gold border-b border-white/5">A ARTISTA</a>
+                <a href="#servicos" class="block py-3 text-gray-300 hover:text-brand-gold border-b border-white/5">TÉCNICAS</a>
+                <a href="#cursos" class="block py-3 text-gray-300 hover:text-brand-gold border-b border-white/5">CURSOS</a>
+                <a href="#contato" class="block py-3 text-brand-gold font-bold">AGENDAR HORÁRIO</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden">
-        
-        <!-- Decoração de Fundo -->
-        <div class="absolute top-20 right-10 w-64 h-64 bg-brand-pink/20 rounded-full filter blur-3xl animate-pulse"></div>
-        <div class="absolute bottom-10 left-10 w-48 h-48 bg-purple-200/30 rounded-full filter blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+    <!-- Hero Section (Capa) -->
+    <section id="inicio" class="relative h-screen flex items-center justify-center bg-black">
+        <!-- Fundo Imagem Escura -->
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent z-10"></div>
+            <!-- Substitua pela foto dela de braços cruzados ou trabalhando -->
+            <img src="https://images.unsplash.com/photo-1631214524020-7e18db9a8f92?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover opacity-40 grayscale" alt="Background">
+        </div>
 
-        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
-            
-            <div data-aos="fade-right">
-                <div class="inline-flex items-center gap-2 bg-white px-4 py-1.5 rounded-full shadow-sm mb-6 border border-brand-light">
-                    <span class="text-xs font-bold text-brand-darkPink uppercase tracking-widest">✨ Realce sua beleza</span>
+        <div class="relative z-20 max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center h-full pt-20">
+            <div class="fade-in">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="h-[1px] w-12 bg-brand-gold"></div>
+                    <span class="text-brand-gold uppercase tracking-[0.2em] text-xs font-bold">9 Anos de Excelência</span>
                 </div>
-                <h1 class="text-5xl md:text-7xl text-brand-text mb-6 leading-tight">
-                    Olhar de <br>
-                    <span class="font-cursive text-brand-darkPink text-7xl md:text-8xl block mt-2 drop-shadow-sm">Boneca</span>
+                <h1 class="text-5xl md:text-7xl font-serif text-white leading-tight mb-6">
+                    Invista no seu <br>
+                    <span class="text-gold italic">Olhar</span>
                 </h1>
-                <p class="text-brand-text/80 text-lg mb-8 max-w-md font-medium">
-                    Sinta-se maravilhosa todos os dias! Cílios volumosos e sobrancelhas perfeitas com técnicas delicadas feitas para você.
+                <p class="text-gray-400 text-lg leading-relaxed mb-10 max-w-lg font-light border-l-2 border-brand-gold/30 pl-6">
+                    Especialista em realçar a beleza natural através de técnicas avançadas de extensão de cílios e mentoria para novas profissionais.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <button onclick="triggerDemo('link')" class="btn-princess px-8 py-4 font-bold text-sm flex items-center justify-center gap-2">
-                        <i data-lucide="sparkles" class="w-4 h-4"></i> Quero Agendar
-                    </button>
-                    <a href="#servicos" class="px-8 py-4 bg-white text-brand-text border-2 border-brand-pink/30 rounded-full font-bold text-sm hover:border-brand-pink hover:text-brand-pink transition-all flex items-center justify-center">
-                        Ver Procedimentos
+                    <a href="#contato" class="btn-gold px-8 py-4 rounded-sm text-sm font-bold tracking-widest uppercase text-center">
+                        Agendar Procedimento
+                    </a>
+                    <a href="#cursos" class="px-8 py-4 border border-white/20 hover:border-brand-gold text-white hover:text-brand-gold transition rounded-sm text-sm font-bold tracking-widest uppercase text-center">
+                        Quero ser Aluna
                     </a>
                 </div>
             </div>
+            <!-- Espaço vazio na direita para mostrar a imagem de fundo -->
+        </div>
+    </section>
+
+    <!-- Sobre a Profissional -->
+    <section id="sobre" class="py-24 bg-brand-dark relative overflow-hidden">
+        <!-- Elemento decorativo -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-brand-gold opacity-5 blur-[100px] rounded-full"></div>
+
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-16 items-center relative z-10">
+            <!-- Foto com moldura dourada -->
+            <div class="relative fade-in">
+                <div class="absolute -top-4 -left-4 w-full h-full border border-brand-gold/30"></div>
+                <!-- Foto da Andreza aqui -->
+                <img src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?q=80&w=1000&auto=format&fit=crop" alt="Andreza Moreira" class="w-full h-auto object-cover grayscale hover:grayscale-0 transition duration-700 shadow-2xl">
+                <div class="absolute -bottom-6 -right-6 bg-brand-black p-6 border border-brand-gold/20 shadow-xl hidden md:block">
+                    <p class="font-serif text-3xl text-gold text-center">9+</p>
+                    <p class="text-xs uppercase tracking-widest text-gray-400 text-center">Anos de<br>Carreira</p>
+                </div>
+            </div>
+
+            <div class="fade-in">
+                <h3 class="font-serif text-4xl md:text-5xl text-white mb-6">
+                    Muito mais que Cílios,<br>uma <span class="text-gold">Experiência.</span>
+                </h3>
+                <p class="text-gray-400 mb-6 font-light leading-relaxed">
+                    Sou Andreza Moreira, artista e mentora. Minha trajetória na área da beleza é marcada pela busca incessante pela perfeição e naturalidade. 
+                </p>
+                <p class="text-gray-400 mb-8 font-light leading-relaxed">
+                    Meu estúdio em Jundiaí não é apenas um local de atendimento, é um centro de transformação onde ensino iniciantes e profissionais a alcançarem resultados extraordinários.
+                </p>
+                
+                <div class="grid grid-cols-2 gap-8 mb-8">
+                    <div>
+                        <i data-lucide="award" class="text-brand-gold w-8 h-8 mb-3"></i>
+                        <h4 class="text-white font-serif text-xl mb-1">Certificada</h4>
+                        <p class="text-xs text-gray-500 uppercase">Internacionalmente</p>
+                    </div>
+                    <div>
+                        <i data-lucide="users" class="text-brand-gold w-8 h-8 mb-3"></i>
+                        <h4 class="text-white font-serif text-xl mb-1">Mentora</h4>
+                        <p class="text-xs text-gray-500 uppercase">Dezenas de alunas</p>
+                    </div>
+                </div>
+
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Signature_sample.svg/1200px-Signature_sample.svg.png" alt="Assinatura" class="h-12 opacity-50 invert">
+            </div>
+        </div>
+    </section>
+
+    <!-- Serviços (Menu de Técnicas) -->
+    <section id="servicos" class="py-24 bg-brand-black">
+        <div class="max-w-4xl mx-auto px-4 text-center mb-16 fade-in">
+            <span class="text-brand-gold uppercase tracking-[0.3em] text-xs font-bold">Studio Andreza Moreira</span>
+            <h2 class="text-4xl md:text-5xl font-serif text-white mt-3">Menu de Técnicas</h2>
+            <div class="w-24 h-[1px] bg-brand-gold mx-auto mt-6"></div>
+        </div>
+
+        <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Card 1 -->
+            <div class="glass-card p-10 text-center hover:bg-white/5 transition duration-500 group fade-in">
+                <div class="w-16 h-16 rounded-full border border-brand-gold/30 flex items-center justify-center mx-auto mb-6 group-hover:border-brand-gold transition">
+                    <span class="font-serif text-2xl text-white">01</span>
+                </div>
+                <h3 class="text-xl font-serif text-gold mb-4">Clássico Fio a Fio</h3>
+                <p class="text-gray-400 text-sm font-light mb-6">Para quem busca elegância discreta. Acentua o olhar mantendo a leveza natural.</p>
+                <a href="#" class="text-xs uppercase tracking-widest text-white border-b border-brand-gold/50 pb-1">Ver Detalhes</a>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="glass-card p-10 text-center hover:bg-white/5 transition duration-500 group fade-in transform md:-translate-y-4">
+                <div class="absolute top-0 right-0 bg-brand-gold text-black text-[10px] font-bold px-3 py-1 uppercase">Mais Pedido</div>
+                <div class="w-16 h-16 rounded-full border border-brand-gold/30 flex items-center justify-center mx-auto mb-6 group-hover:border-brand-gold transition">
+                    <span class="font-serif text-2xl text-white">02</span>
+                </div>
+                <h3 class="text-xl font-serif text-gold mb-4">Volume Brasileiro</h3>
+                <p class="text-gray-400 text-sm font-light mb-6">A retenção perfeita com volume na medida certa. O queridinho das clientes.</p>
+                <a href="#" class="text-xs uppercase tracking-widest text-white border-b border-brand-gold/50 pb-1">Ver Detalhes</a>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="glass-card p-10 text-center hover:bg-white/5 transition duration-500 group fade-in">
+                <div class="w-16 h-16 rounded-full border border-brand-gold/30 flex items-center justify-center mx-auto mb-6 group-hover:border-brand-gold transition">
+                    <span class="font-serif text-2xl text-white">03</span>
+                </div>
+                <h3 class="text-xl font-serif text-gold mb-4">Volume Russo</h3>
+                <p class="text-gray-400 text-sm font-light mb-6">Luxo e densidade. Para mulheres que gostam de um olhar marcante e poderoso.</p>
+                <a href="#" class="text-xs uppercase tracking-widest text-white border-b border-brand-gold/50 pb-1">Ver Detalhes</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Área de Cursos (Novo Destaque) -->
+    <section id="cursos" class="py-24 bg-brand-dark border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row gap-12 items-center">
+            <div class="w-full md:w-1/2 fade-in">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop" alt="Curso Lash Design" class="rounded-sm shadow-2xl border border-white/10 grayscale hover:grayscale-0 transition duration-500">
+            </div>
+            <div class="w-full md:w-1/2 fade-in">
+                <span class="text-brand-gold uppercase tracking-[0.2em] text-xs font-bold block mb-4">Academy</span>
+                <h2 class="text-4xl md:text-5xl font-serif text-white mb-6">Torne-se uma Especialista</h2>
+                <p class="text-gray-400 font-light mb-8">
+                    Não ensino apenas a colar cílios. Ensino você a construir uma carreira sólida, ter retenção de verdade e conquistar sua independência financeira na área da beleza.
+                </p>
+                
+                <ul class="space-y-4 mb-10">
+                    <li class="flex items-center text-gray-300 font-light">
+                        <i data-lucide="check" class="text-brand-gold w-5 h-5 mr-4"></i> Curso Iniciante ao Avançado
+                    </li>
+                    <li class="flex items-center text-gray-300 font-light">
+                        <i data-lucide="check" class="text-brand-gold w-5 h-5 mr-4"></i> Mentoria VIP (Individual)
+                    </li>
+                    <li class="flex items-center text-gray-300 font-light">
+                        <i data-lucide="check" class="text-brand-gold w-5 h-5 mr-4"></i> Suporte Pós-Curso Vitalício
+                    </li>
+                </ul>
+
+                <a href="https://wa.me/seunumerodewhatsapp" class="inline-block border border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-black px-10 py-3 transition uppercase text-xs font-bold tracking-widest">
+                    Informações sobre Turmas
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Depoimentos / Alunas (Carrossel Estático) -->
+    <section class="py-20 bg-black">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl font-serif text-center text-white mb-16">O que dizem minhas Alunas e Clientes</h2>
             
-            <div class="relative" data-aos="zoom-in" onclick="triggerDemo('foto')">
-                <!-- Imagem Hero -->
-                <div class="img-frame h-[500px] w-full max-w-md mx-auto overflow-hidden relative group cursor-pointer">
-                    <img src="https://www.spadassobrancelhas.com.br/k/subservicos/4511759.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Cílios Perfeitos">
-                    
-                    <!-- Overlay Fofo -->
-                    <div class="absolute inset-0 bg-brand-pink/10 group-hover:bg-transparent transition-colors"></div>
-                    
-                    <!-- Tag Coração -->
-                    <div class="absolute top-4 right-4 bg-white p-2 rounded-full shadow-lg text-brand-darkPink float-heart">
-                        <i data-lucide="heart" class="w-6 h-6 fill-current"></i>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Depoimento 1 -->
+                <div class="p-8 border border-white/10 bg-brand-dark/50 rounded-sm fade-in">
+                    <div class="flex text-brand-gold mb-4"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div>
+                    <p class="text-gray-400 text-sm italic mb-6">"O curso mudou minha visão sobre a profissão. A Andreza é extremamente detalhista e paciente. Hoje tenho minha agenda cheia!"</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-gray-700 rounded-full overflow-hidden">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <p class="text-white text-sm font-serif">Mariana S.</p>
+                            <p class="text-xs text-gray-600 uppercase">Ex-Aluna</p>
+                        </div>
                     </div>
                 </div>
-                
-                <!-- Bolinhas Decorativas -->
-                <div class="absolute -bottom-6 -right-6 w-24 h-24 bg-brand-light rounded-full -z-10 border-4 border-white shadow-sm"></div>
-                <div class="absolute -top-6 -left-6 w-16 h-16 bg-brand-pink/30 rounded-full -z-10 animate-pulse"></div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Serviços (Cards Fofos) -->
-    <section id="servicos" class="py-20 bg-white rounded-t-[60px] shadow-[0_-10px_40px_rgba(0,0,0,0.02)]">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <span class="font-cursive text-4xl text-brand-darkPink">Nossos Mimos</span>
-                <h2 class="text-3xl md:text-4xl font-serif text-brand-text mt-2 font-bold">Procedimentos Exclusivos</h2>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Card 1 -->
-                <div class="card-cute p-8 group cursor-pointer text-center" onclick="triggerDemo('link')" data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-20 h-20 bg-brand-light rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-brand-pink group-hover:text-white transition-colors text-brand-darkPink shadow-sm border-4 border-white">
-                        <i data-lucide="eye" class="w-10 h-10"></i>
+                <!-- Depoimento 2 -->
+                <div class="p-8 border border-white/10 bg-brand-dark/50 rounded-sm fade-in">
+                    <div class="flex text-brand-gold mb-4"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div>
+                    <p class="text-gray-400 text-sm italic mb-6">"Faço meus cílios aqui há 2 anos e não troco. A durabilidade é incrível e meus fios naturais continuam saudáveis."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-gray-700 rounded-full overflow-hidden">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <p class="text-white text-sm font-serif">Carla D.</p>
+                            <p class="text-xs text-gray-600 uppercase">Cliente</p>
+                        </div>
                     </div>
-                    <h3 class="text-2xl font-serif text-brand-text mb-3 font-bold">Extensão de Cílios</h3>
-                    <p class="text-brand-text/70 mb-6 text-sm">Volume Russo, Híbrido ou Clássico. Para um olhar de boneca que dura semanas!</p>
-                    <span class="text-brand-darkPink font-bold text-xs uppercase tracking-widest bg-brand-light px-4 py-2 rounded-full group-hover:bg-brand-pink group-hover:text-white transition-colors">
-                        Ver Detalhes
-                    </span>
                 </div>
 
-                <!-- Card 2 -->
-                <div class="card-cute p-8 group cursor-pointer text-center" onclick="triggerDemo('link')" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-20 h-20 bg-brand-light rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-brand-pink group-hover:text-white transition-colors text-brand-darkPink shadow-sm border-4 border-white">
-                        <i data-lucide="pen-tool" class="w-10 h-10"></i>
-                    </div>
-                    <h3 class="text-2xl font-serif text-brand-text mb-3 font-bold">Micropigmentação</h3>
-                    <p class="text-brand-text/70 mb-6 text-sm">Sobrancelhas desenhadas fio a fio com muita naturalidade. Realce seu rosto com delicadeza.</p>
-                    <span class="text-brand-darkPink font-bold text-xs uppercase tracking-widest bg-brand-light px-4 py-2 rounded-full group-hover:bg-brand-pink group-hover:text-white transition-colors">
-                        Ver Detalhes
-                    </span>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="card-cute p-8 group cursor-pointer text-center" onclick="triggerDemo('link')" data-aos="fade-up" data-aos-delay="300">
-                    <div class="w-20 h-20 bg-brand-light rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-brand-pink group-hover:text-white transition-colors text-brand-darkPink shadow-sm border-4 border-white">
-                        <i data-lucide="heart" class="w-10 h-10"></i>
-                    </div>
-                    <h3 class="text-2xl font-serif text-brand-text mb-3 font-bold">Hydra Gloss</h3>
-                    <p class="text-brand-text/70 mb-6 text-sm">Lábios hidratados, macios e com corzinha de saúde. O queridinho do momento!</p>
-                    <span class="text-brand-darkPink font-bold text-xs uppercase tracking-widest bg-brand-light px-4 py-2 rounded-full group-hover:bg-brand-pink group-hover:text-white transition-colors">
-                        Ver Detalhes
-                    </span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Galeria (Polaroid Fofa) -->
-    <section class="py-20 bg-brand-light">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
-                <div>
-                    <span class="font-cursive text-4xl text-brand-darkPink">Antes & Depois</span>
-                    <h2 class="text-3xl font-serif text-brand-text mt-2 font-bold">Resultados Incríveis</h2>
-                </div>
-                <button onclick="triggerDemo('link')" class="flex items-center gap-2 text-brand-darkPink font-bold bg-white px-4 py-2 rounded-full shadow-sm hover:shadow-md transition-all">
-                    <i data-lucide="instagram" class="w-5 h-5"></i> @studiobella
-                </button>
-            </div>
-
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <!-- Foto 1 -->
-                <div class="bg-white p-3 pb-10 shadow-lg rounded-sm rotate-2 hover:rotate-0 transition-transform duration-300 cursor-pointer group demo-trigger" onclick="triggerDemo('foto')">
-                    <div class="aspect-square overflow-hidden bg-gray-100">
-                        <img src="https://images.unsplash.com/photo-1596704017254-9b121068fb31?w=400&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    </div>
-                    <p class="text-center font-cursive text-2xl text-brand-text mt-2">Cílios</p>
-                </div>
-                
-                <!-- Foto 2 -->
-                <div class="bg-white p-3 pb-10 shadow-lg rounded-sm -rotate-2 hover:rotate-0 transition-transform duration-300 cursor-pointer group demo-trigger" onclick="triggerDemo('foto')">
-                    <div class="aspect-square overflow-hidden bg-gray-100">
-                        <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=400&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    </div>
-                    <p class="text-center font-cursive text-2xl text-brand-text mt-2">Sobrancelhas</p>
-                </div>
-
-                <!-- Foto 3 -->
-                <div class="bg-white p-3 pb-10 shadow-lg rounded-sm rotate-1 hover:rotate-0 transition-transform duration-300 cursor-pointer group demo-trigger" onclick="triggerDemo('foto')">
-                    <div class="aspect-square overflow-hidden bg-gray-100">
-                        <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=400&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    </div>
-                    <p class="text-center font-cursive text-2xl text-brand-text mt-2">Lips</p>
-                </div>
-
-                <!-- Foto 4 -->
-                <div class="bg-white p-3 pb-10 shadow-lg rounded-sm -rotate-3 hover:rotate-0 transition-transform duration-300 cursor-pointer group demo-trigger" onclick="triggerDemo('foto')">
-                    <div class="aspect-square overflow-hidden bg-gray-100">
-                        <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=400&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    </div>
-                    <p class="text-center font-cursive text-2xl text-brand-text mt-2">Spa</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Depoimentos -->
-    <section class="py-24 bg-white text-center">
-        <div class="container mx-auto px-6 max-w-2xl" data-aos="zoom-in">
-            <div class="w-16 h-16 bg-brand-light rounded-full flex items-center justify-center mx-auto mb-6 text-brand-darkPink">
-                <i data-lucide="quote" class="w-8 h-8 fill-current"></i>
-            </div>
-            <h3 class="text-2xl font-serif text-brand-text italic mb-8 leading-relaxed">
-                "Simplesmente apaixonada! O ambiente é super fofo e aconchegante, e a Bella é uma querida. Meus cílios ficaram perfeitos!"
-            </h3>
-            <div class="flex items-center justify-center gap-3">
-                <div class="w-12 h-12 rounded-full bg-brand-pink p-0.5">
-                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80" class="w-full h-full rounded-full object-cover border-2 border-white" alt="Cliente">
-                </div>
-                <div class="text-left">
-                    <p class="font-bold text-brand-text text-sm">Mariana Costa</p>
-                    <div class="flex text-brand-gold text-[10px]">
-                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                <!-- Depoimento 3 -->
+                <div class="p-8 border border-white/10 bg-brand-dark/50 rounded-sm fade-in">
+                    <div class="flex text-brand-gold mb-4"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div>
+                    <p class="text-gray-400 text-sm italic mb-6">"Ambiente maravilhoso e atendimento impecável. Me sinto uma rainha toda vez que saio do estúdio."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-gray-700 rounded-full overflow-hidden">
+                            <img src="https://randomuser.me/api/portraits/women/12.jpg" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <p class="text-white text-sm font-serif">Fernanda L.</p>
+                            <p class="text-xs text-gray-600 uppercase">Cliente</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer Fofo -->
-    <footer id="sobre" class="bg-brand-light pt-20 pb-10 border-t border-white">
-        <div class="container mx-auto px-6">
-            <div class="grid md:grid-cols-3 gap-12 mb-12">
-                <!-- Marca -->
-                <div>
-                    <span class="font-cursive text-4xl text-brand-darkPink drop-shadow-sm">Studio Bella</span>
-                    <p class="text-brand-text/70 mt-4 text-sm leading-relaxed font-medium">
-                        Realçando sua beleza com muito amor, carinho e técnica em cada detalhe. 🌸
-                    </p>
-                </div>
-                
-                <!-- Contato -->
-                <div>
-                    <h4 class="font-bold text-brand-text mb-4 uppercase tracking-widest text-xs">Onde Estamos</h4>
-                    <ul class="space-y-3 text-brand-text/70 text-sm font-medium">
-                        <li class="flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4 text-brand-darkPink"></i> Av. das Flores, 500</li>
-                        <li class="flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4 text-brand-darkPink"></i> (11) 99999-0000</li>
-                    </ul>
-                </div>
-
-                <!-- Social -->
-                <div>
-                    <h4 class="font-bold text-brand-text mb-4 uppercase tracking-widest text-xs">Siga a Gente</h4>
-                    <div class="flex gap-3">
-                        <button onclick="triggerDemo('link')" class="w-10 h-10 rounded-full bg-white text-brand-darkPink flex items-center justify-center hover:bg-brand-pink hover:text-white transition-colors shadow-sm"><i data-lucide="instagram" class="w-5 h-5"></i></button>
-                        <button onclick="triggerDemo('link')" class="w-10 h-10 rounded-full bg-white text-brand-darkPink flex items-center justify-center hover:bg-brand-pink hover:text-white transition-colors shadow-sm"><i data-lucide="facebook" class="w-5 h-5"></i></button>
-                    </div>
+    <!-- Footer -->
+    <footer id="contato" class="bg-brand-black border-t border-brand-gold/10 pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
+            <div>
+                <span class="font-serif text-3xl text-gold block mb-6">Andreza Moreira</span>
+                <p class="text-gray-500 font-light text-sm mb-6">Especialista em extensão de cílios e formação profissional em Jundiaí e região.</p>
+                <div class="flex justify-center md:justify-start gap-4">
+                    <a href="#" class="text-gray-400 hover:text-brand-gold transition"><i data-lucide="instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-brand-gold transition"><i data-lucide="facebook"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-brand-gold transition"><i data-lucide="mail"></i></a>
                 </div>
             </div>
-
-            <div class="text-center border-t border-brand-pink/20 pt-8">
-                <p class="text-xs text-brand-text/50 font-bold">© 2025 Studio Bella. Feito com amor.</p>
-                <div class="flex items-center justify-center gap-1 mt-2 text-[10px] text-brand-text/50 uppercase tracking-widest">
-                    <span>Design by</span>
-                    <span class="text-brand-darkPink font-bold flex items-center gap-1">
-                        <i data-lucide="code-2" class="w-3 h-3"></i> DEV SITES
-                    </span>
-                </div>
+            
+            <div>
+                <h4 class="text-white font-serif text-lg mb-6">Links Rápidos</h4>
+                <ul class="space-y-3 text-sm text-gray-500 font-light">
+                    <li><a href="#inicio" class="hover:text-brand-gold transition">Início</a></li>
+                    <li><a href="#servicos" class="hover:text-brand-gold transition">Procedimentos</a></li>
+                    <li><a href="#cursos" class="hover:text-brand-gold transition">Cursos para Iniciantes</a></li>
+                    <li><a href="#contato" class="hover:text-brand-gold transition">Fale Conosco</a></li>
+                </ul>
             </div>
+
+            <div>
+                <h4 class="text-white font-serif text-lg mb-6">Contato</h4>
+                <p class="text-gray-500 font-light text-sm mb-2"><i data-lucide="map-pin" class="inline w-4 h-4 mr-2 text-brand-gold"></i> Jundiaí, SP</p>
+                <p class="text-gray-500 font-light text-sm mb-2"><i data-lucide="phone" class="inline w-4 h-4 mr-2 text-brand-gold"></i> (11) 99999-9999</p>
+                <a href="https://wa.me/seunumerodewhatsapp" class="btn-gold px-6 py-3 mt-6 inline-block rounded-sm text-xs font-bold tracking-widest uppercase">
+                    Chamar no WhatsApp
+                </a>
+            </div>
+        </div>
+        <div class="border-t border-white/5 mt-16 pt-8 text-center">
+            <p class="text-gray-700 text-xs">© 2024 Andreza Moreira Lash Design. Todos os direitos reservados.</p>
         </div>
     </footer>
 
-    <!-- Badge da Agência -->
-    <div class="agency-badge" onclick="alert('Este é um exemplo de site criado pela Dev Sites.')">
-        <i data-lucide="monitor" class="w-4 h-4 text-brand-darkPink"></i>
-        <span>Dev Sites Agência</span>
-    </div>
-
-    <!-- MODAL DEMO -->
-    <div id="demo-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-brand-text/40 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
-        <div class="bg-white p-8 rounded-[30px] max-w-md w-full text-center relative shadow-2xl border-4 border-brand-light">
-            <button onclick="closeDemo()" class="absolute top-4 right-4 text-brand-text/50 hover:text-brand-darkPink transition-colors bg-brand-light p-2 rounded-full">
-                <i data-lucide="x" class="w-5 h-5"></i>
-            </button>
-            
-            <div class="w-20 h-20 bg-brand-light rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse">
-                <i id="demo-icon" data-lucide="sparkles" class="w-10 h-10 text-brand-darkPink fill-brand-pink"></i>
-            </div>
-            
-            <h3 id="demo-title" class="text-2xl font-serif text-brand-text mb-2 font-bold">Que Encanto! ✨</h3>
-            
-            <p id="demo-text" class="text-brand-text/70 text-sm leading-relaxed mb-8 font-medium">
-                Essa é uma demonstração do seu futuro site. Ao clicar aqui, sua cliente seria direcionada para o WhatsApp para agendar o horário.
-            </p>
-            
-            <button onclick="closeDemo()" class="w-full btn-princess py-3 font-bold uppercase tracking-widest text-sm shadow-lg">
-                Voltar ao Site
-            </button>
-        </div>
-    </div>
-
-    <!-- Scripts -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
-            AOS.init({ once: true, offset: 80, duration: 1000, easing: 'ease-out-cubic' });
-
-            const navbar = document.getElementById('navbar');
-            const mobileBtn = document.getElementById('mobile-menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('shadow-sm', 'bg-white/95');
-                    navbar.classList.remove('glass-nav', 'py-4');
-                    navbar.classList.add('py-2');
-                } else {
-                    navbar.classList.remove('shadow-sm', 'bg-white/95', 'py-2');
-                    navbar.classList.add('glass-nav', 'py-4');
+        lucide.createIcons();
+        
+        // Intersection Observer para Animações
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
                 }
             });
+        }, { threshold: 0.1 });
 
-            if(mobileBtn) {
-                mobileBtn.addEventListener('click', () => {
-                    mobileMenu.classList.toggle('hidden');
-                });
-            }
-        });
-
-        // Modal
-        const modal = document.getElementById('demo-modal');
-        const demoTitle = document.getElementById('demo-title');
-        const demoText = document.getElementById('demo-text');
-
-        function triggerDemo(type) {
-            modal.classList.remove('hidden');
-            setTimeout(() => modal.classList.remove('opacity-0'), 10);
-            if (type === 'foto') {
-                demoTitle.innerText = "Portfólio Lindo! 📸";
-                demoText.innerText = "Aqui vamos colocar as fotos dos seus trabalhos reais para encantar todo mundo!";
-            } else {
-                demoTitle.innerText = "Agendamento Fácil 📅";
-                demoText.innerText = "Com um clique, sua cliente vai direto para o seu WhatsApp. Prático e rápido!";
-            }
-        }
-        function closeDemo() {
-            modal.classList.add('opacity-0');
-            setTimeout(() => modal.classList.add('hidden'), 300);
-        }
-        modal.addEventListener('click', (e) => { if (e.target === modal) closeDemo(); });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
