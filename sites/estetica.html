@@ -3,281 +3,344 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlashFix | Centro Avançado de Reparos</title>
+    <title>Rayane Santos | Lash Design</title>
     
+    <!-- Tailwind CSS (Framework de Estilo) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     
+    <!-- Fontes do Google (Elegância) -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Ícones (Lucide) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Configurações de Estilo Personalizadas -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        heading: ['"Barlow"', 'sans-serif'],
-                        sans: ['"Inter"', 'sans-serif'],
-                    },
                     colors: {
-                        flash: {
-                            primary: '#FFD600', /* Amarelo Institucional */
-                            dark: '#111111',
-                            surface: '#1A1A1A',
-                            light: '#F4F4F5',
-                            text: '#A1A1AA'
-                        }
+                        'ray-black': '#0a0a0a',
+                        'ray-dark': '#121212',
+                        'ray-pink': '#FFC0CB', 
+                        'ray-pink-dark': '#db95a1',
+                        'ray-gold': '#D4AF37',
+                    },
+                    fontFamily: {
+                        'script': ['"Dancing Script"', 'cursive'],
+                        'serif': ['"Playfair Display"', 'serif'],
+                        'sans': ['"Montserrat"', 'sans-serif'],
                     },
                     backgroundImage: {
-                        'pattern': "url('https://www.transparenttextures.com/patterns/carbon-fibre.png')",
+                        'watercolor': "url('https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?q=80&w=1000&auto=format&fit=crop')",
                     }
                 }
             }
         }
     </script>
-</head>
-<body class="bg-flash-light text-gray-800 font-sans antialiased">
 
-    <!-- Top Bar (Elemento de site real) -->
-    <div class="bg-flash-dark text-gray-400 text-xs py-2 border-b border-white/5 hidden md:block">
-        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
-            <div class="flex gap-6">
-                <span class="flex items-center gap-2"><i data-lucide="map-pin" class="w-3 h-3 text-flash-primary"></i> Av. Paulista, 1000 - Loja 42</span>
-                <span class="flex items-center gap-2"><i data-lucide="clock" class="w-3 h-3 text-flash-primary"></i> Seg a Sex: 09h às 19h</span>
-            </div>
-            <div class="flex gap-4">
-                <a href="#" class="hover:text-white transition">Suporte</a>
-                <a href="#" class="hover:text-white transition">Trabalhe Conosco</a>
-                <a href="#" class="hover:text-white transition">Área do Franqueado</a>
+    <style>
+        /* Efeitos Personalizados */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #f3f3f3;
+        }
+
+        /* Efeito de Aquarela na Logo (Simulação CSS) */
+        .logo-watercolor {
+            position: relative;
+            z-index: 10;
+        }
+        .logo-watercolor::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(circle, rgba(255, 192, 203, 0.2) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+            border-radius: 50%;
+            filter: blur(10px);
+        }
+
+        /* Animações de Entrada */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Botão Flutuante do WhatsApp */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            z-index: 100;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background-color: #20bd5a;
+        }
+        .pulse {
+            animation: pulse-animation 2s infinite;
+        }
+        @keyframes pulse-animation {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        /* Gradiente Rosa Suave */
+        .text-gradient-pink {
+            background: linear-gradient(to right, #FFC0CB, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #FFC0CB;
+            transition: width 0.3s;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 bg-black/90 backdrop-blur-md border-b border-white/10 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo Texto -->
+                <div class="flex-shrink-0 flex flex-col items-center logo-watercolor cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <span class="font-script text-3xl text-ray-pink">RS</span>
+                    <span class="font-serif text-xs tracking-widest text-white uppercase mt-[-5px]">Rayane Santos</span>
+                </div>
+                
+                <!-- Menu Desktop -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition">Início</a>
+                        <a href="#about" class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition">Sobre Mim</a>
+                        <a href="#services" class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition">Serviços</a>
+                        <a href="#gallery" class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition">Galeria</a>
+                        <a href="#contact" class="bg-ray-pink text-black hover:bg-white px-5 py-2 rounded-full text-sm font-semibold transition transform hover:scale-105">Agendar</a>
+                    </div>
+                </div>
+
+                <!-- Menu Mobile Button -->
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" onclick="toggleMobileMenu()" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Navbar Institucional -->
-    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-            <!-- Logo -->
-            <div class="flex items-center gap-2">
-                <div class="bg-flash-primary text-black p-1.5 rounded-lg">
-                    <i data-lucide="zap" class="w-6 h-6 fill-current"></i>
-                </div>
-                <div class="leading-tight">
-                    <span class="font-heading font-extrabold text-2xl tracking-tight text-black block">FLASH<span class="text-flash-primary">FIX</span></span>
-                    <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block -mt-1">Assistência Técnica</span>
-                </div>
-            </div>
-
-            <!-- Links Desktop -->
-            <div class="hidden md:flex items-center gap-8 font-medium text-sm text-gray-600">
-                <a href="#" class="text-black font-semibold">Início</a>
-                <a href="#servicos" class="hover:text-flash-primary transition">Serviços</a>
-                <a href="#sobre" class="hover:text-flash-primary transition">A Empresa</a>
-                <a href="#unidades" class="hover:text-flash-primary transition">Unidades</a>
-                <a href="#contato" class="hover:text-flash-primary transition">Contato</a>
-            </div>
-
-            <!-- CTA Button -->
-            <div class="flex items-center gap-4">
-                <a href="https://wa.me/" class="hidden md:flex items-center gap-2 bg-flash-dark text-white text-sm font-bold px-5 py-2.5 rounded-lg hover:bg-flash-primary hover:text-black transition duration-300">
-                    <i data-lucide="message-square" class="w-4 h-4"></i>
-                    Orçamento Online
-                </a>
-                <button class="md:hidden text-black"><i data-lucide="menu" class="w-8 h-8"></i></button>
+        <!-- Menu Mobile Panel -->
+        <div class="md:hidden hidden bg-black border-t border-gray-800" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
+                <a href="#home" onclick="toggleMobileMenu()" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Início</a>
+                <a href="#about" onclick="toggleMobileMenu()" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Sobre Mim</a>
+                <a href="#services" onclick="toggleMobileMenu()" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Serviços</a>
+                <a href="#gallery" onclick="toggleMobileMenu()" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Galeria</a>
+                <a href="#contact" onclick="toggleMobileMenu()" class="text-ray-pink font-bold block px-3 py-2 rounded-md text-base mt-4">AGENDAR HORÁRIO</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section (Estilo Corporativo Moderno) -->
-    <section class="relative bg-flash-surface py-20 lg:py-28 overflow-hidden text-white">
-        <!-- Background Pattern -->
-        <div class="absolute inset-0 opacity-10 bg-pattern"></div>
-        <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-flash-primary/20 to-transparent"></div>
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image com Overlay Escuro -->
+        <div class="absolute inset-0 z-0">
+            <img src="" alt="Cílios Background" class="w-full h-full object-cover opacity-30">
+            <div class="absolute inset-0 bg-gradient-to-t from-ray-black via-black/70 to-black/40"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto fade-in-up">
+            <p class="font-script text-3xl md:text-5xl text-ray-pink mb-4">Realçando o seu olhar</p>
+            <h1 class="text-4xl md:text-7xl font-serif font-bold text-white mb-6 leading-tight">
+                Especialista em <br> <span class="text-gradient-pink">Extensão de Cílios</span>
+            </h1>
+            <p class="text-gray-300 text-lg md:text-xl mb-10 max-w-2xl mx-auto font-light">
+                Durabilidade, conforto e estética. Transforme seu visual com técnicas exclusivas e personalizadas.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="https://wa.me/5531983842310" target="_blank" class="bg-ray-pink hover:bg-white text-black font-semibold py-4 px-8 rounded-full transition transform hover:scale-105 flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,192,203,0.4)]">
+                    <i data-lucide="calendar"></i> Agendar Agora
+                </a>
+                <a href="#services" class="border border-white/30 hover:border-ray-pink hover:text-ray-pink text-white font-medium py-4 px-8 rounded-full transition flex items-center justify-center">
+                    Ver Procedimentos
+                </a>
+            </div>
+        </div>
         
-        <div class="max-w-7xl mx-auto px-4 relative z-10 flex flex-col md:flex-row items-center gap-16">
-            <div class="md:w-1/2">
-                <div class="inline-block bg-flash-primary/20 border border-flash-primary/30 text-flash-primary px-3 py-1 rounded-full text-xs font-bold mb-6">
-                    🏆 Referência em Reparos Apple & Android
-                </div>
-                <h1 class="font-heading font-bold text-5xl md:text-6xl leading-tight mb-6">
-                    Tecnologia de ponta para recuperar seu <span class="text-flash-primary">dispositivo.</span>
-                </h1>
-                <p class="text-lg text-gray-400 mb-8 max-w-xl leading-relaxed">
-                    Não somos apenas uma lojinha de bairro. Somos um laboratório especializado com maquinário industrial para troca de vidro, reparo de placa e recuperação de dados.
-                </p>
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-gray-500">
+            <i data-lucide="chevron-down" class="w-8 h-8"></i>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-ray-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+          
                 
-                <div class="flex flex-wrap gap-4">
-                    <a href="https://wa.me/" class="bg-flash-primary text-black font-bold text-lg px-8 py-4 rounded-lg hover:bg-white transition flex items-center gap-2">
-                        Falar com Técnico
-                    </a>
-                    <a href="#servicos" class="bg-white/10 text-white border border-white/20 font-bold text-lg px-8 py-4 rounded-lg hover:bg-white/20 transition">
-                        Conhecer Serviços
-                    </a>
-                </div>
-
-                <div class="mt-12 flex items-center gap-8 border-t border-white/10 pt-8">
-                    <div>
-                        <span class="block text-3xl font-heading font-bold text-white">15k+</span>
-                        <span class="text-sm text-gray-500">Aparelhos Reparados</span>
-                    </div>
-                    <div>
-                        <span class="block text-3xl font-heading font-bold text-white">8</span>
-                        <span class="text-sm text-gray-500">Anos de Mercado</span>
-                    </div>
-                    <div>
-                        <span class="block text-3xl font-heading font-bold text-white">4.9</span>
-                        <span class="text-sm text-gray-500">Avaliação Google</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="md:w-1/2 relative">
-                <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl border-4 border-white/5">
-                    <img src="https://cdn.sistemawbuy.com.br/arquivos/e9c6b4bd329005c2c8b4eb04b8ea9ac4/blogitens/assistencia-tecnica-66ce381ce02841.png" class="w-full object-cover" alt="Laboratório Técnico">
-                    
-                    <!-- Selo de Garantia -->
-                    <div class="absolute bottom-6 left-6 bg-white text-black p-4 rounded-lg shadow-lg flex items-center gap-3 max-w-xs">
-                        <div class="bg-green-100 p-2 rounded-full text-green-700">
-                            <i data-lucide="shield-check" class="w-6 h-6"></i>
+                <!-- Texto -->
+                <div class="w-full md:w-1/2 fade-in-up">
+                    <h3 class="text-ray-pink font-script text-3xl mb-2">Sobre Mim</h3>
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-6">Rayane Santos</h2>
+                    <p class="text-gray-400 mb-6 leading-relaxed">
+                        Sou empreendedora e especialista em cílios, dedicada a realçar a beleza natural de cada cliente. Com anos de experiência e utilizando as técnicas mais seguras do mercado, meu objetivo é entregar não apenas cílios bonitos, mas auto-estima e praticidade para o seu dia a dia.
+                    </p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-gray-300">
+                            <i data-lucide="check-circle" class="text-ray-pink w-5 h-5 mr-3"></i> Atendimento Personalizado
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i data-lucide="check-circle" class="text-ray-pink w-5 h-5 mr-3"></i> Materiais de Alta Qualidade
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i data-lucide="check-circle" class="text-ray-pink w-5 h-5 mr-3"></i> Ambiente Confortável e Seguro
+                        </li>
+                    </ul>
+                    <div class="flex items-center gap-4">
+                        <div class="text-center">
+                            <span class="block text-3xl font-bold text-white">1000+</span>
+                            <span class="text-xs text-gray-500 uppercase tracking-widest">Procedimentos</span>
                         </div>
-                        <div>
-                            <p class="font-bold text-sm leading-tight">Garantia de 90 Dias</p>
-                            <p class="text-xs text-gray-500">Em todos os serviços</p>
+                        <div class="h-10 w-[1px] bg-gray-700"></div>
+                        <div class="text-center">
+                            <span class="block text-3xl font-bold text-white">5.0</span>
+                            <span class="text-xs text-gray-500 uppercase tracking-widest">Avaliação</span>
                         </div>
                     </div>
                 </div>
-                <!-- Elemento Decorativo -->
-                <div class="absolute -top-4 -right-4 w-24 h-24 bg-flash-primary rounded-lg -z-10"></div>
-                <div class="absolute -bottom-4 -left-4 w-24 h-24 bg-gray-800 rounded-lg -z-10"></div>
             </div>
         </div>
     </section>
 
-    <!-- Marcas (Grid Corporativo) -->
-    <section class="py-12 bg-white border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4">
-            <p class="text-center text-xs font-bold text-gray-400 uppercase tracking-widest mb-8">Trabalhamos com peças originais e primeira linha das marcas</p>
-            <div class="flex flex-wrap justify-center gap-12 md:gap-20 opacity-60 grayscale hover:grayscale-0 transition duration-500">
-                <div class="flex items-center gap-2 text-xl font-bold text-gray-800"><i data-lucide="apple" class="w-6 h-6"></i> Apple</div>
-                <div class="flex items-center gap-2 text-xl font-bold text-blue-600">SAMSUNG</div>
-                <div class="flex items-center gap-2 text-xl font-bold text-orange-500">xiaomi</div>
-                <div class="flex items-center gap-2 text-xl font-bold text-blue-400">motorola</div>
-                <div class="flex items-center gap-2 text-xl font-bold text-gray-800">ASUS</div>
-            </div>
-        </div>
-    </section>
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-black relative">
+        <!-- Detalhe de fundo -->
+        <div class="absolute top-0 right-0 w-1/3 h-1/3 bg-ray-pink/5 blur-[100px] rounded-full pointer-events-none"></div>
 
-    <!-- Serviços Detalhados (Layout de Cartões) -->
-    <section id="servicos" class="py-20 bg-flash-light">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="font-heading font-bold text-3xl md:text-4xl text-gray-900 mb-4">Soluções Completas de Hardware</h2>
-                <p class="text-gray-500">
-                    Identificamos o problema real do seu aparelho. Muitas vezes não é necessário trocar a peça inteira, o que gera economia para você.
-                </p>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 fade-in-up">
+                <span class="text-ray-pink font-script text-2xl">O que oferecemos</span>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mt-2">Nossos Procedimentos</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-2xl hover:border-ray-pink/50 transition duration-300 group fade-in-up">
+                    <div class="w-14 h-14 bg-zinc-800 rounded-full flex items-center justify-center mb-6 text-ray-pink group-hover:bg-ray-pink group-hover:text-black transition duration-300">
+                        <i data-lucide="eye" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Fio a Fio Clássico</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                        A técnica mais natural. Aplicação de um fio sintético sobre cada fio natural, proporcionando efeito de rímel perfeito.
+                    </p>
+                    <a href="https://wa.me/5531983842310?text=Olá, gostaria de saber mais sobre o Fio a Fio." class="text-ray-pink text-sm font-semibold hover:underline">Saiba mais →</a>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-2xl hover:border-ray-pink/50 transition duration-300 group fade-in-up" style="transition-delay: 100ms;">
+                    <div class="w-14 h-14 bg-zinc-800 rounded-full flex items-center justify-center mb-6 text-ray-pink group-hover:bg-ray-pink group-hover:text-black transition duration-300">
+                        <i data-lucide="stars" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Volume Brasileiro</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                        O queridinho do momento. Fios em formato de Y que garantem preenchimento e duração, sem perder a leveza.
+                    </p>
+                    <a href="https://wa.me/5531983842310?text=Olá, gostaria de saber mais sobre o Volume Brasileiro." class="text-ray-pink text-sm font-semibold hover:underline">Saiba mais →</a>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-2xl hover:border-ray-pink/50 transition duration-300 group fade-in-up" style="transition-delay: 200ms;">
+                    <div class="w-14 h-14 bg-zinc-800 rounded-full flex items-center justify-center mb-6 text-ray-pink group-hover:bg-ray-pink group-hover:text-black transition duration-300">
+                        <i data-lucide="sparkles" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Volume Egípcio</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                        Sofisticação e densidade. Técnica utilizando fios em formato de W para um olhar marcante e preenchido.
+                    </p>
+                    <a href="https://wa.me/5531983842310?text=Olá, gostaria de saber mais sobre o Volume Egípcio." class="text-ray-pink text-sm font-semibold hover:underline">Saiba mais →</a>
+                </div>
             </div>
             
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Serviço 1 -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition group">
-                    <div class="w-14 h-14 bg-yellow-50 rounded-xl flex items-center justify-center text-flash-primary mb-6 group-hover:bg-flash-primary group-hover:text-black transition">
-                        <i data-lucide="layers" class="w-7 h-7"></i>
-                    </div>
-                    <h3 class="font-heading font-bold text-xl text-gray-900 mb-3">Troca de Vidro (Recondicionamento)</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed mb-4">
-                        Se a imagem do seu celular está normal e apenas o vidro quebrou, nós trocamos só o vidro. Mantém o display original e economiza até 70%.
-                    </p>
-                    <a href="#" class="text-sm font-bold text-gray-900 border-b-2 border-flash-primary hover:text-flash-primary transition inline-block pb-1">Saiba mais</a>
-                </div>
-
-                <!-- Serviço 2 -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition group">
-                    <div class="w-14 h-14 bg-gray-50 rounded-xl flex items-center justify-center text-gray-700 mb-6 group-hover:bg-gray-800 group-hover:text-white transition">
-                        <i data-lucide="battery-charging" class="w-7 h-7"></i>
-                    </div>
-                    <h3 class="font-heading font-bold text-xl text-gray-900 mb-3">Baterias Premium</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed mb-4">
-                        Substituição de baterias viciadas ou estufadas. Trabalhamos com baterias que possuem chip de controle de voltagem original.
-                    </p>
-                    <a href="#" class="text-sm font-bold text-gray-900 border-b-2 border-gray-200 hover:text-flash-primary hover:border-flash-primary transition inline-block pb-1">Saiba mais</a>
-                </div>
-
-                <!-- Serviço 3 -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition group">
-                    <div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 mb-6 group-hover:bg-blue-600 group-hover:text-white transition">
-                        <i data-lucide="cpu" class="w-7 h-7"></i>
-                    </div>
-                    <h3 class="font-heading font-bold text-xl text-gray-900 mb-3">Reparo Avançado de Placa</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed mb-4">
-                        Seu celular não liga, não carrega ou perdeu sinal? Nossos engenheiros analisam a placa no microscópio para reparo de componentes.
-                    </p>
-                    <a href="#" class="text-sm font-bold text-gray-900 border-b-2 border-blue-200 hover:text-blue-600 hover:border-blue-600 transition inline-block pb-1">Saiba mais</a>
-                </div>
-                
-                <!-- Serviço 4 -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition group">
-                    <div class="w-14 h-14 bg-red-50 rounded-xl flex items-center justify-center text-red-500 mb-6 group-hover:bg-red-500 group-hover:text-white transition">
-                        <i data-lucide="droplets" class="w-7 h-7"></i>
-                    </div>
-                    <h3 class="font-heading font-bold text-xl text-gray-900 mb-3">Banho Químico (Desoxidação)</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed mb-4">
-                        Recuperação de aparelhos molhados através de cuba ultrassônica e tratamento químico anti-corrosão.
-                    </p>
-                    <a href="#" class="text-sm font-bold text-gray-900 border-b-2 border-red-200 hover:text-red-500 hover:border-red-500 transition inline-block pb-1">Saiba mais</a>
-                </div>
-
-                <!-- Serviço 5 -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition group">
-                    <div class="w-14 h-14 bg-purple-50 rounded-xl flex items-center justify-center text-purple-600 mb-6 group-hover:bg-purple-600 group-hover:text-white transition">
-                        <i data-lucide="camera" class="w-7 h-7"></i>
-                    </div>
-                    <h3 class="font-heading font-bold text-xl text-gray-900 mb-3">Câmeras e FaceID</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed mb-4">
-                        Correção de câmeras tremendo, manchas nas fotos ou falha no reconhecimento facial (FaceID) de iPhones.
-                    </p>
-                    <a href="#" class="text-sm font-bold text-gray-900 border-b-2 border-purple-200 hover:text-purple-600 hover:border-purple-600 transition inline-block pb-1">Saiba mais</a>
-                </div>
-
-                <!-- Serviço 6 -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition group">
-                    <div class="w-14 h-14 bg-green-50 rounded-xl flex items-center justify-center text-green-600 mb-6 group-hover:bg-green-600 group-hover:text-white transition">
-                        <i data-lucide="smartphone-charging" class="w-7 h-7"></i>
-                    </div>
-                    <h3 class="font-heading font-bold text-xl text-gray-900 mb-3">Conectores de Carga</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed mb-4">
-                        Seu celular só carrega em uma posição? Trocamos o dock de carga na hora, devolvendo a funcionalidade turbo.
-                    </p>
-                    <a href="#" class="text-sm font-bold text-gray-900 border-b-2 border-green-200 hover:text-green-600 hover:border-green-600 transition inline-block pb-1">Saiba mais</a>
-                </div>
+            <div class="mt-12 text-center">
+                 <a href="https://wa.me/5531983842310" class="inline-block border border-ray-pink text-ray-pink hover:bg-ray-pink hover:text-black px-8 py-3 rounded-full transition font-semibold">
+                    Ver Tabela de Valores
+                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Sobre a Empresa (Layout Horizontal) -->
-    <section id="sobre" class="py-20 bg-white border-y border-gray-100">
-        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center gap-12">
-            <div class="md:w-1/2">
-                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1000&auto=format&fit=crop" class="rounded-2xl shadow-2xl" alt="Nossa Loja">
-            </div>
-            <div class="md:w-1/2">
-                <h2 class="font-heading font-bold text-3xl md:text-4xl text-gray-900 mb-6">Por que somos a assistência nº 1 da região?</h2>
-                <div class="space-y-6">
-                    <div class="flex gap-4">
-                        <div class="w-12 h-12 rounded-full bg-flash-light flex items-center justify-center flex-shrink-0 text-flash-dark font-bold border border-gray-200">01</div>
-                        <div>
-                            <h4 class="font-bold text-lg text-gray-900">Transparência Total</h4>
-                            <p class="text-sm text-gray-500">Você acompanha o diagnóstico. Não inventamos defeitos. Se é só limpeza, cobramos só limpeza.</p>
+    <!-- Care Section (Diferencial Profissional) -->
+    <section class="py-16 bg-white text-black">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="md:w-1/2 mb-8 md:mb-0">
+                    <span class="text-ray-pink-dark font-script text-2xl font-bold">Cuidados Essenciais</span>
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-black mt-2 mb-6">Para cílios lindos por mais tempo</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="flex items-start gap-3">
+                            <div class="bg-black text-white p-2 rounded-lg"><i data-lucide="droplets" class="w-4 h-4"></i></div>
+                            <p class="text-sm font-medium text-gray-700">Não molhar nas primeiras 24h</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="bg-black text-white p-2 rounded-lg"><i data-lucide="hand" class="w-4 h-4"></i></div>
+                            <p class="text-sm font-medium text-gray-700">Não esfregar os olhos</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="bg-black text-white p-2 rounded-lg"><i data-lucide="spray-can" class="w-4 h-4"></i></div>
+                            <p class="text-sm font-medium text-gray-700">Evitar produtos oleosos</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="bg-black text-white p-2 rounded-lg"><i data-lucide="brush" class="w-4 h-4"></i></div>
+                            <p class="text-sm font-medium text-gray-700">Pentear diariamente</p>
                         </div>
                     </div>
-                    <div class="flex gap-4">
-                        <div class="w-12 h-12 rounded-full bg-flash-light flex items-center justify-center flex-shrink-0 text-flash-dark font-bold border border-gray-200">02</div>
-                        <div>
-                            <h4 class="font-bold text-lg text-gray-900">Peças Certificadas</h4>
-                            <p class="text-sm text-gray-500">Trabalhamos apenas com peças originais retiradas ou Premium Gold. Qualidade de fábrica.</p>
-                        </div>
-                    </div>
-                    <div class="flex gap-4">
-                        <div class="w-12 h-12 rounded-full bg-flash-light flex items-center justify-center flex-shrink-0 text-flash-dark font-bold border border-gray-200">03</div>
-                        <div>
-                            <h4 class="font-bold text-lg text-gray-900">Pós-venda Humanizado</h4>
-                            <p class="text-sm text-gray-500">Deu problema na garantia? Resolvemos na hora, sem burocracia de "enviar para análise".</p>
+                </div>
+                <div class="md:w-1/3 flex justify-center">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-ray-pink rounded-full blur-xl opacity-30 animate-pulse"></div>
+                        <!-- Ícone ilustrativo de olho -->
+                        <div class="relative bg-black p-8 rounded-full border-4 border-ray-pink">
+                             <i data-lucide="eye" class="w-20 h-20 text-white"></i>
                         </div>
                     </div>
                 </div>
@@ -285,95 +348,157 @@
         </div>
     </section>
 
-    <!-- CTA Final -->
-    <section class="py-20 bg-flash-dark text-white text-center">
-        <div class="max-w-4xl mx-auto px-4">
-            <h2 class="font-heading font-bold text-4xl mb-6">Pronto para consertar seu aparelho?</h2>
-            <p class="text-gray-400 mb-10 text-lg">
-                Solicite um pré-orçamento agora mesmo pelo WhatsApp. É rápido, fácil e sem compromisso.
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-ray-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-in-up">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-2">Galeria de Resultados</h2>
+                <p class="text-gray-400">Confira algumas das transformações realizadas.</p>
+            </div>
+            
+            <!-- Grid de Fotos estilo Mosaico -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]">
+                <!-- Item Grande -->
+                <div class="col-span-2 row-span-2 relative group overflow-hidden rounded-xl">
+                    <img src="https://media.istockphoto.com/id/1423975299/pt/foto/making-makeup-in-a-beauty-salon-applying-black-mascara-to-the-eyelashes-with-a-makeup-brush.jpg?s=612x612&w=0&k=20&c=yKbEk-uONJ5z4rJCXrJNLBjHpgRWePO5nY7OVA8Hxdo=" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" alt="Resultado Cílios 1">
+                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                        <span class="text-white font-serif italic">Volume Russo</span>
+                    </div>
+                </div>
+                <!-- Item Pequeno -->
+                <div class="col-span-1 row-span-1 relative group overflow-hidden rounded-xl">
+                    <img src="https://media.istockphoto.com/id/1617061737/pt/foto/young-woman-looking-at-the-camera-in-the-last-step-of-brushing-her-eyebrow.jpg?s=612x612&w=0&k=20&c=JY59DF8uSsQfw6P2Hca_NVhRYMhrGu_c2YjgllrbkhM=" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" alt="Resultado Cílios 2">
+                </div>
+                <!-- Item Pequeno -->
+                <div class="col-span-1 row-span-1 relative group overflow-hidden rounded-xl">
+                    <img src="https://media.istockphoto.com/id/1443199746/pt/foto/make-up-artist-makes-the-procedure-of-lamination-and-dyeing-of-eyelashes-to-a-beautiful-woman.jpg?s=612x612&w=0&k=20&c=KAEl5jU85HAn3G_o2Bic4UGidVNfroAmjh07VMl8FeI=" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" alt="Resultado Cílios 3">
+                </div>
+                <!-- Item Largo -->
+                <div class="col-span-2 row-span-1 relative group overflow-hidden rounded-xl">
+                    <img src="https://media.istockphoto.com/id/2189419177/pt/foto/young-woman-applying-mascara-while-wearing-bathrobe-and-towel.webp?a=1&b=1&s=612x612&w=0&k=20&c=aIh44eSe9TBQ3OdtlI08owIObtXdP7LTLTjVKQmX3r8=" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" alt="Resultado Cílios 4">
+                </div>
+            </div>
+             <div class="text-center mt-8">
+                <a href="https://instagram.com/studiorayanesant" target="_blank" class="text-gray-400 hover:text-ray-pink transition text-sm flex items-center justify-center gap-2">
+                    <i data-lucide="instagram" class="w-4 h-4"></i> Ver mais no Instagram
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location & Contact -->
+    <section id="contact" class="py-20 bg-black border-t border-zinc-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Informações -->
+                <div class="fade-in-up">
+                    <h2 class="text-3xl font-serif font-bold text-white mb-8">Entre em Contato</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="bg-zinc-900 p-3 rounded-full text-ray-pink">
+                                <i data-lucide="map-pin"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold">Localização</h4>
+                                <p class="text-gray-400 text-sm">Avenida Tereza Lourenço Rodrigues, nº 300<br>Palmital B, Santa Luzia - MG</p>
+                                <a href="https://maps.google.com/?q=Avenida+Tereza+Lourenço+Rodrigues,+300,+Santa+Luzia,+MG" target="_blank" class="text-ray-pink text-xs hover:underline mt-1 block">Abrir no GPS</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="bg-zinc-900 p-3 rounded-full text-ray-pink">
+                                <i data-lucide="phone"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold">WhatsApp</h4>
+                                <p class="text-gray-400 text-sm">(31) 98384-2310</p>
+                                <p class="text-gray-500 text-xs mt-1">Atendimento com horário marcado</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="bg-zinc-900 p-3 rounded-full text-ray-pink">
+                                <i data-lucide="clock"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold">Horários</h4>
+                                <p class="text-gray-400 text-sm">Segunda a Sábado<br>09:00 - 19:00</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-10">
+                        <a href="https://wa.me/5531983842310" class="w-full md:w-auto bg-white text-black font-bold py-3 px-8 rounded-full hover:bg-gray-200 transition flex items-center justify-center gap-2">
+                            Agendar Horário Agora
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Mapa (Iframe Placeholder) -->
+                <div class="h-[400px] w-full bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 fade-in-up grayscale hover:grayscale-0 transition duration-500">
+                    <!-- Google Maps Embed -->
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3753.158529328456!2d-43.89678392576628!3d-19.833355935639144!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa69a7c3f3b0e4d%3A0x6a0b1b0b0b0b0b0b!2sAv.%20Tereza%20Louren%C3%A7o%20Rodrigues%2C%20300%20-%20Palmital%2C%20Santa%20Luzia%20-%20MG!5e0!3m2!1spt-BR!2sbr!4v1620000000000!5m2!1spt-BR!2sbr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black border-t border-zinc-900 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center items-center gap-2 mb-4">
+                <span class="font-script text-2xl text-ray-pink">RS</span>
+            </div>
+            <p class="text-gray-600 text-sm">
+                &copy; 2024 Rayane Santos Lash Design. Todos os direitos reservados.
             </p>
-            <a href="https://wa.me/" class="inline-flex items-center gap-3 bg-flash-primary text-black font-bold text-xl px-10 py-5 rounded-lg hover:bg-white transition transform hover:-translate-y-1 shadow-xl">
-                <i data-lucide="message-circle" class="w-6 h-6"></i>
-                Falar com Atendente
-            </a>
-            <p class="mt-6 text-sm text-gray-500">Tempo médio de resposta: 5 minutos</p>
-        </div>
-    </section>
-
-    <!-- Footer Corporativo Completo -->
-    <footer class="bg-gray-100 pt-16 pb-8 border-t border-gray-200 text-gray-600 text-sm">
-        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
-            <!-- Coluna 1 -->
-            <div>
-                <div class="flex items-center gap-2 mb-6">
-                    <div class="bg-flash-primary text-black p-1 rounded">
-                        <i data-lucide="zap" class="w-5 h-5 fill-current"></i>
-                    </div>
-                    <span class="font-heading font-extrabold text-xl text-black">FLASH<span class="text-flash-primary-dark">FIX</span></span>
-                </div>
-                <p class="mb-6 leading-relaxed">
-                    Referência em assistência técnica multimarcas. Missão de oferecer reparos de alta qualidade com preço justo e agilidade.
-                </p>
-                <div class="flex gap-4">
-                    <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-flash-primary hover:text-black transition shadow-sm"><i data-lucide="instagram" class="w-5 h-5"></i></a>
-                    <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-flash-primary hover:text-black transition shadow-sm"><i data-lucide="facebook" class="w-5 h-5"></i></a>
-                    <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-flash-primary hover:text-black transition shadow-sm"><i data-lucide="youtube" class="w-5 h-5"></i></a>
-                </div>
-            </div>
-
-            <!-- Coluna 2 -->
-            <div>
-                <h4 class="font-bold text-gray-900 mb-6 uppercase tracking-wider text-xs">Serviços Rápidos</h4>
-                <ul class="space-y-3">
-                    <li><a href="#" class="hover:text-flash-primary transition">Troca de Tela iPhone</a></li>
-                    <li><a href="#" class="hover:text-flash-primary transition">Troca de Bateria</a></li>
-                    <li><a href="#" class="hover:text-flash-primary transition">Desoxidação</a></li>
-                    <li><a href="#" class="hover:text-flash-primary transition">Reparo de FaceID</a></li>
-                    <li><a href="#" class="hover:text-flash-primary transition">Formatação e Backup</a></li>
-                </ul>
-            </div>
-
-            <!-- Coluna 3 -->
-            <div>
-                <h4 class="font-bold text-gray-900 mb-6 uppercase tracking-wider text-xs">Institucional</h4>
-                <ul class="space-y-3">
-                    <li><a href="#" class="hover:text-flash-primary transition">Quem Somos</a></li>
-                    <li><a href="#" class="hover:text-flash-primary transition">Política de Garantia</a></li>
-                    <li><a href="#" class="hover:text-flash-primary transition">Trabalhe Conosco</a></li>
-                    <li><a href="#" class="hover:text-flash-primary transition">Seja um Franqueado</a></li>
-                    <li><a href="#" class="hover:text-flash-primary transition">Blog de Tecnologia</a></li>
-                </ul>
-            </div>
-
-            <!-- Coluna 4 -->
-            <div>
-                <h4 class="font-bold text-gray-900 mb-6 uppercase tracking-wider text-xs">Contato</h4>
-                <ul class="space-y-4">
-                    <li class="flex items-start gap-3">
-                        <i data-lucide="map-pin" class="w-5 h-5 text-flash-primary mt-0.5"></i>
-                        <span>Av. Paulista, 1000 - Loja 42<br>Bela Vista - São Paulo/SP</span>
-                    </li>
-                    <li class="flex items-center gap-3">
-                        <i data-lucide="phone" class="w-5 h-5 text-flash-primary"></i>
-                        <span>(11) 3333-4444</span>
-                    </li>
-                    <li class="flex items-center gap-3">
-                        <i data-lucide="mail" class="w-5 h-5 text-flash-primary"></i>
-                        <span>contato@flashfix.com.br</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="border-t border-gray-200 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p>&copy; 2025 FlashFix Tecnologia LTDA. CNPJ: 12.345.678/0001-90</p>
-            <div class="flex gap-6 text-xs font-medium">
-                <a href="#" class="hover:text-gray-900">Termos de Uso</a>
-                <a href="#" class="hover:text-gray-900">Privacidade</a>
-            </div>
         </div>
     </footer>
 
-    <script>lucide.createIcons();</script>
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/5531983842310" target="_blank" class="whatsapp-float pulse" aria-label="Falar no WhatsApp">
+        <i data-lucide="message-circle" class="w-8 h-8"></i>
+    </a>
+
+    <script>
+        // Inicializar ícones
+        lucide.createIcons();
+
+        // Menu Mobile Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Navbar Mudança de Cor ao Rolar
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-black', 'shadow-lg');
+                navbar.classList.remove('bg-black/90');
+            } else {
+                navbar.classList.remove('bg-black', 'shadow-lg');
+                navbar.classList.add('bg-black/90');
+            }
+        });
+
+        // Animação de Entrada (Intersection Observer)
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>
