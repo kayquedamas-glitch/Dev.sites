@@ -1,347 +1,369 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+    <link rel="icon" href="assents/icon.png">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kayque Damas | Visual Experience</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Portfólio de Kayque Damas - Creative Tech & Visual Developer.">
+    <title>Kayque Damas / PORTFÓLIO</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600&family=Unbounded:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --neon: #D4FF00;
-            --dark: #020202;
-            --gray: #1a1a1a;
+            --bg: #0a0a0a;
+            --txt: #f0f0f0;
+            --accent: #D4FF00; /* Verde Neon */
         }
 
         body {
-            background-color: var(--dark);
-            color: white;
-            font-family: 'Manrope', sans-serif;
+            background-color: var(--bg);
+            color: var(--txt);
+            font-family: 'Space Mono', monospace;
             overflow-x: hidden;
+            width: 100vw;
+            scroll-behavior: smooth;
         }
 
-        h1, h2, h3, .font-display { font-family: 'Unbounded', sans-serif; }
+        /* Cursor customizado apenas para Desktop */
+        @media (min-width: 768px) { body { cursor: none; } }
 
-        /* --- ANIMAÇÕES DE SCROLL --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        .font-display { font-family: 'Syne', sans-serif; }
+
+        /* CURSOR */
+        .cursor-dot, .cursor-outline {
+            position: fixed; top: 0; left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%; z-index: 9999; pointer-events: none;
+            display: none;
         }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        /* --- HERO SECTION --- */
-        .hero-text {
-            line-height: 0.85;
-            background: linear-gradient(to bottom, #fff, #666);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        @media (min-width: 768px) {
+            .cursor-dot, .cursor-outline { display: block; }
+        }
+        .cursor-dot { width: 8px; height: 8px; background-color: var(--accent); }
+        .cursor-outline {
+            width: 40px; height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+        body.hovering .cursor-outline {
+            width: 80px; height: 80px;
+            background-color: rgba(212, 255, 0, 0.1);
+            border-color: var(--accent);
+            mix-blend-mode: difference;
         }
 
-        /* --- VIDEO CONTAINER --- */
-        .video-glow-container {
+        /* TEXTO HERO RESPONSIVO */
+        .mega-text {
+            font-size: 12vw; 
+            line-height: 0.9;
+            letter-spacing: -0.04em;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255,255,255,0.6);
+            transition: 0.5s;
+            cursor: default;
+        }
+        
+        @media (min-width: 768px) {
+            .mega-text { font-size: 8rem; -webkit-text-stroke: 2px rgba(255,255,255,0.4); }
+        }
+        
+        @media (min-width: 1280px) {
+            .mega-text { font-size: 11rem; }
+        }
+
+        .mega-text:hover { color: var(--accent); -webkit-text-stroke: 0; }
+
+        .border-b-raw { border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .border-t-raw { border-top: 1px solid rgba(255,255,255,0.1); }
+
+        /* MENU MOBILE */
+        #mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+            background-color: var(--bg);
+        }
+        #mobile-menu.open { transform: translateX(0); }
+
+        .container-padding {
+            padding-left: 1.5rem; padding-right: 1.5rem;
+        }
+        @media (min-width: 768px) {
+            .container-padding { padding-left: 4rem; padding-right: 4rem; }
+        }
+
+        /* BOTÃO WHATSAPP */
+        .whatsapp-btn {
             position: relative;
-            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 0 80px rgba(212, 255, 0, 0.05);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            transition: all 0.3s ease;
         }
-        
-        .play-overlay {
-            position: absolute; inset: 0;
-            background: rgba(0,0,0,0.3);
-            display: flex; align-items: center; justify-content: center;
-            opacity: 0; transition: 0.3s; cursor: pointer;
+        .whatsapp-btn::before {
+            content: '';
+            position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: var(--accent); transition: left 0.3s ease;
+            z-index: -1;
         }
-        .video-glow-container:hover .play-overlay { opacity: 1; }
-        
-        .big-play-btn {
-            width: 100px; height: 100px;
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            backdrop-filter: blur(10px);
-            transition: transform 0.3s;
-        }
-        .video-glow-container:hover .big-play-btn { transform: scale(1.1); background: var(--neon); border-color: var(--neon); color: black; }
+        .whatsapp-btn:hover { color: #0a0a0a; }
+        .whatsapp-btn:hover::before { left: 0; }
 
-        /* --- MARQUEE --- */
-        .marquee-container { overflow: hidden; white-space: nowrap; padding: 2rem 0; border-top: 1px solid #222; border-bottom: 1px solid #222; }
-        .marquee-content { display: inline-block; animation: marquee 20s linear infinite; }
-        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        
-        .marquee-item {
-            font-family: 'Unbounded'; font-size: 3rem; font-weight: 700;
-            color: transparent; -webkit-text-stroke: 1px #444; margin: 0 2rem;
-            text-transform: uppercase;
+        /* Marquee Animation */
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
         }
-        .marquee-item.highlight { -webkit-text-stroke: 0; color: var(--neon); }
-
-        /* --- PROJECT CARDS --- */
-        .project-card {
-            position: relative; height: 500px;
-            border-radius: 20px; overflow: hidden;
-            border: 1px solid #222;
-            transition: 0.5s; cursor: pointer;
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 20s linear infinite;
         }
-        .project-card:hover { border-color: var(--neon); transform: scale(0.98); }
-        
-        .project-img { width: 100%; height: 100%; object-fit: cover; transition: 0.7s; opacity: 0.6; }
-        .project-card:hover .project-img { transform: scale(1.1); opacity: 0.4; }
-        
-        .project-info {
-            position: absolute; bottom: 0; left: 0; width: 100%;
-            padding: 2rem;
-            background: linear-gradient(to top, black, transparent);
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
-        /* --- MASONRY GRID --- */
-        .masonry-grid { column-count: 2; column-gap: 1.5rem; }
-        @media (min-width: 768px) { .masonry-grid { column-count: 3; } }
-        
-        .masonry-item {
-            break-inside: avoid; margin-bottom: 1.5rem;
-            border-radius: 12px; overflow: hidden; border: 1px solid #222;
-            cursor: pointer; opacity: 0.8; transition: 0.3s;
-        }
-        .masonry-item:hover { opacity: 1; border-color: white; }
-
-        /* --- MODAL --- */
-        #modal { transition: opacity 0.3s; }
-        .hidden-modal { opacity: 0; pointer-events: none; }
     </style>
 </head>
 <body>
 
-    <nav class="fixed top-0 w-full z-50 px-6 py-6 flex justify-between items-center mix-blend-difference text-white">
-        <div class="font-display font-bold text-xl tracking-tighter">KD.</div>
-        <div class="hidden md:flex gap-8 text-sm font-semibold tracking-widest uppercase">
-            <a href="#work" class="hover:text-[#D4FF00]">Trabalhos</a>
-            <a href="#sites" class="hover:text-[#D4FF00]">Sites</a>
-            <a href="#about" class="hover:text-[#D4FF00]">Sobre</a>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <nav class="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-6 mix-blend-difference text-white">
+        <a href="#" class="font-bold text-xl tracking-tighter hoverable z-50">KD.</a>
+        
+        <div class="hidden md:flex gap-10 text-xs uppercase tracking-widest text-white items-center">
+            <a href="#about" class="hoverable hover:text-[#D4FF00] transition">Perfil</a>
+            <a href="sites.html" class="hoverable hover:text-[#D4FF00] transition">Sites</a>
+            
+            <a href="https://wa.me/5531982929523?text=Ol%C3%A1%20Kayque%2C%20vim%20pelo%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" class="whatsapp-btn px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider hoverable z-10 flex items-center gap-2">
+                Vamos Conversar <i data-lucide="message-circle" class="w-3 h-3"></i>
+            </a>
         </div>
-        <a href="https://wa.me/5531982929523" target="_blank" class="px-5 py-2 border border-white rounded-full text-xs font-bold uppercase hover:bg-white hover:text-black transition">
-            Contato
-        </a>
+
+        <button onclick="toggleMenu()" class="md:hidden z-50 text-white focus:outline-none p-2 bg-white/10 rounded-full border border-white/20">
+            <i data-lucide="menu" id="menu-icon" class="w-6 h-6"></i>
+        </button>
     </nav>
 
-    <header class="min-h-screen flex flex-col justify-center px-6 md:px-20 pt-20">
-        <div class="reveal active">
-            <div class="flex items-center gap-3 mb-6">
-                <div class="w-2 h-2 bg-[#D4FF00] rounded-full animate-pulse"></div>
-                <span class="text-[#D4FF00] font-mono text-xs uppercase tracking-[0.2em]">Creative Tech & Design</span>
-            </div>
-            
-            <h1 class="text-6xl md:text-[8rem] font-bold uppercase tracking-tighter hero-text mb-8">
-                Visual<br>Impact
-            </h1>
-            
-            <p class="text-gray-400 text-lg md:text-xl max-w-xl leading-relaxed">
-                Profissional Híbrido: Uno a lógica do <strong>Suporte e Desenvolvimento</strong> com a estética do <strong>Design</strong>. Uso Inteligência Artificial para entregar soluções de alto nível.
-            </p>
-        </div>
+    <div id="mobile-menu" class="fixed inset-0 z-40 flex flex-col justify-center items-center gap-8 bg-[#0a0a0a]">
+        <a href="sites.html" onclick="toggleMenu()" class="font-display text-4xl uppercase text-white hover:text-[#D4FF00]">Meus Sites</a>
+        <a href="#about" onclick="toggleMenu()" class="font-display text-4xl uppercase text-white hover:text-[#D4FF00]">Perfil</a>
+        <a href="https://wa.me/5531982929523?text=Ol%C3%A1%20Kayque%2C%20vim%20pelo%20seu%20portf%C3%B3lio." target="_blank" class="font-display text-2xl uppercase text-[#D4FF00] border-b border-[#D4FF00] pb-2">Chamar no WhatsApp</a>
+        <a href="assents/curriculo.pdf" target="_blank" class="mt-8 text-sm text-gray-500 uppercase tracking-widest">Baixar CV</a>
+    </div>
 
-        <div class="mt-20 w-full reveal">
-            <div class="flex justify-between border-b border-white/20 pb-4">
-                <span class="text-xs text-gray-500 uppercase">Localização</span>
-                <span class="text-xs text-white uppercase">Belo Horizonte, BR</span>
+    <header class="min-h-screen flex flex-col justify-center relative overflow-hidden container-padding pb-20 pt-32">
+        <div class="absolute top-1/2 right-0 w-64 h-64 bg-[#D4FF00] rounded-full blur-[150px] opacity-10 pointer-events-none"></div>
+
+        <div class="relative z-10 w-full">
+            <div class="flex flex-col w-full mb-12">
+                <h1 class="font-display font-bold uppercase w-full leading-[0.9]">
+                    <span class="mega-text hoverable block">PORTFÓLIO</span>
+                    <span class="mega-text hoverable block md:ml-24 text-[#D4FF00] opacity-90" style="-webkit-text-stroke: 0;">KAYQUE</span>
+                </h1>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between items-start border-t-raw pt-8 w-full gap-8">
+                <div class="max-w-md">
+                    <p class="text-gray-400 text-sm md:text-base leading-relaxed font-medium">
+                        Creative Tech & Visual Developer.<br>
+                        Criando o futuro digital com <span class="text-white">IA</span> e <span class="text-white">Design</span>.
+                    </p>
+                </div>
+                
+                <div class="flex flex-col gap-4 text-right md:text-right w-full md:w-auto">
+                    <div>
+                        <span class="block text-gray-600 text-[10px] uppercase mb-1">Localização</span>
+                        <span class="block text-sm text-white">Belo Horizonte, MG</span>
+                    </div>
+                    <div>
+                        <span class="block text-gray-600 text-[10px] uppercase mb-1">Status</span>
+                        <a href="https://wa.me/5531982929523" target="_blank" class="block text-sm text-[#D4FF00] animate-pulse hover:underline decoration-[#D4FF00]">Disponível para projetos</a>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
+    
 
-    <section id="work" class="px-4 md:px-12 py-12">
-        <div class="video-glow-container aspect-video w-full reveal" onclick="openVideo('assents/synapsevideo.mp4')">
-            <video src="assents/synapsevideo.mp4" class="w-full h-full object-cover opacity-80" loop muted playsinline autoplay></video>
-            <div class="play-overlay">
-                <div class="big-play-btn">
-                    <i data-lucide="play" class="w-8 h-8 fill-current"></i>
+    <section id="contact-cta" class="container-padding pb-32 w-full">
+        <div class="flex justify-between items-end mb-6">
+            <span class="text-xs text-gray-500 uppercase tracking-widest">(01) VAMOS TRABALHAR JUNTOS?</span>
+        </div>
+
+        <div class="relative w-full bg-[#111] border border-white/10 rounded-xl overflow-hidden group hoverable transition duration-500 hover:border-[#D4FF00]/50 p-8 md:p-16 flex flex-col items-center justify-center text-center gap-8">
+            
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#D4FF00]/5 to-transparent opacity-0 group-hover:opacity-100 transition duration-700"></div>
+
+            <h2 class="font-display text-4xl md:text-6xl uppercase text-white z-10 max-w-3xl">
+                Tem uma ideia? <br>
+                <span class="text-gray-500 group-hover:text-white transition duration-300">Vamos tirar do papel.</span>
+            </h2>
+
+            <a href="https://wa.me/5531982929523?text=Ol%C3%A1%20Kayque%2C%20tenho%20um%20projeto%20e%20quero%20conversar." target="_blank" class="relative z-10 inline-flex items-center gap-3 bg-[#D4FF00] text-black px-8 py-4 rounded-full font-bold uppercase tracking-wider hover:scale-105 transition duration-300">
+                <i data-lucide="message-square" class="w-5 h-5"></i>
+                Iniciar Conversa (31) 98292-9523
+            </a>
+            
+            <div class="marquee-container w-full absolute bottom-4 opacity-10 pointer-events-none">
+                <div class="marquee-content text-6xl font-display font-bold uppercase text-white">
+                    WEB DESIGN • LANDING PAGES • FRONT-END • FREELANCE • DEVELOPMENT • WEB DESIGN • LANDING PAGES • FRONT-END • FREELANCE • DEVELOPMENT •
                 </div>
-            </div>
-            <div class="absolute bottom-8 left-8 md:bottom-12 md:left-12 pointer-events-none">
-                <h3 class="font-display text-2xl md:text-4xl font-bold uppercase mb-2">Synapse Commercial</h3>
-                <span class="px-3 py-1 border border-white/30 rounded-full text-xs uppercase backdrop-blur-md">Motion Design</span>
             </div>
         </div>
     </section>
 
-    <div class="marquee-container">
-        <div class="marquee-content">
-            <span class="marquee-item">Web Design</span>
-            <span class="marquee-item highlight">AI Workflow</span>
-            <span class="marquee-item">Video Editing</span>
-            <span class="marquee-item highlight">CapCut Pro</span>
-            <span class="marquee-item">HTML5</span>
-            <span class="marquee-item highlight">Creative</span>
-            <span class="marquee-item">Web Design</span>
-            <span class="marquee-item highlight">AI Workflow</span>
-            <span class="marquee-item">Video Editing</span>
-            <span class="marquee-item highlight">CapCut Pro</span>
-        </div>
-    </div>
-
-    <section id="sites" class="px-6 md:px-20 py-24">
-        <div class="flex justify-between items-end mb-16 reveal">
-            <h2 class="font-display text-4xl md:text-6xl uppercase">Projetos<br>Web</h2>
-            <a href="sites.html" class="hidden md:block px-6 py-3 border border-white/20 rounded-full hover:bg-[#D4FF00] hover:text-black hover:border-[#D4FF00] transition">Ver Galeria Completa</a>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="project-card reveal" onclick="window.open('https://synapse-br.vercel.app/')">
-                <img src="assents/image (1).png" class="project-img object-top" onerror="this.src='https://placehold.co/600x800/111/FFF?text=Synapse'">
-                <div class="project-info">
-                    <h3 class="font-display text-3xl font-bold text-white mb-2">Synapse</h3>
-                    <p class="text-gray-400 text-sm">SaaS Interface • Gamification Logic</p>
-                </div>
-            </div>
-
-            <div class="project-card reveal" style="margin-top: 0 md:margin-top: 80px;" onclick="window.location.href='sites.html'">
-                <img src="assents/hamburguer.jpg" class="project-img" onerror="this.src='https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?q=80&w=600'">
-                <div class="project-info">
-                    <h3 class="font-display text-3xl font-bold text-white mb-2">Bravus & Sites</h3>
-                    <p class="text-gray-400 text-sm">Delivery & Landing Pages</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="mt-8 text-center md:hidden">
-             <a href="sites.html" class="inline-block px-6 py-3 border border-white/20 rounded-full text-sm">Ver Galeria Completa</a>
-        </div>
-    </section>
-
-    <section class="px-6 md:px-20 py-24 bg-[#050505]">
-        <h2 class="font-display text-4xl mb-12 reveal text-center md:text-left">Selected<span class="text-[#D4FF00]">.Feed</span></h2>
-        
-        <div class="masonry-grid reveal">
-            <div class="masonry-item" onclick="openImage('assents/The only financial app you’ll ever need..png')">
-                <img src="assents/Black & Beige Simple Typography Cosmetic Brand Business Card (11).png" class="w-full" alt="Financial App">
-            </div>
-
-            <div class="masonry-item" onclick="openImage('assents/Black & Beige Simple Typography Cosmetic Brand Business Card (7).png')">
-                <img src="assents/Black & Beige Simple Typography Cosmetic Brand Business Card (7).png" class="w-full" alt="Business Card Design">
+    <section class="py-24 bg-[#D4FF00] text-black w-full container-padding">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-12 text-center md:text-left">
+            <div class="w-full">
+                <h2 class="font-display text-[13vw] md:text-8xl font-black uppercase mb-6 leading-none tracking-tighter break-words">
+                    WEB<br>PROJECTS
+                </h2>
+                <p class="font-bold opacity-70 text-sm md:text-base max-w-lg mx-auto md:mx-0">
+                    Galeria selecionada de Landing Pages e E-commerce. Alta performance e design responsivo.
+                </p>
             </div>
             
-            <div class="masonry-item relative group" onclick="openVideo('assents/v2.mp4')">
-                <img src="https://media.istockphoto.com/id/2189419177/pt/foto/young-woman-applying-mascara-while-wearing-bathrobe-and-towel.webp?a=1&b=1&s=612x612&w=0&k=20&c=aIh44eSe9TBQ3OdtlI08owIObtXdP7LTLTjVKQmX3r8=" class="w-full h-64 object-cover" alt="Video Thumb">
-                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition bg-black/50">
-                    <i data-lucide="play-circle" class="w-12 h-12 text-white"></i>
+            <a href="sites.html" class="inline-flex items-center justify-center w-40 h-40 bg-black text-white rounded-full font-bold uppercase text-xs hover:scale-110 transition duration-300 shadow-xl hoverable group shrink-0">
+                <span class="group-hover:hidden">Ver Galeria</span>
+                <i data-lucide="arrow-right" class="hidden group-hover:block w-8 h-8 text-[#D4FF00]"></i>
+            </a>
+        </div>
+    </section>
+
+    <section id="about" class="container-padding py-24 w-full">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-16">
+            <div class="md:col-span-4">
+                <h2 class="font-display text-4xl uppercase mb-8 text-white">Trajetória</h2>
+                <a href="assents/curriculo.pdf" target="_blank" class="group flex items-center gap-2 text-sm text-gray-400 hover:text-[#D4FF00] transition hoverable">
+                    <span class="border-b border-gray-600 group-hover:border-[#D4FF00] pb-1">DOWNLOAD CV</span>
+                    <i data-lucide="download" class="w-4 h-4"></i>
+                </a>
+            </div>
+
+            <div class="md:col-span-8 space-y-12">
+                <div class="timeline-item border-t-raw pt-6 group hoverable">
+                    <div class="flex justify-between items-baseline mb-2">
+                        <h3 class="text-xl md:text-3xl font-display font-bold text-white group-hover:text-[#D4FF00] transition">Estagiário Suporte TI</h3>
+                        <span class="text-xs font-mono text-gray-500">2025</span>
+                    </div>
+                    <p class="text-gray-500 text-xs uppercase tracking-widest mb-4">Mdgeo</p>
+                    <p class="text-gray-400 text-sm max-w-xl leading-relaxed">
+                        Infraestrutura, Redes e Suporte N1. Diagnóstico e resolução ágil de problemas tecnológicos.
+                    </p>
                 </div>
-            </div>
 
-            <div class="masonry-item" onclick="openImage('assents/Black & Beige Simple Typography Cosmetic Brand Business Card (1).png')">
-                <img src="assents/The only financial app you’ll ever need..png" class="w-full" alt="Brand Identity">
-            </div>
+                <div class="timeline-item border-t-raw pt-6 group hoverable">
+                    <div class="flex justify-between items-baseline mb-2">
+                        <h3 class="text-xl md:text-3xl font-display font-bold text-white group-hover:text-[#D4FF00] transition">Jovem Aprendiz</h3>
+                        <span class="text-xs font-mono text-gray-500">2024</span>
+                    </div>
+                    <p class="text-gray-500 text-xs uppercase tracking-widest mb-4">Unimed BH</p>
+                    <p class="text-gray-400 text-sm max-w-xl leading-relaxed">
+                        Gestão administrativa e desenvolvimento de soft skills com foco em excelência no atendimento.
+                    </p>
+                </div>
 
-             <div class="masonry-item" onclick="openImage('assents/Black & Beige Simple Typography Cosmetic Brand Business Card (9).png')">
-                <img src="assents/Black & Beige Simple Typography Cosmetic Brand Business Card (9).png" class="w-full" alt="Brand Identity">
-            </div>
-
-             <div class="masonry-item" onclick="openImage('assents/Black & Beige Simple Typography Cosmetic Brand Business Card (10).png')">
-                <img src="assents/Black & Beige Simple Typography Cosmetic Brand Business Card (10).png" class="w-full" alt="Brand Identity">
+                 <div class="timeline-item border-t-raw pt-6 group hoverable">
+                    <div class="flex justify-between items-baseline mb-2">
+                        <h3 class="text-xl md:text-3xl font-display font-bold text-white group-hover:text-[#D4FF00] transition">Técnico em Informática</h3>
+                        <span class="text-xs font-mono text-[#D4FF00] border border-[#D4FF00] px-2 py-0.5 rounded">CURSANDO</span>
+                    </div>
+                    <p class="text-gray-500 text-xs uppercase tracking-widest mb-4">SENAI CTTI</p>
+                    <p class="text-gray-400 text-sm max-w-xl leading-relaxed">
+                        Foco em Desenvolvimento de Software, Redes e Segurança da Informação.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="about" class="px-6 md:px-20 py-24 border-t border-white/10">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
-            <div class="reveal">
-                <h2 class="font-display text-5xl font-bold mb-6">Kayque<br>Damas.</h2>
-                <div class="space-y-4 text-gray-400 text-lg">
-                    <p>Estudante de Técnico em Informática com vivência corporativa em <strong>Suporte e Atendimento</strong>.</p>
-                    <p>Habilidade em resolver problemas de hardware e softwares, aliada à criatividade no desenvolvimento de interfaces e materiais visuais.</p>
-                </div>
-                <div class="mt-8 flex gap-4">
-                    <a href="assents/curriculo.pdf" target="_blank" class="px-6 py-3 bg-white text-black font-bold uppercase text-sm tracking-wider hover:bg-[#D4FF00] transition">Download CV</a>
-                </div>
-            </div>
+    <footer class="container-padding py-12 border-t-raw flex flex-col gap-8 bg-[#0a0a0a]">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+            <span class="text-[12vw] md:text-[8vw] font-display font-bold leading-none text-white/5 select-none cursor-default">KD.2026</span>
             
-            <div class="space-y-8 reveal">
-                <div class="border-b border-white/10 pb-4">
-                    <h4 class="text-[#D4FF00] font-mono text-xs uppercase mb-2">Jul 2025 – Out 2025</h4>
-                    <h3 class="text-2xl font-bold">Estagiário Suporte TI</h3>
-                    <p class="text-gray-500">Mdgeo • Suporte N1, Hardware & Redes (GLPI)</p>
-                </div>
-                <div class="border-b border-white/10 pb-4">
-                    <h4 class="text-[#D4FF00] font-mono text-xs uppercase mb-2">Set 2024 – Jul 2025</h4>
-                    <h3 class="text-2xl font-bold">Jovem Aprendiz</h3>
-                    <p class="text-gray-500">Unimed BH • Administrativo & Atendimento</p>
-                </div>
-                <div class="border-b border-white/10 pb-4">
-                    <h4 class="text-[#D4FF00] font-mono text-xs uppercase mb-2">Formação (2026)</h4>
-                    <h3 class="text-2xl font-bold">Técnico em Informática</h3>
-                    <p class="text-gray-500">SENAI CTTI • Cibersegurança & Dev</p>
+            <div class="flex flex-col items-end gap-2">
+                <a href="https://wa.me/5531982929523" target="_blank" class="flex items-center gap-2 text-[#D4FF00] font-bold text-lg hover:underline decoration-[#D4FF00]">
+                    <i data-lucide="phone" class="w-4 h-4"></i> (31) 98292-9523
+                </a>
+                <div class="flex gap-6 mt-2">
+                    <a href="https://linkedin.com/in/kayquedamas" target="_blank" class="text-xs uppercase tracking-widest text-gray-500 hover:text-white transition">LinkedIn</a>
+                    <a href="mailto:kayquedamas@gmail.com" class="text-xs uppercase tracking-widest text-gray-500 hover:text-white transition">kayquedamas@gmail.com</a>
                 </div>
             </div>
         </div>
-    </section>
-
-    <footer class="py-12 text-center text-xs text-gray-600 uppercase tracking-widest">
-        2026 © Kayque Damas. All Rights Reserved.
+        <div class="text-center md:text-left text-[10px] text-gray-700 uppercase tracking-widest">
+            © 2026 Kayque Damas. All rights reserved.
+        </div>
     </footer>
-
-    <div id="modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 hidden-modal backdrop-blur-md">
-        <button onclick="closeModal()" class="absolute top-6 right-6 text-white p-2 hover:bg-white/10 rounded-full transition">
-            <i data-lucide="x" class="w-8 h-8"></i>
-        </button>
-
-        <div class="w-full max-w-6xl max-h-[90vh] flex items-center justify-center">
-            <video id="modalVideo" controls class="w-full h-full max-h-[85vh] hidden outline-none object-contain">
-                <source src="" type="video/mp4">
-            </video>
-            <img id="modalImage" src="" class="w-full h-full object-contain max-h-[85vh] hidden">
-        </div>
-    </div>
 
     <script>
         lucide.createIcons();
+        gsap.registerPlugin(ScrollTrigger);
 
-        // Reveal on Scroll
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('open');
+        }
+
+        // Animação de entrada Hero
+        const tl = gsap.timeline();
+        tl.from("header .mega-text", {
+            y: 100,
+            opacity: 0,
+            duration: 1.2,
+            stagger: 0.1,
+            ease: "power4.out"
+        })
+        .from("nav", { y: -50, opacity: 0, duration: 0.8 }, "-=0.8");
+
+        // Animação Items da Timeline
+        gsap.utils.toArray('.timeline-item').forEach(item => {
+            gsap.from(item, {
+                scrollTrigger: {
+                    trigger: item,
+                    start: "top 85%",
+                },
+                y: 50,
+                opacity: 0,
+                duration: 0.8,
+                ease: "power2.out"
             });
-        }, { threshold: 0.1 });
+        });
 
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        // Cursor Customizado (Desktop)
+        if (window.matchMedia("(min-width: 768px)").matches) {
+            const cursorDot = document.querySelector('.cursor-dot');
+            const cursorOutline = document.querySelector('.cursor-outline');
+            
+            window.addEventListener('mousemove', (e) => {
+                const posX = e.clientX;
+                const posY = e.clientY;
+                cursorDot.style.left = `${posX}px`;
+                cursorDot.style.top = `${posY}px`;
+                
+                cursorOutline.animate({
+                    left: `${posX}px`,
+                    top: `${posY}px`
+                }, { duration: 500, fill: "forwards" });
+            });
 
-        // Modal Logic
-        const modal = document.getElementById('modal');
-        const vidPlayer = document.getElementById('modalVideo');
-        const imgViewer = document.getElementById('modalImage');
-
-        function openVideo(path) {
-            modal.classList.remove('hidden-modal');
-            imgViewer.classList.add('hidden');
-            vidPlayer.classList.remove('hidden');
-            vidPlayer.src = path;
-            vidPlayer.play();
+            document.querySelectorAll('.hoverable, a, button').forEach(el => {
+                el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+                el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+            });
         }
-
-        function openImage(path) {
-            modal.classList.remove('hidden-modal');
-            vidPlayer.classList.add('hidden');
-            vidPlayer.pause();
-            imgViewer.classList.remove('hidden');
-            imgViewer.src = path;
-        }
-
-        function closeModal() {
-            modal.classList.add('hidden-modal');
-            setTimeout(() => {
-                vidPlayer.pause();
-                vidPlayer.src = "";
-                imgViewer.src = "";
-            }, 300);
-        }
-
-        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
     </script>
 </body>
 </html>

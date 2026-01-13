@@ -1,228 +1,324 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-PT">
 <head>
+    <link rel="icon" href="assents/icon.png">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galeria de Projetos | Kayque Damas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Projetos | KD.</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600;700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg-color: #030303;
-            --card-bg: rgba(20, 20, 20, 0.6);
-            --card-border: rgba(255, 255, 255, 0.08);
+            --bg: #0a0a0a;
+            --txt: #f0f0f0;
             --accent: #D4FF00;
         }
 
-        body { 
-            background-color: var(--bg-color);
-            color: #E0E0E0;
-            font-family: 'Instrument Sans', sans-serif;
-            background-image: 
-                radial-gradient(circle at 50% 0%, rgba(212, 255, 0, 0.03), transparent 40%);
-            min-height: 100vh;
+        body {
+            background-color: var(--bg);
+            color: white;
+            font-family: 'Space Mono', monospace;
+            overflow-x: hidden;
+            width: 100vw;
+        }
+        @media (min-width: 768px) { body { cursor: none; } }
+
+        .font-display { font-family: 'Syne', sans-serif; }
+
+        /* CURSOR (Desktop) */
+        .cursor {
+            position: fixed; top: 0; left: 0; width: 20px; height: 20px;
+            background: var(--accent); border-radius: 50%;
+            pointer-events: none; z-index: 9999; mix-blend-mode: difference;
+            transform: translate(-50%, -50%); transition: transform 0.1s;
+            display: none;
+        }
+        @media (min-width: 768px) { .cursor { display: block; } }
+
+        /* IMAGEM FLUTUANTE (Desktop Only) */
+        .hover-reveal {
+            position: fixed; width: 450px; height: 280px;
+            top: 0; left: 0;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.8);
+            transition: opacity 0.3s, transform 0.3s;
+            overflow: hidden; border-radius: 12px;
+            border: 2px solid var(--accent);
+            background: #000;
+            display: none;
+            box-shadow: 0 0 30px rgba(212, 255, 0, 0.2);
+        }
+        @media (min-width: 768px) { .hover-reveal { display: block; } }
+        .hover-reveal img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* ESTILO DOS LINKS */
+        .project-link {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+        }
+        @media (min-width: 768px) {
+            .project-link:hover { 
+                padding-left: 30px; 
+                background: rgba(212, 255, 0, 0.05);
+            }
+            .project-link:hover .project-title { color: var(--accent); }
+            .project-link:hover .arrow-icon { opacity: 1; transform: translateX(0); }
         }
 
-        .wrapper { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .arrow-icon {
+            opacity: 0; transform: translateX(-20px); transition: 0.3s; color: var(--accent);
+        }
+        @media (max-width: 768px) { .arrow-icon { opacity: 1; transform: none; } }
 
-        /* --- CARD DESIGN --- */
-        .project-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
-            overflow: hidden;
-            position: relative;
-            transition: all 0.4s ease;
-            cursor: pointer;
-            group: group;
-            display: flex;
-            flex-direction: column;
+        .container-padding {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+        @media (min-width: 768px) {
+            .container-padding {
+                padding-left: 5rem;
+                padding-right: 5rem;
+            }
         }
 
-        .project-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.6);
-        }
-
-        .card-image {
-            height: 240px;
-            width: 100%;
-            background-color: #111;
-            position: relative;
-            overflow: hidden;
-            border-bottom: 1px solid var(--card-border);
-        }
-
-        .card-image img {
-            width: 100%; height: 100%; object-fit: cover;
-            transition: transform 0.6s ease;
-            opacity: 0.8;
-        }
-        
-        .project-card:hover .card-image img {
-            transform: scale(1.05);
-            opacity: 1;
-        }
-
-        /* Overlay com Ícone de Link Externo */
-        .card-overlay {
-            position: absolute; inset: 0;
-            background: rgba(0,0,0,0.5);
-            display: flex; align-items: center; justify-content: center;
-            opacity: 0; transition: 0.3s;
-        }
-        
-        .project-card:hover .card-overlay { opacity: 1; }
-
-        .view-btn {
-            background: var(--accent); color: black;
-            padding: 12px 28px; border-radius: 30px;
-            font-weight: bold; font-size: 0.9rem;
-            transform: translateY(10px); transition: 0.3s;
-            display: flex; align-items: center; gap: 8px;
-            box-shadow: 0 0 20px rgba(212, 255, 0, 0.3);
-        }
-        
-        .project-card:hover .view-btn { transform: translateY(0); }
-
-        .card-info { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-
-        .category-tag {
-            font-size: 0.7rem; text-transform: uppercase;
-            letter-spacing: 0.1em; color: #888;
-            margin-bottom: 0.5rem; display: block;
-        }
-        
-        h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; color: white; margin-bottom: 0.5rem; }
-        
-        p { font-size: 0.9rem; color: #aaa; line-height: 1.5; }
-
-        /* Grid Responsivo */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
     </style>
 </head>
 <body>
 
-    <div class="wrapper">
-        
-        <header class="flex justify-between items-center mb-12 py-6 border-b border-white/10">
-            <div class="flex items-center gap-6">
-                <a href="index.html" class="group flex items-center gap-3 px-5 py-3 bg-white/5 rounded-full hover:bg-white hover:text-black transition border border-white/10 text-gray-300">
-                    <i data-lucide="arrow-left" class="w-5 h-5 group-hover:-translate-x-1 transition-transform"></i>
-                    <span class="font-bold text-sm">Voltar ao Portfólio</span>
-                </a>
-            </div>
+    <div class="cursor"></div>
+    <div class="hover-reveal"><img id="reveal-img" src="" alt="Project Preview"></div>
+
+    <!-- HEADER -->
+    <header class="p-6 md:p-8 flex justify-between items-center sticky top-0 bg-[#0a0a0a]/90 backdrop-blur-sm z-40 border-b border-white/10 md:border-none">
+        <a href="index.html" class="text-[10px] md:text-xs uppercase tracking-widest border border-white/30 px-4 py-2 rounded-full hover:bg-white hover:text-black transition text-white font-bold">
+            ← Voltar
+        </a>
+        <span class="font-bold text-base md:text-xl font-display tracking-tighter text-white">KD.ARQUIVO</span>
+    </header>
+    <section class="container-padding py-24 w-full border-t-raw border-b-raw relative">
+        <div class="flex flex-col md:flex-row gap-16 items-center">
             
-            <div class="text-right hidden md:block">
-                <h1 class="text-xl font-bold text-white tracking-tight">Projetos Web</h1>
-                <p class="text-xs text-gray-500 uppercase tracking-widest">5 Landing Pages Selecionadas</p>
+            <div class="w-full md:w-1/2 space-y-8">
+                <div class="flex items-center gap-3">
+                    <span class="text-[#D4FF00] text-[10px] font-mono uppercase tracking-widest border border-[#D4FF00] px-3 py-1 rounded-full bg-[#D4FF00]/5">
+                        Projeto em Destaque
+                    </span>
+                    <span class="w-12 h-[1px] bg-white/20"></span>
+                </div>
+
+                <h2 class="font-display text-5xl md:text-7xl uppercase text-white leading-none">
+                    Synapse <br><span class="text-transparent" style="-webkit-text-stroke: 1px rgba(255,255,255,0.3);">PRO</span>
+                </h2>
+
+                <p class="text-gray-400 text-sm md:text-base leading-relaxed max-w-md">
+                    Um sistema operacional neural (SaaS) focado em produtividade. Desenvolvi a arquitetura completa, integrando Inteligência Artificial e Gamificação.
+                </p>
+
+                <ul class="space-y-3 text-xs md:text-sm text-gray-500 font-mono uppercase tracking-wide">
+                    <li class="flex items-center gap-3">
+                        <i data-lucide="cpu" class="w-4 h-4 text-[#D4FF00]"></i> 
+                        <span>Neural Core & AI Chat (V2.0)</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i data-lucide="database" class="w-4 h-4 text-[#D4FF00]"></i> 
+                        <span>Supabase Auth & Database</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i data-lucide="trophy" class="w-4 h-4 text-[#D4FF00]"></i> 
+                        <span>Sistema de XP e Gamificação</span>
+                    </li>
+                </ul>
+                
+                <div class="pt-6 flex gap-4">
+                    <a href="https://synapse-br.vercel.app/" target="_blank" class="px-8 py-4 bg-[#1a1a1a] hover:bg-[#D4FF00] text-white hover:text-black border border-white/10 hover:border-[#D4FF00] rounded-lg transition-all uppercase text-xs font-bold tracking-widest hoverable shadow-xl">
+                        Acessar Sistema
+                    </a>
+                </div>
             </div>
-        </header>
 
-        <div class="projects-grid">
+            <div class="w-full md:w-1/2">
+                <div class="relative group cursor-pointer hoverable" onclick="window.open('https://synapse-br.vercel.app/')">
+                    
+                    <div class="absolute -inset-1 bg-gradient-to-r from-[#D4FF00] to-green-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
+                    
+                    <div class="relative bg-[#050505] border border-white/10 rounded-xl overflow-hidden aspect-video shadow-2xl transition transform group-hover:-translate-y-2 group-hover:border-[#D4FF00]/30">
+                        
+                        <video src="assents/synapse.mp4" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-500" autoplay muted loop playsinline></video>
+                        
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
 
-            <a href="sites/hamburgueria.html" target="_blank" class="project-card">
-                <div class="card-image">
-                    <img src="assents/hamburguer.jpg" onerror="this.src='https://images.unsplash.com/photo-1561758033-d89a9ad46330?q=80&w=800'">
-                    <div class="card-overlay">
-                        <span class="view-btn">Acessar Site <i data-lucide="external-link" class="w-4 h-4"></i></span>
+                        <div class="absolute bottom-6 left-6 right-6 flex justify-between items-end">
+                            <div>
+                                <h3 class="text-white font-bold text-xl mb-1">Dashboard Neural</h3>
+                                <p class="text-gray-400 text-xs font-mono">Java scipt / Tailwind / API Integration</p>
+                            </div>
+                            <div class="w-10 h-10 bg-[#D4FF00] rounded-full flex items-center justify-center text-black font-bold group-hover:scale-110 transition">
+                                <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="card-info">
-                    <div>
-                        <span class="category-tag text-yellow-500">Delivery & Food</span>
-                        <h3>Bravus Burger</h3>
-                        <p>Landing Page completa para delivery com cardápio digital interativo.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- LISTA DE PROJETOS -->
+    <main class="container-padding py-6 md:py-10 pb-20 w-full">
+        <div class="flex justify-between items-end mb-8 md:mb-12 border-b border-white/10 pb-4">
+            <h1 class="text-3xl md:text-6xl font-display font-bold uppercase leading-none text-white">
+                Projetos<br>Web
+            </h1>
+            <span class="text-[10px] md:text-sm text-gray-400 text-right font-bold">05 Trabalhos<br>Selecionados</span>
+        </div>
+
+        <div class="flex flex-col w-full">
+            
+            <!-- CARD 1 -->
+            <a href="sites/hamburgueria.html" target="_blank" class="project-link py-8 md:py-10 block group w-full" data-img="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?q=80&w=800">
+                <div class="flex justify-between items-center mb-4 md:mb-0">
+                    <div class="flex items-baseline gap-4 md:gap-12">
+                        <span class="text-gray-500 font-mono text-xs md:text-sm">01</span>
+                        <h2 class="project-title text-xl sm:text-2xl md:text-5xl font-display font-bold uppercase transition text-white">Bravus Burger</h2>
                     </div>
+                    <i data-lucide="arrow-up-right" class="arrow-icon w-5 h-5 md:hidden text-[#D4FF00]"></i>
+                </div>
+                <div class="md:hidden w-full h-48 rounded-lg overflow-hidden my-4 border border-white/10 shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?q=80&w=800" class="w-full h-full object-cover">
+                </div>
+                <div class="flex md:justify-end items-center gap-6">
+                    <div class="flex gap-2 md:gap-3 text-[9px] md:text-xs uppercase tracking-widest text-gray-500 transition md:group-hover:text-white">
+                        <span class="border border-white/10 px-2 py-1 rounded bg-black">Delivery</span>
+                        <span class="border border-white/10 px-2 py-1 rounded bg-black">Web</span>
+                    </div>
+                    <i data-lucide="arrow-up-right" class="arrow-icon w-6 h-6 hidden md:block"></i>
                 </div>
             </a>
 
-            <a href="sites/moda.html" target="_blank" class="project-card">
-                <div class="card-image">
-                    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800">
-                    <div class="card-overlay">
-                        <span class="view-btn">Acessar Site <i data-lucide="external-link" class="w-4 h-4"></i></span>
+            <!-- CARD 2 -->
+            <a href="sites/moda.html" target="_blank" class="project-link py-8 md:py-10 block group w-full" data-img="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800">
+                <div class="flex justify-between items-center mb-4 md:mb-0">
+                    <div class="flex items-baseline gap-4 md:gap-12">
+                        <span class="text-gray-500 font-mono text-xs md:text-sm">02</span>
+                        <h2 class="project-title text-xl sm:text-2xl md:text-5xl font-display font-bold uppercase transition text-white">Aura Fashion</h2>
                     </div>
+                    <i data-lucide="arrow-up-right" class="arrow-icon w-5 h-5 md:hidden text-[#D4FF00]"></i>
                 </div>
-                <div class="card-info">
-                    <div>
-                        <span class="category-tag text-purple-400">E-commerce</span>
-                        <h3>Aura Fashion</h3>
-                        <p>Vitrine virtual estilo editorial de moda. Foco em fotografia e conversão.</p>
-                    </div>
+                <div class="md:hidden w-full h-48 rounded-lg overflow-hidden my-4 border border-white/10 shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800" class="w-full h-full object-cover">
                 </div>
-            </a>
-
-            <a href="sites/estetica.html" target="_blank" class="project-card">
-                <div class="card-image">
-                    <img src="assents/Black & Beige Simple Typography Cosmetic Brand Business Card (11).png" class="object-cover h-full w-full" onerror="this.src='https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=800'">
-                    <div class="card-overlay">
-                        <span class="view-btn">Acessar Site <i data-lucide="external-link" class="w-4 h-4"></i></span>
+                <div class="flex md:justify-end items-center gap-6">
+                    <div class="flex gap-2 md:gap-3 text-[9px] md:text-xs uppercase tracking-widest text-gray-500 transition md:group-hover:text-white">
+                        <span class="border border-white/10 px-2 py-1 rounded bg-black">Moda</span>
+                        <span class="border border-white/10 px-2 py-1 rounded bg-black">Loja</span>
                     </div>
-                </div>
-                <div class="card-info">
-                    <div>
-                        <span class="category-tag text-pink-400">Beleza & Estética</span>
-                        <h3>Lumière Clinic</h3>
-                        <p>Site institucional elegante para clínicas com sistema de agendamento.</p>
-                    </div>
+                    <i data-lucide="arrow-up-right" class="arrow-icon w-6 h-6 hidden md:block"></i>
                 </div>
             </a>
 
-            <a href="sites/cilios.html" target="_blank" class="project-card">
-                <div class="card-image">
-                    <img src="assents/Black & Beige Simple Typography Cosmetic Brand Business Card (10).png" class="object-cover h-full w-full" onerror="this.src='https://images.unsplash.com/photo-1587613991119-fbbe8e90531d?q=80&w=800'">
-                    <div class="card-overlay">
-                        <span class="view-btn">Acessar Site <i data-lucide="external-link" class="w-4 h-4"></i></span>
+            <!-- CARD 3 -->
+
+
+            <!-- CARD 4 -->
+            <a href="sites/cilios.html" target="_blank" class="project-link py-8 md:py-10 block group w-full" data-img="https://media.istockphoto.com/id/2189419177/pt/foto/young-woman-applying-mascara-while-wearing-bathrobe-and-towel.webp?a=1&b=1&s=612x612&w=0&k=20&c=aIh44eSe9TBQ3OdtlI08owIObtXdP7LTLTjVKQmX3r8=">
+                <div class="flex justify-between items-center mb-4 md:mb-0">
+                    <div class="flex items-baseline gap-4 md:gap-12">
+                        <span class="text-gray-500 font-mono text-xs md:text-sm">03</span>
+                        <h2 class="project-title text-xl sm:text-2xl md:text-5xl font-display font-bold uppercase transition text-white">Lash Studio</h2>
                     </div>
+                    <i data-lucide="arrow-up-right" class="arrow-icon w-5 h-5 md:hidden text-[#D4FF00]"></i>
                 </div>
-                <div class="card-info">
-                    <div>
-                        <span class="category-tag text-rose-400">Beauty Services</span>
-                        <h3>Lash Studio</h3>
-                        <p>Página de serviços focada em profissionais de beleza e extensão de cílios.</p>
+                <div class="md:hidden w-full h-48 rounded-lg overflow-hidden my-4 border border-white/10 shadow-lg">
+                    <img src="https://media.istockphoto.com/id/2189419177/pt/foto/young-woman-applying-mascara-while-wearing-bathrobe-and-towel.webp?a=1&b=1&s=612x612&w=0&k=20&c=aIh44eSe9TBQ3OdtlI08owIObtXdP7LTLTjVKQmX3r8=" class="w-full h-full object-cover">
+                </div>
+                <div class="flex md:justify-end items-center gap-6">
+                    <div class="flex gap-2 md:gap-3 text-[9px] md:text-xs uppercase tracking-widest text-gray-500 transition md:group-hover:text-white">
+                        <span class="border border-white/10 px-2 py-1 rounded bg-black">Beauty</span>
                     </div>
+                    <i data-lucide="arrow-up-right" class="arrow-icon w-6 h-6 hidden md:block"></i>
                 </div>
             </a>
 
-            <a href="sites/reparos.html" target="_blank" class="project-card">
-                <div class="card-image">
-                    <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=800">
-                    <div class="card-overlay">
-                        <span class="view-btn">Acessar Site <i data-lucide="external-link" class="w-4 h-4"></i></span>
+            <!-- CARD 5 -->
+            <a href="sites/reparos.html" target="_blank" class="project-link py-8 md:py-10 block group w-full" data-img="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=800">
+                <div class="flex justify-between items-center mb-4 md:mb-0">
+                    <div class="flex items-baseline gap-4 md:gap-12">
+                        <span class="text-gray-500 font-mono text-xs md:text-sm">04</span>
+                        <h2 class="project-title text-xl sm:text-2xl md:text-5xl font-display font-bold uppercase transition text-white">SOS Reparos</h2>
                     </div>
+                    <i data-lucide="arrow-up-right" class="arrow-icon w-5 h-5 md:hidden text-[#D4FF00]"></i>
                 </div>
-                <div class="card-info">
-                    <div>
-                        <span class="category-tag text-blue-400">Manutenção</span>
-                        <h3>SOS Reparos</h3>
-                        <p>Site para prestadores de serviços técnicos e assistência técnica rápida.</p>
+                <div class="md:hidden w-full h-48 rounded-lg overflow-hidden my-4 border border-white/10 shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=800" class="w-full h-full object-cover">
+                </div>
+                <div class="flex md:justify-end items-center gap-6">
+                    <div class="flex gap-2 md:gap-3 text-[9px] md:text-xs uppercase tracking-widest text-gray-500 transition md:group-hover:text-white">
+                        <span class="border border-white/10 px-2 py-1 rounded bg-black">Técnico</span>
                     </div>
+                    <i data-lucide="arrow-up-right" class="arrow-icon w-6 h-6 hidden md:block"></i>
+                </div>
+            </a>
+
+            <!-- CARD 6 -->
+            <a href="sites/celular.html" target="_blank" class="project-link py-8 md:py-10 block group w-full" data-img="https://redemultiassistencia.com.br/wp-content/uploads/2017/11/curso-tecnico-de-celular-1.jpg">
+                <div class="flex justify-between items-center mb-4 md:mb-0">
+                    <div class="flex items-baseline gap-4 md:gap-12">
+                        <span class="text-gray-500 font-mono text-xs md:text-sm">05</span>
+                        <h2 class="project-title text-xl sm:text-2xl md:text-5xl font-display font-bold uppercase transition text-white">Smart Tech</h2>
+                    </div>
+                    <i data-lucide="arrow-up-right" class="arrow-icon w-5 h-5 md:hidden text-[#D4FF00]"></i>
+                </div>
+                <div class="md:hidden w-full h-48 rounded-lg overflow-hidden my-4 border border-white/10 shadow-lg">
+                    <img src="https://redemultiassistencia.com.br/wp-content/uploads/2017/11/curso-tecnico-de-celular-1.jpg" class="w-full h-full object-cover">
+                </div>
+                <div class="flex md:justify-end items-center gap-6">
+                    <div class="flex gap-2 md:gap-3 text-[9px] md:text-xs uppercase tracking-widest text-gray-500 transition md:group-hover:text-white">
+                        <span class="border border-white/10 px-2 py-1 rounded bg-black">Celular</span>
+                    </div>
+                    <i data-lucide="arrow-up-right" class="arrow-icon w-6 h-6 hidden md:block"></i>
                 </div>
             </a>
 
         </div>
+    </main>
 
-        <footer class="mt-20 pt-8 border-t border-white/10 text-center text-gray-600 text-sm pb-10">
-            <p>Clique em um projeto para visualizá-lo em tela cheia.</p>
-        </footer>
-
-    </div>
+    <footer class="container-padding py-12 border-t border-white/10 text-center md:text-left text-gray-500 text-xs uppercase tracking-widest">
+        © 2026 Kayque Damas. Todos os direitos reservados.
+    </footer>
 
     <script>
-        lucide.createIcons();
+        // CURSOR LOGIC (DESKTOP)
+        if (window.matchMedia("(min-width: 768px)").matches) {
+            const cursor = document.querySelector('.cursor');
+            const reveal = document.querySelector('.hover-reveal');
+            const revealImg = document.getElementById('reveal-img');
+            const links = document.querySelectorAll('.project-link');
+
+            window.addEventListener('mousemove', (e) => {
+                gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1 });
+                gsap.to(reveal, { x: e.clientX, y: e.clientY, duration: 0.4, delay: 0.05 });
+            });
+
+            links.forEach(link => {
+                link.addEventListener('mouseenter', () => {
+                    const imgUrl = link.getAttribute('data-img');
+                    revealImg.src = imgUrl;
+                    gsap.to(reveal, { opacity: 1, scale: 1, duration: 0.3 });
+                    gsap.to(cursor, { scale: 3, opacity: 0.5, duration: 0.3 });
+                });
+
+                link.addEventListener('mouseleave', () => {
+                    gsap.to(reveal, { opacity: 0, scale: 0.8, duration: 0.3 });
+                    gsap.to(cursor, { scale: 1, opacity: 1, duration: 0.3 });
+                });
+            });
+        }
     </script>
 </body>
 </html>
