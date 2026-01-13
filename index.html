@@ -1,498 +1,341 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-     <link rel="icon" href="assents/icon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DEVSITES - Digitalize Seu Comércio</title>
+    <title>Kayque Damas | Visual Experience</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Permanent+Marker&display=swap" rel="stylesheet">
-    
     <script src="https://unpkg.com/lucide@latest"></script>
-
-    <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600&family=Unbounded:wght@300;500;700;900&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --brand-lime: #D4FF00;
-            --brand-black: #111111;
+            --neon: #D4FF00;
+            --dark: #020202;
+            --gray: #1a1a1a;
         }
 
-        html.lenis { height: auto; }
-        .lenis.lenis-smooth { scroll-behavior: auto; }
-
         body {
-            background-color: #ffffff;
-            background-image: radial-gradient(#000000 1px, transparent 1px);
-            background-size: 24px 24px;
-            color: var(--brand-black);
+            background-color: var(--dark);
+            color: white;
+            font-family: 'Manrope', sans-serif;
             overflow-x: hidden;
         }
 
-        .hard-shadow { 
-            box-shadow: 4px 4px 0px 0px rgba(0,0,0,1);
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        h1, h2, h3, .font-display { font-family: 'Unbounded', sans-serif; }
+
+        /* --- ANIMAÇÕES DE SCROLL --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
-        
-        @media (min-width: 768px) {
-            .hard-shadow { box-shadow: 6px 6px 0px 0px rgba(0,0,0,1); }
-        }
-        
-        .hard-shadow:active { 
-            box-shadow: 2px 2px 0px 0px rgba(0,0,0,1); 
-            transform: translate(2px, 2px); 
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* --- HERO SECTION --- */
+        .hero-text {
+            line-height: 0.85;
+            background: linear-gradient(to bottom, #fff, #666);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .font-display { font-family: 'Archivo Black', sans-serif; letter-spacing: -0.05em; }
-        .font-mono { font-family: 'Space Mono', monospace; }
+        /* --- VIDEO CONTAINER GLOW --- */
+        .video-glow-container {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 0 80px rgba(212, 255, 0, 0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
         
-        .text-stroke-black { 
-            -webkit-text-stroke: 1px black;
-            color: transparent; 
+        .play-overlay {
+            position: absolute; inset: 0;
+            background: rgba(0,0,0,0.3);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; transition: 0.3s; cursor: pointer;
         }
-        @media (min-width: 768px) {
-            .text-stroke-black { -webkit-text-stroke: 2px black; }
-        }
-
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        .animate-marquee { display: inline-block; animation: marquee 20s linear infinite; }
-
-        /* Estilo do Modal de Senha */
-        .glass-modal {
-            background: rgba(255, 255, 255, 0.9);
+        .video-glow-container:hover .play-overlay { opacity: 1; }
+        
+        .big-play-btn {
+            width: 100px; height: 100px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
             backdrop-filter: blur(10px);
+            transition: transform 0.3s;
         }
-        .shake {
-            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        .video-glow-container:hover .big-play-btn { transform: scale(1.1); background: var(--neon); border-color: var(--neon); color: black; }
+
+        /* --- MARQUEE (Texto correndo) --- */
+        .marquee-container { overflow: hidden; white-space: nowrap; padding: 2rem 0; border-top: 1px solid #222; border-bottom: 1px solid #222; }
+        .marquee-content { display: inline-block; animation: marquee 20s linear infinite; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        
+        .marquee-item {
+            font-family: 'Unbounded'; font-size: 3rem; font-weight: 700;
+            color: transparent; -webkit-text-stroke: 1px #444; margin: 0 2rem;
+            text-transform: uppercase;
         }
-        @keyframes shake {
-            10%, 90% { transform: translate3d(-1px, 0, 0); }
-            20%, 80% { transform: translate3d(2px, 0, 0); }
-            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
-            40%, 60% { transform: translate3d(4px, 0, 0); }
+        .marquee-item.highlight { -webkit-text-stroke: 0; color: var(--neon); }
+
+        /* --- PROJECT CARDS --- */
+        .project-card {
+            position: relative; height: 500px;
+            border-radius: 20px; overflow: hidden;
+            border: 1px solid #222;
+            transition: 0.5s; cursor: pointer;
         }
+        .project-card:hover { border-color: var(--neon); transform: scale(0.98); }
+        
+        .project-img { width: 100%; height: 100%; object-fit: cover; transition: 0.7s; opacity: 0.6; }
+        .project-card:hover .project-img { transform: scale(1.1); opacity: 0.4; }
+        
+        .project-info {
+            position: absolute; bottom: 0; left: 0; width: 100%;
+            padding: 2rem;
+            background: linear-gradient(to top, black, transparent);
+        }
+
+        /* --- MASONRY GRID (Posts) --- */
+        .masonry-grid { column-count: 2; column-gap: 1.5rem; }
+        @media (min-width: 768px) { .masonry-grid { column-count: 3; } }
+        
+        .masonry-item {
+            break-inside: avoid; margin-bottom: 1.5rem;
+            border-radius: 12px; overflow: hidden; border: 1px solid #222;
+            cursor: pointer; opacity: 0.8; transition: 0.3s;
+        }
+        .masonry-item:hover { opacity: 1; border-color: white; }
+
+        /* --- MODAL --- */
+        #modal { transition: opacity 0.3s; }
+        .hidden-modal { opacity: 0; pointer-events: none; }
     </style>
 </head>
-<body class="min-h-screen font-sans">
+<body>
 
-    <!-- NAVBAR -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-4 md:py-6">
-        <div id="navbar-bg" class="absolute inset-0 bg-white border-b-4 border-black transition-transform duration-500 -translate-y-full transform origin-top"></div>
-        
-        <div class="container mx-auto px-4 md:px-12 flex justify-between items-center relative">
-            <a href="#hero" class="font-display text-xl md:text-3xl z-10 p-2 bg-black text-[#D4FF00] border-2 border-transparent hover:border-[#D4FF00] transition-all rotate-1 md:rotate-2 shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]">
-                DEVSITES.
-            </a>
-
-            <div class="hidden md:flex space-x-4 items-center z-10 bg-white px-4 py-3 border-2 border-black -rotate-1 hard-shadow">
-                <a href="#exemplos" class="font-mono font-bold text-base hover:text-[#D4FF00] hover:bg-black px-2 py-1 transition-colors uppercase">Portfólio</a>
-                <a href="#sobre" class="font-mono font-bold text-base hover:text-[#D4FF00] hover:bg-black px-2 py-1 transition-colors uppercase">A Agência</a>
-                
-                <!-- BOTÃO ÁREA DO CLIENTE (DESKTOP) -->
-                <button onclick="openClientModal()" class="font-mono font-bold text-base bg-black text-white hover:text-black hover:bg-[#D4FF00] px-4 py-1 transition-colors uppercase border border-black flex items-center gap-2">
-                    <i data-lucide="lock" class="w-4 h-4"></i>
-                    Área do Cliente
-                </button>
-            </div>
-            
-            <a href="https://wa.me/553182748728" target="_blank" class="hidden md:block font-display text-lg px-6 py-2 border-2 border-black bg-[#D4FF00] text-black hard-shadow hover:bg-black hover:text-[#D4FF00] z-10 rotate-1 transition-all flex items-center gap-2">
-                <i data-lucide="message-circle" class="w-5 h-5"></i>
-                ZAP
-            </a>
-
-            <!-- CONTROLES MOBILE (VIP + MENU) -->
-            <div class="flex items-center gap-3 md:hidden z-50">
-                <button onclick="openClientModal()" class="bg-black text-[#D4FF00] font-display text-xs px-3 py-2 border-2 border-white shadow-md active:scale-95 transition-all flex items-center gap-1">
-                    <i data-lucide="lock" class="w-3 h-3"></i> VIP
-                </button>
-
-                <button onclick="toggleMobileMenu()" class="bg-black text-[#D4FF00] p-2 border-2 border-white transform active:scale-95 transition-transform shadow-lg">
-                    <i data-lucide="menu" id="icon-menu" class="w-6 h-6"></i>
-                    <i data-lucide="x" id="icon-x" class="w-6 h-6 hidden"></i>
-                </button>
-            </div>
+    <nav class="fixed top-0 w-full z-50 px-6 py-6 flex justify-between items-center mix-blend-difference text-white">
+        <div class="font-display font-bold text-xl tracking-tighter">KD.</div>
+        <div class="hidden md:flex gap-8 text-sm font-semibold tracking-widest uppercase">
+            <a href="#work" class="hover:text-[#D4FF00]">Trabalhos</a>
+            <a href="#sites" class="hover:text-[#D4FF00]">Sites</a>
+            <a href="#about" class="hover:text-[#D4FF00]">Sobre</a>
         </div>
-
-        <div id="mobile-menu" class="fixed inset-0 bg-[#D4FF00] z-40 flex flex-col justify-center items-center space-y-6 hidden transition-opacity duration-300 px-6">
-            <a href="#exemplos" onclick="toggleMobileMenu()" class="font-display text-4xl text-black hover:text-white px-4 border-b-4 border-transparent hover:border-black transition-all">PORTFÓLIO</a>
-            <a href="#sobre" onclick="toggleMobileMenu()" class="font-display text-4xl text-black hover:text-white px-4 border-b-4 border-transparent hover:border-black transition-all">A AGÊNCIA</a>
-            
-            <a href="https://wa.me/553182748728" target="_blank" class="mt-8 font-display text-xl w-full py-5 border-4 border-black bg-white text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center gap-3">
-                <i data-lucide="message-circle" class="w-6 h-6"></i>
-                CHAMAR NO WHATS
-            </a>
-        </div>
+        <a href="https://wa.me/5531982929523" target="_blank" class="px-5 py-2 border border-white rounded-full text-xs font-bold uppercase hover:bg-white hover:text-black transition">
+            Contato
+        </a>
     </nav>
 
-    <!-- HERO SECTION -->
-    <section id="hero" class="min-h-screen pt-28 pb-12 px-4 md:px-6 flex flex-col justify-center relative overflow-hidden">
-        <div class="container mx-auto max-w-7xl relative z-10">
-            <div class="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
-                
-                <div class="flex-1 text-center lg:text-left w-full" data-aos="fade-right" data-aos-duration="1000">
-                    <div class="inline-block bg-white border-2 border-black px-3 py-1 font-mono font-bold text-xs md:text-sm mb-6 -rotate-2 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
-                         🏪 DO BAIRRO PARA O MUNDO
-                    </div>
-                    
-                    <h1 class="font-display text-5xl sm:text-7xl md:text-9xl leading-[0.9] mb-8 tracking-tighter relative">
-                        <span class="block">SEU NEGÓCIO</span>
-                        <span class="block text-stroke-black relative z-10 ml-0 md:ml-4">MERECE UM</span>
-                        <span class="block bg-black text-[#D4FF00] inline-block px-2 md:px-4 -rotate-1 mt-2 shadow-[6px_6px_0px_0px_rgba(200,200,200,1)]">SITE PROFISSA</span>
-                    </h1>
-                    
-                    <p class="font-mono text-base md:text-xl font-bold max-w-xl mx-auto lg:mx-0 mb-10 border-l-4 border-black pl-4 md:pl-6 bg-white/80 backdrop-blur-sm py-2 text-gray-800 text-left md:text-left">
-                        Chega de depender só do Instagram. Tenha um site próprio para sua <span class="bg-[#D4FF00] px-1 border border-black">padaria</span>, <span class="bg-[#D4FF00] px-1 border border-black">loja</span> ou <span class="bg-[#D4FF00] px-1 border border-black">clínica</span>.
-                    </p>
-                    
-                    <div class="flex flex-col gap-4 justify-center lg:justify-start">
-                        <a href="https://wa.me/553182748728" target="_blank" class="bg-black text-[#D4FF00] font-display text-xl px-10 py-5 hard-shadow border-2 border-black flex items-center justify-center gap-3 w-full sm:w-auto hover:bg-[#D4FF00] hover:text-black transition-colors">
-                            BORA VENDER
-                            <i data-lucide="message-circle"></i>
-                        </a>
-                        <button onclick="document.getElementById('exemplos').scrollIntoView({behavior: 'smooth'})" class="bg-white text-black font-display text-xl px-10 py-5 hard-shadow border-2 border-black w-full sm:w-auto hover:bg-gray-100">
-                            VER EXEMPLOS
-                        </button>
-                    </div>
+    <header class="min-h-screen flex flex-col justify-center px-6 md:px-20 pt-20">
+        <div class="reveal active">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-2 h-2 bg-[#D4FF00] rounded-full animate-pulse"></div>
+                <span class="text-[#D4FF00] font-mono text-xs uppercase tracking-[0.2em]">Creative Tech & Design</span>
+            </div>
+            
+            <h1 class="text-6xl md:text-[8rem] font-bold uppercase tracking-tighter hero-text mb-8">
+                Visual<br>Impact
+            </h1>
+            
+            <p class="text-gray-400 text-lg md:text-xl max-w-xl leading-relaxed">
+                Eu uso <strong class="text-white">Inteligência Artificial</strong> para codificar e <strong class="text-white">Criatividade Humana</strong> para projetar. O resultado são experiências digitais entregues em tempo recorde.
+            </p>
+        </div>
+
+        <div class="mt-20 w-full reveal">
+            <div class="flex justify-between border-b border-white/20 pb-4">
+                <span class="text-xs text-gray-500 uppercase">Localização</span>
+                <span class="text-xs text-white uppercase">Belo Horizonte, BR</span>
+            </div>
+        </div>
+    </header>
+
+    <section id="work" class="px-4 md:px-12 py-12">
+        <div class="video-glow-container aspect-video w-full reveal" onclick="openVideo('assets/comercial_synapse.mp4')">
+            <video src="assets/comercial_synapse.mp4" class="w-full h-full object-cover opacity-80" loop muted playsinline autoplay></video>
+            <div class="play-overlay">
+                <div class="big-play-btn">
+                    <i data-lucide="play" class="w-8 h-8 fill-current"></i>
                 </div>
-                
-                <div class="hidden lg:block flex-1 w-full relative" data-aos="fade-left" data-aos-duration="1200">
-                   <div class="relative w-full aspect-square max-w-[500px] mx-auto group perspective-1000">
-                      <div class="absolute inset-0 bg-black rotate-6 rounded-xl border-2 border-black transition-transform duration-500 group-hover:rotate-12"></div>
-                      <div class="absolute inset-0 bg-[#D4FF00] -rotate-3 rounded-xl border-2 border-black transition-transform duration-500 group-hover:-rotate-6"></div>
-                      
-                      <div class="absolute inset-0 bg-white rotate-0 border-4 border-black rounded-xl flex flex-col overflow-hidden transition-transform duration-500 hover:scale-[1.02] shadow-2xl">
-                         <div class="h-14 bg-black flex items-center px-4 gap-2">
-                             <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
-                             <div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
-                             <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
-                         </div>
-                         <div class="flex-1 p-8 bg-gray-50 flex flex-col items-center justify-center text-center relative overflow-hidden">
-                             <div class="relative z-10">
-                                <div class="bg-[#D4FF00] p-4 rounded-full border-4 border-black mb-4 inline-block shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                                    <i data-lucide="rocket" class="w-12 h-12 text-black"></i>
-                                </div>
-                                <h3 class="font-display text-5xl mb-2 leading-none">SEU SITE</h3>
-                                <p class="font-mono text-sm bg-black text-white inline-block px-3 py-1 -rotate-2">ONLINE 24H POR DIA</p>
-                             </div>
-                         </div>
-                      </div>
-                   </div>
-                </div>
+            </div>
+            <div class="absolute bottom-8 left-8 md:bottom-12 md:left-12 pointer-events-none">
+                <h3 class="font-display text-2xl md:text-4xl font-bold uppercase mb-2">Synapse Commercial</h3>
+                <span class="px-3 py-1 border border-white/30 rounded-full text-xs uppercase backdrop-blur-md">Motion Design</span>
             </div>
         </div>
     </section>
 
-    <div class="bg-black text-[#D4FF00] py-4 md:py-6 border-y-4 border-black overflow-hidden whitespace-nowrap relative rotate-0 md:-rotate-1 z-20 shadow-xl">
-        <div class="inline-block animate-marquee font-display text-2xl md:text-5xl">
-            CARDÁPIO DIGITAL • DELIVERY • AGENDAMENTO • E-COMMERCE • PÁGINA DE VENDAS • GOOGLE MAPS • SEO LOCAL • CARDÁPIO DIGITAL • DELIVERY •
+    <div class="marquee-container">
+        <div class="marquee-content">
+            <span class="marquee-item">Web Design</span>
+            <span class="marquee-item highlight">AI Workflow</span>
+            <span class="marquee-item">Video Editing</span>
+            <span class="marquee-item highlight">CapCut Pro</span>
+            <span class="marquee-item">HTML5</span>
+            <span class="marquee-item highlight">Creative</span>
+            <span class="marquee-item">Web Design</span>
+            <span class="marquee-item highlight">AI Workflow</span>
+            <span class="marquee-item">Video Editing</span>
+            <span class="marquee-item highlight">CapCut Pro</span>
         </div>
     </div>
 
-    <!-- EXEMPLOS -->
-    <section id="exemplos" class="py-16 md:py-24 px-4 md:px-6 bg-[#f4f4f4] border-b-4 border-black relative z-10">
-        <div class="container mx-auto max-w-7xl">
-            <div class="text-center mb-12 md:mb-20" data-aos="fade-up">
-                <span class="bg-black text-white font-mono px-4 py-2 text-sm md:text-lg font-bold -rotate-2 inline-block mb-4 shadow-[3px_3px_0px_0px_#D4FF00]">CONFIRA NOSSOS TRABALHOS</span>
-                <h2 class="font-display text-4xl md:text-7xl text-black leading-none uppercase mt-2">
-                    Modelos Prontos
-                </h2>
-                <p class="mt-4 font-mono text-gray-600 max-w-2xl mx-auto text-sm md:text-lg">
-                    Toque em um modelo para ver.
-                </p>
+    <section id="sites" class="px-6 md:px-20 py-24">
+        <div class="flex justify-between items-end mb-16 reveal">
+            <h2 class="font-display text-4xl md:text-6xl uppercase">Projetos<br>Web</h2>
+            <a href="sites.html" class="hidden md:block px-6 py-3 border border-white/20 rounded-full hover:bg-[#D4FF00] hover:text-black hover:border-[#D4FF00] transition">Ver Galeria Completa</a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="project-card reveal" onclick="window.open('https://seu-synapse.vercel.app')">
+                <img src="assets/IA.png" class="project-img object-top" onerror="this.src='https://placehold.co/600x800/111/FFF'">
+                <div class="project-info">
+                    <h3 class="font-display text-3xl font-bold text-white mb-2">Synapse</h3>
+                    <p class="text-gray-400 text-sm">SaaS Interface • Gamification Logic</p>
+                </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-                              <a href="demo.html?site=moda" class="block relative group" data-aos="fade-up">
-                    <div class="relative bg-white border-4 border-black rounded-xl overflow-hidden hard-shadow">
-                        <div class="h-56 md:h-64 overflow-hidden border-b-4 border-black bg-gray-200 relative">
-                            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Aura" class="w-full h-full object-cover">
-                            <div class="absolute top-4 left-4 bg-gray-700 text-white text-xs font-bold px-3 py-1 uppercase border-2 border-black z-20">Varejo</div>
-                        </div>
-                        <div class="p-6 md:p-8">
-                            <div class="flex justify-between items-center mb-2">
-                                <h3 class="font-display text-2xl md:text-3xl">AURA FASHION</h3>
-                                <i data-lucide="arrow-right" class="w-6 h-6"></i>
-                            </div>
-                            <p class="font-mono text-xs md:text-sm text-gray-600">Catálogo virtual estilo editorial de moda.</p>
-                        </div>
-                    </div>
-                </a>
-                
-                
-
-                <a href="demo.html?site=estetica" class="block relative group" data-aos="fade-up">
-                    <div class="relative bg-white border-4 border-black rounded-xl overflow-hidden hard-shadow">
-                        <div class="h-56 md:h-64 overflow-hidden border-b-4 border-black bg-rose-100 relative">
-                            <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Lumière" class="w-full h-full object-cover">
-                            <div class="absolute top-4 left-4 bg-rose-400 text-white text-xs font-bold px-3 py-1 uppercase border-2 border-black z-20">Beleza</div>
-                        </div>
-                        <div class="p-6 md:p-8">
-                            <div class="flex justify-between items-center mb-2">
-                                <h3 class="font-display text-2xl md:text-3xl">LUMIÈRE</h3>
-                                <i data-lucide="arrow-right" class="w-6 h-6"></i>
-                            </div>
-                            <p class="font-mono text-xs md:text-sm text-gray-600">Design minimalista focado em agendamentos.</p>
-                        </div>
-                    </div>
-                </a>
-
-  
-
-                <a href="demo.html?site=reparos" class="block relative group" data-aos="fade-up">
-                    <div class="relative bg-white border-4 border-black rounded-xl overflow-hidden hard-shadow">
-                        <div class="h-56 md:h-64 overflow-hidden border-b-4 border-black bg-green-100 relative">
-                            <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="SOS" class="w-full h-full object-cover">
-                            <div class="absolute top-4 left-4 bg-green-600 text-white text-xs font-bold px-3 py-1 uppercase border-2 border-black z-20">Serviços</div>
-                        </div>
-                        <div class="p-6 md:p-8">
-                            <div class="flex justify-between items-center mb-2">
-                                <h3 class="font-display text-2xl md:text-3xl">SOS REPAROS</h3>
-                                <i data-lucide="arrow-right" class="w-6 h-6"></i>
-                            </div>
-                            <p class="font-mono text-xs md:text-sm text-gray-600">Site clean para técnicos e manutenções.</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="demo.html?site=hamburgueria" class="block relative group" data-aos="fade-up">
-                    <div class="relative bg-white border-4 border-black rounded-xl overflow-hidden hard-shadow">
-                        <div class="h-56 md:h-64 overflow-hidden border-b-4 border-black bg-orange-100 relative">
-                            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Bravos burguer" class="w-full h-full object-cover">
-                            <div class="absolute top-4 left-4 bg-orange-500 text-white text-xs font-bold px-3 py-1 uppercase border-2 border-black z-20">Gastronomia</div>
-                        </div>
-                        <div class="p-6 md:p-8">
-                            <div class="flex justify-between items-center mb-2">
-                                <h3 class="font-display text-2xl md:text-3xl">BRAVUS BURGUER</h3>
-                                <i data-lucide="arrow-right" class="w-6 h-6"></i>
-                            </div>
-                            <p class="font-mono text-xs md:text-sm text-gray-600">Site completo para delivery com cardápio digital.</p>
-                        </div>
-                    </div>
-                </a>
-
+            <div class="project-card reveal" style="margin-top: 0 md:margin-top: 80px;" onclick="window.open('https://sua-hamburgueria.vercel.app')">
+                <img src="assets/hamburguer.jpg" class="project-img" onerror="this.src='https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?q=80&w=600'">
+                <div class="project-info">
+                    <h3 class="font-display text-3xl font-bold text-white mb-2">Bravus</h3>
+                    <p class="text-gray-400 text-sm">Delivery Landing Page • Sales Focus</p>
+                </div>
             </div>
+        </div>
+        
+        <div class="mt-8 text-center md:hidden">
+             <a href="sites.html" class="inline-block px-6 py-3 border border-white/20 rounded-full text-sm">Ver Galeria Completa</a>
         </div>
     </section>
 
-    <!-- SOBRE -->
-    <section id="sobre" class="py-16 md:py-24 px-4 md:px-6 bg-black text-[#D4FF00] border-b-4 border-white relative overflow-hidden">
-        <div class="container mx-auto max-w-7xl relative z-10">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-center">
-                <div class="text-center lg:text-left" data-aos="fade-right">
-                    <span class="font-mono text-white text-xs md:text-sm uppercase tracking-widest border border-white px-3 py-1 mb-6 inline-block">Quem Somos</span>
-                    <h2 class="font-display text-5xl md:text-8xl mb-6 md:mb-8 leading-none text-[#D4FF00]">
-                        SOMOS A<br>DEVSITES
-                    </h2>
-                    <div class="space-y-4 md:space-y-6 font-mono text-base md:text-xl text-white max-w-lg mx-auto lg:mx-0">
-                        <p class="border-l-4 border-[#D4FF00] pl-4 md:pl-6 text-left leading-relaxed">
-                            A gente sabe que você não tem tempo a perder. Enquanto você cuida do seu negócio, a gente coloca ele na internet.
-                        </p>
-                        <p class="text-left leading-relaxed text-gray-400">
-                            Sem "tecniquês". Design único e entrega rápida.
-                        </p>
-                    </div>
+    <section class="px-6 md:px-20 py-24 bg-[#050505]">
+        <h2 class="font-display text-4xl mb-12 reveal text-center md:text-left">Selected<span class="text-[#D4FF00]">.Feed</span></h2>
+        
+        <div class="masonry-grid reveal">
+            
+            <div class="masonry-item relative group" onclick="openVideo('assets/anuncio_sites.mp4')">
+                <img src="assets/thumb_anuncio.jpg" class="w-full" onerror="this.src='https://images.unsplash.com/photo-1557838402-e2a843f8e9ad?q=80&w=600'">
+                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition bg-black/50">
+                    <i data-lucide="play-circle" class="w-12 h-12 text-white"></i>
                 </div>
+            </div>
 
-                <div class="grid grid-cols-2 gap-4 md:gap-6 rotate-0 md:rotate-1 mt-8 md:mt-0" data-aos="fade-up">
-                    <div class="bg-black border-2 md:border-4 border-white p-4 md:p-8 text-center shadow-[4px_4px_0px_0px_#D4FF00]">
-                        <div class="font-display text-4xl md:text-7xl mb-2">200+</div>
-                        <div class="font-mono font-bold text-[10px] md:text-sm bg-[#D4FF00] text-black inline-block px-2 border border-black">CLIENTES</div>
-                    </div>
-                    <div class="bg-black border-2 md:border-4 border-white p-4 md:p-8 text-center shadow-[4px_4px_0px_0px_#D4FF00]">
-                        <div class="font-display text-4xl md:text-7xl mb-2">50</div>
-                        <div class="font-mono font-bold text-[10px] md:text-sm bg-[#D4FF00] text-black inline-block px-2 border border-black">CIDADES</div>
-                    </div>
+            <div class="masonry-item" onclick="openImage('assets/post1.jpg')"><img src="assets/post1.jpg" class="w-full" onerror="this.src='https://images.unsplash.com/photo-1626785774573-4b799314348d?w=300'"></div>
+            <div class="masonry-item" onclick="openImage('assets/post2.jpg')"><img src="assets/post2.jpg" class="w-full" onerror="this.src='https://images.unsplash.com/photo-1626785774625-ddcddc3445e9?w=300'"></div>
+            
+            <div class="masonry-item relative group" onclick="openVideo('assets/video_extra.mp4')">
+                <img src="assets/thumb_extra.jpg" class="w-full" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=600'">
+                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition bg-black/50">
+                    <i data-lucide="play-circle" class="w-12 h-12 text-white"></i>
+                </div>
+            </div>
+
+            <div class="masonry-item" onclick="openImage('assets/post3.jpg')"><img src="assets/post3.jpg" class="w-full" onerror="this.src='https://images.unsplash.com/photo-1561070791-2526d30994b5?w=300'"></div>
+            <div class="masonry-item" onclick="openImage('assets/post4.jpg')"><img src="assets/post4.jpg" class="w-full" onerror="this.src='https://images.unsplash.com/photo-1542206395-9feb3edaa68d?w=300'"></div>
+        </div>
+    </section>
+
+    <section id="about" class="px-6 md:px-20 py-24 border-t border-white/10">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+            <div class="reveal">
+                <h2 class="font-display text-5xl font-bold mb-6">Kayque<br>Damas.</h2>
+                <div class="space-y-4 text-gray-400 text-lg">
+                    <p>Profissional Híbrido.</p>
+                    <p>Unindo suporte técnico, desenvolvimento e design.</p>
+                </div>
+                <div class="mt-8 flex gap-4">
+                    <a href="assets/curriculo.pdf" target="_blank" class="px-6 py-3 bg-white text-black font-bold uppercase text-sm tracking-wider hover:bg-[#D4FF00] transition">Download CV</a>
+                </div>
+            </div>
+            
+            <div class="space-y-8 reveal">
+                <div class="border-b border-white/10 pb-4">
+                    <h4 class="text-[#D4FF00] font-mono text-xs uppercase mb-2">2025</h4>
+                    <h3 class="text-2xl font-bold">Estagiário Suporte TI</h3>
+                    <p class="text-gray-500">Mdgeo • Infraestrutura & Redes</p>
+                </div>
+                <div class="border-b border-white/10 pb-4">
+                    <h4 class="text-[#D4FF00] font-mono text-xs uppercase mb-2">2024</h4>
+                    <h3 class="text-2xl font-bold">Jovem Aprendiz</h3>
+                    <p class="text-gray-500">Unimed BH • Administrativo</p>
+                </div>
+                <div class="border-b border-white/10 pb-4">
+                    <h4 class="text-[#D4FF00] font-mono text-xs uppercase mb-2">Formação</h4>
+                    <h3 class="text-2xl font-bold">Técnico em Informática</h3>
+                    <p class="text-gray-500">SENAI CTTI</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CONTATO -->
-    <section id="contato" class="py-16 md:py-24 px-4 md:px-6 bg-[#D4FF00] relative">
-        <div class="container mx-auto max-w-4xl">
-            <div class="bg-white border-[4px] md:border-[6px] border-black hard-shadow p-8 md:p-16 relative rotate-0 md:-rotate-1 text-center" data-aos="zoom-in-up">
-                
-                <div class="relative z-10 flex flex-col items-center justify-center">
-                    
-                    <div class="bg-black text-[#D4FF00] p-4 rounded-full border-4 border-[#D4FF00] mb-6 shadow-xl">
-                        <i data-lucide="message-circle" class="w-10 h-10 md:w-16 md:h-16"></i>
-                    </div>
-
-                    <h2 class="font-display text-4xl md:text-7xl mb-6 text-black uppercase leading-none">
-                        VAMOS CRESCER?
-                    </h2>
-                    
-                    <p class="font-mono font-bold mb-10 max-w-xl text-gray-600 text-sm md:text-xl leading-relaxed">
-                        Sem formulários chatos. Clique no botão abaixo e fale diretamente com a gente no WhatsApp para começar seu projeto.
-                    </p>
-
-                    <a href="https://wa.me/553182748728" target="_blank" class="w-full md:w-auto bg-black text-[#D4FF00] font-display text-xl md:text-3xl py-5 px-10 border-4 border-black hover:bg-[#25D366] hover:text-white hover:border-black transition-all uppercase tracking-wide cursor-pointer hard-shadow flex items-center justify-center gap-4 group">
-                        <i data-lucide="phone" class="group-hover:rotate-12 transition-transform"></i>
-                        CHAMAR NO WHATS
-                    </a>
-                    
-                    <p class="font-mono text-xs text-gray-400 mt-6">
-                        Atendimento rápido de Seg a Sex, das 09h às 18h.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="bg-black text-[#D4FF00] py-10 px-6 border-t-8 border-[#D4FF00]">
-        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-            <div class="text-center md:text-left">
-                <h3 class="font-display text-3xl mb-2 inline-block border-2 border-[#D4FF00] p-2 rotate-0 md:rotate-2">DEVSITES.</h3>
-                <p class="font-mono text-xs opacity-70 mt-4">© 2025 DevSites Agency.<br>Apoiando o comércio local.</p>
-            </div>
-        </div>
+    <footer class="py-12 text-center text-xs text-gray-600 uppercase tracking-widest">
+        2026 © Kayque Damas. All Rights Reserved.
     </footer>
 
-    <!-- MODAL DE SENHA DO CLIENTE -->
-    <div id="client-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 glass-modal opacity-0 transition-opacity duration-300">
-        <div id="modal-content" class="bg-white border-4 border-black p-8 max-w-md w-full shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] relative transform scale-95 transition-transform duration-300">
-            <button onclick="closeClientModal()" class="absolute top-4 right-4 text-gray-400 hover:text-black">
-                <i data-lucide="x" class="w-8 h-8"></i>
-            </button>
-            
-            <div class="text-center mb-6">
-                <div class="inline-block bg-[#D4FF00] border-2 border-black p-3 mb-4 rounded-full">
-                    <i data-lucide="lock" class="w-8 h-8 text-black"></i>
-                </div>
-                <h3 class="font-display text-3xl uppercase leading-none mb-2">Área Restrita</h3>
-                <p class="font-mono text-sm text-gray-600">Digite o código do projeto para acessar a demonstração.</p>
-            </div>
-            
-            <div class="space-y-4">
-                <input type="password" id="project-code" placeholder="CÓDIGO DO PROJETO" class="w-full bg-gray-100 border-4 border-black p-4 font-mono text-center text-xl uppercase placeholder:text-gray-400 focus:outline-none focus:bg-[#D4FF00]/20 transition-colors">
-                
-                <button onclick="checkProjectCode()" class="w-full bg-black text-[#D4FF00] font-display text-xl py-4 hover:bg-[#D4FF00] hover:text-black hover:border-black border-4 border-transparent transition-all uppercase">
-                    Acessar Projeto
-                </button>
-                
-                <p id="error-message" class="text-red-600 font-mono text-xs text-center font-bold hidden bg-red-100 p-2 border border-red-500">
-                    CÓDIGO INCORRETO. TENTE NOVAMENTE.
-                </p>
-            </div>
+    <div id="modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 hidden-modal backdrop-blur-md">
+        <button onclick="closeModal()" class="absolute top-6 right-6 text-white p-2 hover:bg-white/10 rounded-full transition">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+
+        <div class="w-full max-w-6xl max-h-[90vh] flex items-center justify-center">
+            <video id="modalVideo" controls class="w-full h-full max-h-[85vh] hidden outline-none object-contain">
+                <source src="" type="video/mp4">
+            </video>
+            <img id="modalImage" src="" class="w-full h-full object-contain max-h-[85vh] hidden">
         </div>
     </div>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         lucide.createIcons();
-        
-        AOS.init({
-            once: true,
-            offset: 50,
-            duration: 800,
-            easing: 'ease-out-cubic',
-        });
 
-        if (typeof Lenis !== 'undefined') {
-            const lenis = new Lenis({
-                duration: 1.2,
-                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                smooth: true,
+        // Reveal on Scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
             });
-            function raf(time) {
-                lenis.raf(time);
-                requestAnimationFrame(raf);
-            }
-            requestAnimationFrame(raf);
-        }
-        
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            const iconMenu = document.getElementById('icon-menu');
-            const iconX = document.getElementById('icon-x');
-            
-            menu.classList.toggle('hidden');
-            iconMenu.classList.toggle('hidden');
-            iconX.classList.toggle('hidden');
-            
-            document.body.classList.toggle('overflow-hidden');
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Modal Logic
+        const modal = document.getElementById('modal');
+        const vidPlayer = document.getElementById('modalVideo');
+        const imgViewer = document.getElementById('modalImage');
+
+        function openVideo(path) {
+            modal.classList.remove('hidden-modal');
+            imgViewer.classList.add('hidden');
+            vidPlayer.classList.remove('hidden');
+            vidPlayer.src = path;
+            vidPlayer.play();
         }
 
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar-bg');
-            if (window.scrollY > 20) {
-                navbar.classList.remove('-translate-y-full');
-            } else {
-                navbar.classList.add('-translate-y-full');
-            }
-        });
+        function openImage(path) {
+            modal.classList.remove('hidden-modal');
+            vidPlayer.classList.add('hidden');
+            vidPlayer.pause();
+            imgViewer.classList.remove('hidden');
+            imgViewer.src = path;
+        }
 
-        /* --- LÓGICA DO MODAL DE SENHA --- */
-        const clientModal = document.getElementById('client-modal');
-        const modalContent = document.getElementById('modal-content');
-        const codeInput = document.getElementById('project-code');
-        const errorMsg = document.getElementById('error-message');
-
-        // Códigos de Acesso (Dicionário: Código -> Nome do Site)
-        // Adicione aqui os códigos e os arquivos correspondentes
-        const ACCESS_CODES = {
-            "DEV2025": "demostração", // Padrão
-            "X2254": "cliente1" // Novo cliente
-        };
-
-        function openClientModal() {
-            clientModal.classList.remove('hidden');
-            // Pequeno delay para animação CSS
+        function closeModal() {
+            modal.classList.add('hidden-modal');
             setTimeout(() => {
-                clientModal.classList.remove('opacity-0');
-                modalContent.classList.remove('scale-95');
-                modalContent.classList.add('scale-100');
-            }, 10);
-            codeInput.value = '';
-            errorMsg.classList.add('hidden');
-            codeInput.focus();
-        }
-
-        function closeClientModal() {
-            clientModal.classList.add('opacity-0');
-            modalContent.classList.remove('scale-100');
-            modalContent.classList.add('scale-95');
-            setTimeout(() => {
-                clientModal.classList.add('hidden');
+                vidPlayer.pause();
+                vidPlayer.src = "";
+                imgViewer.src = "";
             }, 300);
         }
 
-        function checkProjectCode() {
-            const input = codeInput.value.toUpperCase().trim(); // Converte para maiúsculo e remove espaços
-            
-            if (ACCESS_CODES.hasOwnProperty(input)) {
-                // Sucesso: Redireciona para o demo com o site correto
-                // O site é passado como parâmetro na URL (ex: demo.html?site=cliente1)
-                const siteName = ACCESS_CODES[input];
-                window.location.href = `demo.html?site=${siteName}`;
-            } else {
-                // Erro: Treme o modal e mostra erro
-                errorMsg.classList.remove('hidden');
-                modalContent.classList.add('shake');
-                setTimeout(() => modalContent.classList.remove('shake'), 500);
-                codeInput.value = '';
-                codeInput.focus();
-            }
-        }
-
-        // Permitir dar Enter para enviar
-        codeInput.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                checkProjectCode();
-            }
-        });
-
-        // Fechar ao clicar fora
-        clientModal.addEventListener('click', (e) => {
-            if (e.target === clientModal) closeClientModal();
-        });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
     </script>
 </body>
 </html>
