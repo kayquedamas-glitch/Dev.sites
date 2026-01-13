@@ -3,35 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Andreza Moreira | Cílios Jundiaí</title>
+    <title>Rayane Santos | Lash Design</title>
     
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS (Framework de Estilo) -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Fontes (Mais sofisticadas para autoridade) -->
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@200;400;500;700&display=swap" rel="stylesheet">
+    <!-- Fontes do Google (Elegância) -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     
-    <!-- Ícones -->
+    <!-- Ícones (Lucide) -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- Configurações de Estilo: Paleta Black & Gold -->
+    <!-- Configurações de Estilo Personalizadas -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'brand-black': '#050505',
-                        'brand-dark': '#111111',
-                        'brand-gold': '#D4AF37',       /* Ouro Clássico */
-                        'brand-gold-light': '#F3E5AB', /* Ouro Claro para brilho */
-                        'brand-gray': '#2A2A2A',
+                        'ray-black': '#0a0a0a',
+                        'ray-dark': '#121212',
+                        'ray-pink': '#FFC0CB', 
+                        'ray-pink-dark': '#db95a1',
+                        'ray-gold': '#D4AF37',
                     },
                     fontFamily: {
-                        'serif': ['"Cormorant Garamond"', 'serif'],
+                        'script': ['"Dancing Script"', 'cursive'],
+                        'serif': ['"Playfair Display"', 'serif'],
                         'sans': ['"Montserrat"', 'sans-serif'],
                     },
                     backgroundImage: {
-                        'gold-gradient': 'linear-gradient(135deg, #D4AF37 0%, #F3E5AB 50%, #B8860B 100%)',
+                        'watercolor': "url('https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?q=80&w=1000&auto=format&fit=crop')",
                     }
                 }
             }
@@ -39,358 +40,465 @@
     </script>
 
     <style>
-        html { scroll-behavior: smooth; }
-        body { background-color: #050505; color: #f5f5f5; }
-
-        /* Textos Dourados com efeito metálico */
-        .text-gold {
-            background: linear-gradient(to bottom, #D4AF37, #F3E5AB, #D4AF37);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0px 0px 20px rgba(212, 175, 55, 0.2);
+        /* Efeitos Personalizados */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #f3f3f3;
         }
 
-        /* Botão Dourado Premium */
-        .btn-gold {
-            background: linear-gradient(90deg, #D4AF37 0%, #c49f2b 100%);
-            color: #000;
-            transition: all 0.4s ease;
+        /* Efeito de Aquarela na Logo (Simulação CSS) */
+        .logo-watercolor {
             position: relative;
-            overflow: hidden;
-            z-index: 1;
+            z-index: 10;
         }
-        .btn-gold::before {
+        .logo-watercolor::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(90deg, #F3E5AB 0%, #D4AF37 100%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(circle, rgba(255, 192, 203, 0.2) 0%, rgba(0,0,0,0) 70%);
             z-index: -1;
-            transition: opacity 0.4s;
+            border-radius: 50%;
+            filter: blur(10px);
+        }
+
+        /* Animações de Entrada */
+        .fade-in-up {
             opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
-        .btn-gold:hover::before { opacity: 1; }
-        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2); }
-
-        /* Efeito de Vidro (Glassmorphism) Dark */
-        .glass-card {
-            background: rgba(20, 20, 20, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        /* Animações */
-        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.8s, transform 0.8s; }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        /* Botão Flutuante do WhatsApp */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            z-index: 100;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background-color: #20bd5a;
+        }
+        .pulse {
+            animation: pulse-animation 2s infinite;
+        }
+        @keyframes pulse-animation {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        /* Gradiente Rosa Suave */
+        .text-gradient-pink {
+            background: linear-gradient(to right, #FFC0CB, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
         
-        /* Divisor Dourado Fino */
-        .gold-line {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #D4AF37, transparent);
-            margin: 2rem 0;
-            opacity: 0.5;
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #FFC0CB;
+            transition: width 0.3s;
+        }
+        .nav-link:hover::after {
+            width: 100%;
         }
     </style>
 </head>
-<body class="font-sans antialiased overflow-x-hidden">
+<body class="font-sans antialiased">
 
     <!-- Navbar -->
-    <nav class="fixed w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/5" id="navbar">
+    <nav class="fixed w-full z-50 bg-black/90 backdrop-blur-md border-b border-white/10 transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-24">
-                <!-- Logo -->
-                <div class="flex flex-col items-start cursor-pointer group" onclick="window.scrollTo(0,0)">
-                    <span class="font-serif text-3xl font-semibold text-gold tracking-wide group-hover:opacity-80 transition">Andreza Moreira</span>
-                    <span class="text-[10px] tracking-[0.3em] text-gray-400 uppercase ml-1">Cílios Jundiaí</span>
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo Texto -->
+                <div class="flex-shrink-0 flex flex-col items-center logo-watercolor cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <span class="font-script text-3xl text-ray-pink">RS</span>
+                    <span class="font-serif text-xs tracking-widest text-white uppercase mt-[-5px]">Rayane Santos</span>
                 </div>
                 
                 <!-- Menu Desktop -->
-                <div class="hidden md:flex space-x-8 items-center">
-                    <a href="#inicio" class="text-sm font-medium text-gray-300 hover:text-brand-gold transition uppercase tracking-wider">Início</a>
-                    <a href="#sobre" class="text-sm font-medium text-gray-300 hover:text-brand-gold transition uppercase tracking-wider">A Artista</a>
-                    <a href="#servicos" class="text-sm font-medium text-gray-300 hover:text-brand-gold transition uppercase tracking-wider">Técnicas</a>
-                    <a href="#cursos" class="text-sm font-medium text-gray-300 hover:text-brand-gold transition uppercase tracking-wider">Cursos</a>
-                    <a href="#contato" class="btn-gold px-6 py-2 rounded-sm text-xs font-bold tracking-widest uppercase">Agendar</a>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition">Início</a>
+                        <a href="#about" class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition">Sobre Mim</a>
+                        <a href="#services" class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition">Serviços</a>
+                        <a href="#gallery" class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition">Galeria</a>
+                        <a href="#contact" class="bg-ray-pink text-black hover:bg-white px-5 py-2 rounded-full text-sm font-semibold transition transform hover:scale-105">Agendar</a>
+                    </div>
                 </div>
 
-                <!-- Mobile Menu Icon -->
-                <div class="md:hidden text-brand-gold cursor-pointer" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
-                    <i data-lucide="menu" class="w-8 h-8"></i>
+                <!-- Menu Mobile Button -->
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" onclick="toggleMobileMenu()" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
                 </div>
             </div>
         </div>
-        <!-- Menu Mobile -->
-        <div id="mobile-menu" class="hidden bg-black border-b border-brand-gold/20 absolute w-full">
-            <div class="px-4 pt-2 pb-6 space-y-2 text-center">
-                <a href="#inicio" class="block py-3 text-gray-300 hover:text-brand-gold border-b border-white/5">INÍCIO</a>
-                <a href="#sobre" class="block py-3 text-gray-300 hover:text-brand-gold border-b border-white/5">A ARTISTA</a>
-                <a href="#servicos" class="block py-3 text-gray-300 hover:text-brand-gold border-b border-white/5">TÉCNICAS</a>
-                <a href="#cursos" class="block py-3 text-gray-300 hover:text-brand-gold border-b border-white/5">CURSOS</a>
-                <a href="#contato" class="block py-3 text-brand-gold font-bold">AGENDAR HORÁRIO</a>
+
+        <!-- Menu Mobile Panel -->
+        <div class="md:hidden hidden bg-black border-t border-gray-800" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
+                <a href="#home" onclick="toggleMobileMenu()" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Início</a>
+                <a href="#about" onclick="toggleMobileMenu()" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Sobre Mim</a>
+                <a href="#services" onclick="toggleMobileMenu()" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Serviços</a>
+                <a href="#gallery" onclick="toggleMobileMenu()" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Galeria</a>
+                <a href="#contact" onclick="toggleMobileMenu()" class="text-ray-pink font-bold block px-3 py-2 rounded-md text-base mt-4">AGENDAR HORÁRIO</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section (Capa) -->
-    <section id="inicio" class="relative h-screen flex items-center justify-center bg-black">
-        <!-- Fundo Imagem Escura -->
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image com Overlay Escuro -->
         <div class="absolute inset-0 z-0">
-            <div class="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent z-10"></div>
-            <!-- Substitua pela foto dela de braços cruzados ou trabalhando -->
-            <img src="https://images.unsplash.com/photo-1631214524020-7e18db9a8f92?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover opacity-40 grayscale" alt="Background">
+            <img src="" alt="Cílios Background" class="w-full h-full object-cover opacity-30">
+            <div class="absolute inset-0 bg-gradient-to-t from-ray-black via-black/70 to-black/40"></div>
         </div>
 
-        <div class="relative z-20 max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center h-full pt-20">
-            <div class="fade-in">
-                <div class="flex items-center gap-4 mb-4">
-                    <div class="h-[1px] w-12 bg-brand-gold"></div>
-                    <span class="text-brand-gold uppercase tracking-[0.2em] text-xs font-bold">9 Anos de Excelência</span>
-                </div>
-                <h1 class="text-5xl md:text-7xl font-serif text-white leading-tight mb-6">
-                    Invista no seu <br>
-                    <span class="text-gold italic">Olhar</span>
-                </h1>
-                <p class="text-gray-400 text-lg leading-relaxed mb-10 max-w-lg font-light border-l-2 border-brand-gold/30 pl-6">
-                    Especialista em realçar a beleza natural através de técnicas avançadas de extensão de cílios e mentoria para novas profissionais.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="#contato" class="btn-gold px-8 py-4 rounded-sm text-sm font-bold tracking-widest uppercase text-center">
-                        Agendar Procedimento
-                    </a>
-                    <a href="#cursos" class="px-8 py-4 border border-white/20 hover:border-brand-gold text-white hover:text-brand-gold transition rounded-sm text-sm font-bold tracking-widest uppercase text-center">
-                        Quero ser Aluna
-                    </a>
-                </div>
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto fade-in-up">
+            <p class="font-script text-3xl md:text-5xl text-ray-pink mb-4">Realçando o seu olhar</p>
+            <h1 class="text-4xl md:text-7xl font-serif font-bold text-white mb-6 leading-tight">
+                Especialista em <br> <span class="text-gradient-pink">Extensão de Cílios</span>
+            </h1>
+            <p class="text-gray-300 text-lg md:text-xl mb-10 max-w-2xl mx-auto font-light">
+                Durabilidade, conforto e estética. Transforme seu visual com técnicas exclusivas e personalizadas.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="https://wa.me/5531983842310" target="_blank" class="bg-ray-pink hover:bg-white text-black font-semibold py-4 px-8 rounded-full transition transform hover:scale-105 flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,192,203,0.4)]">
+                    <i data-lucide="calendar"></i> Agendar Agora
+                </a>
+                <a href="#services" class="border border-white/30 hover:border-ray-pink hover:text-ray-pink text-white font-medium py-4 px-8 rounded-full transition flex items-center justify-center">
+                    Ver Procedimentos
+                </a>
             </div>
-            <!-- Espaço vazio na direita para mostrar a imagem de fundo -->
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-gray-500">
+            <i data-lucide="chevron-down" class="w-8 h-8"></i>
         </div>
     </section>
 
-    <!-- Sobre a Profissional -->
-    <section id="sobre" class="py-24 bg-brand-dark relative overflow-hidden">
-        <!-- Elemento decorativo -->
-        <div class="absolute top-0 right-0 w-64 h-64 bg-brand-gold opacity-5 blur-[100px] rounded-full"></div>
-
-        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-16 items-center relative z-10">
-            <!-- Foto com moldura dourada -->
-            <div class="relative fade-in">
-                <div class="absolute -top-4 -left-4 w-full h-full border border-brand-gold/30"></div>
-                <!-- Foto da Andreza aqui -->
-                <img src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?q=80&w=1000&auto=format&fit=crop" alt="Andreza Moreira" class="w-full h-auto object-cover grayscale hover:grayscale-0 transition duration-700 shadow-2xl">
-                <div class="absolute -bottom-6 -right-6 bg-brand-black p-6 border border-brand-gold/20 shadow-xl hidden md:block">
-                    <p class="font-serif text-3xl text-gold text-center">9+</p>
-                    <p class="text-xs uppercase tracking-widest text-gray-400 text-center">Anos de<br>Carreira</p>
-                </div>
-            </div>
-
-            <div class="fade-in">
-                <h3 class="font-serif text-4xl md:text-5xl text-white mb-6">
-                    Muito mais que Cílios,<br>uma <span class="text-gold">Experiência.</span>
-                </h3>
-                <p class="text-gray-400 mb-6 font-light leading-relaxed">
-                    Sou Andreza Moreira, artista e mentora. Minha trajetória na área da beleza é marcada pela busca incessante pela perfeição e naturalidade. 
-                </p>
-                <p class="text-gray-400 mb-8 font-light leading-relaxed">
-                    Meu estúdio em Jundiaí não é apenas um local de atendimento, é um centro de transformação onde ensino iniciantes e profissionais a alcançarem resultados extraordinários.
-                </p>
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-ray-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+          
                 
-                <div class="grid grid-cols-2 gap-8 mb-8">
-                    <div>
-                        <i data-lucide="award" class="text-brand-gold w-8 h-8 mb-3"></i>
-                        <h4 class="text-white font-serif text-xl mb-1">Certificada</h4>
-                        <p class="text-xs text-gray-500 uppercase">Internacionalmente</p>
-                    </div>
-                    <div>
-                        <i data-lucide="users" class="text-brand-gold w-8 h-8 mb-3"></i>
-                        <h4 class="text-white font-serif text-xl mb-1">Mentora</h4>
-                        <p class="text-xs text-gray-500 uppercase">Dezenas de alunas</p>
+                <!-- Texto -->
+                <div class="w-full md:w-1/2 fade-in-up">
+                    <h3 class="text-ray-pink font-script text-3xl mb-2">Sobre Mim</h3>
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-6">Rayane Santos</h2>
+                    <p class="text-gray-400 mb-6 leading-relaxed">
+                        Sou empreendedora e especialista em cílios, dedicada a realçar a beleza natural de cada cliente. Com anos de experiência e utilizando as técnicas mais seguras do mercado, meu objetivo é entregar não apenas cílios bonitos, mas auto-estima e praticidade para o seu dia a dia.
+                    </p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-gray-300">
+                            <i data-lucide="check-circle" class="text-ray-pink w-5 h-5 mr-3"></i> Atendimento Personalizado
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i data-lucide="check-circle" class="text-ray-pink w-5 h-5 mr-3"></i> Materiais de Alta Qualidade
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i data-lucide="check-circle" class="text-ray-pink w-5 h-5 mr-3"></i> Ambiente Confortável e Seguro
+                        </li>
+                    </ul>
+                    <div class="flex items-center gap-4">
+                        <div class="text-center">
+                            <span class="block text-3xl font-bold text-white">1000+</span>
+                            <span class="text-xs text-gray-500 uppercase tracking-widest">Procedimentos</span>
+                        </div>
+                        <div class="h-10 w-[1px] bg-gray-700"></div>
+                        <div class="text-center">
+                            <span class="block text-3xl font-bold text-white">5.0</span>
+                            <span class="text-xs text-gray-500 uppercase tracking-widest">Avaliação</span>
+                        </div>
                     </div>
                 </div>
-
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Signature_sample.svg/1200px-Signature_sample.svg.png" alt="Assinatura" class="h-12 opacity-50 invert">
             </div>
         </div>
     </section>
 
-    <!-- Serviços (Menu de Técnicas) -->
-    <section id="servicos" class="py-24 bg-brand-black">
-        <div class="max-w-4xl mx-auto px-4 text-center mb-16 fade-in">
-            <span class="text-brand-gold uppercase tracking-[0.3em] text-xs font-bold">Studio Andreza Moreira</span>
-            <h2 class="text-4xl md:text-5xl font-serif text-white mt-3">Menu de Técnicas</h2>
-            <div class="w-24 h-[1px] bg-brand-gold mx-auto mt-6"></div>
-        </div>
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-black relative">
+        <!-- Detalhe de fundo -->
+        <div class="absolute top-0 right-0 w-1/3 h-1/3 bg-ray-pink/5 blur-[100px] rounded-full pointer-events-none"></div>
 
-        <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- Card 1 -->
-            <div class="glass-card p-10 text-center hover:bg-white/5 transition duration-500 group fade-in">
-                <div class="w-16 h-16 rounded-full border border-brand-gold/30 flex items-center justify-center mx-auto mb-6 group-hover:border-brand-gold transition">
-                    <span class="font-serif text-2xl text-white">01</span>
-                </div>
-                <h3 class="text-xl font-serif text-gold mb-4">Clássico Fio a Fio</h3>
-                <p class="text-gray-400 text-sm font-light mb-6">Para quem busca elegância discreta. Acentua o olhar mantendo a leveza natural.</p>
-                <a href="#" class="text-xs uppercase tracking-widest text-white border-b border-brand-gold/50 pb-1">Ver Detalhes</a>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 fade-in-up">
+                <span class="text-ray-pink font-script text-2xl">O que oferecemos</span>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mt-2">Nossos Procedimentos</h2>
             </div>
 
-            <!-- Card 2 -->
-            <div class="glass-card p-10 text-center hover:bg-white/5 transition duration-500 group fade-in transform md:-translate-y-4">
-                <div class="absolute top-0 right-0 bg-brand-gold text-black text-[10px] font-bold px-3 py-1 uppercase">Mais Pedido</div>
-                <div class="w-16 h-16 rounded-full border border-brand-gold/30 flex items-center justify-center mx-auto mb-6 group-hover:border-brand-gold transition">
-                    <span class="font-serif text-2xl text-white">02</span>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-2xl hover:border-ray-pink/50 transition duration-300 group fade-in-up">
+                    <div class="w-14 h-14 bg-zinc-800 rounded-full flex items-center justify-center mb-6 text-ray-pink group-hover:bg-ray-pink group-hover:text-black transition duration-300">
+                        <i data-lucide="eye" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Fio a Fio Clássico</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                        A técnica mais natural. Aplicação de um fio sintético sobre cada fio natural, proporcionando efeito de rímel perfeito.
+                    </p>
+                    <a href="https://wa.me/5531983842310?text=Olá, gostaria de saber mais sobre o Fio a Fio." class="text-ray-pink text-sm font-semibold hover:underline">Saiba mais →</a>
                 </div>
-                <h3 class="text-xl font-serif text-gold mb-4">Volume Brasileiro</h3>
-                <p class="text-gray-400 text-sm font-light mb-6">A retenção perfeita com volume na medida certa. O queridinho das clientes.</p>
-                <a href="#" class="text-xs uppercase tracking-widest text-white border-b border-brand-gold/50 pb-1">Ver Detalhes</a>
-            </div>
 
-            <!-- Card 3 -->
-            <div class="glass-card p-10 text-center hover:bg-white/5 transition duration-500 group fade-in">
-                <div class="w-16 h-16 rounded-full border border-brand-gold/30 flex items-center justify-center mx-auto mb-6 group-hover:border-brand-gold transition">
-                    <span class="font-serif text-2xl text-white">03</span>
+                <!-- Card 2 -->
+                <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-2xl hover:border-ray-pink/50 transition duration-300 group fade-in-up" style="transition-delay: 100ms;">
+                    <div class="w-14 h-14 bg-zinc-800 rounded-full flex items-center justify-center mb-6 text-ray-pink group-hover:bg-ray-pink group-hover:text-black transition duration-300">
+                        <i data-lucide="stars" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Volume Brasileiro</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                        O queridinho do momento. Fios em formato de Y que garantem preenchimento e duração, sem perder a leveza.
+                    </p>
+                    <a href="https://wa.me/5531983842310?text=Olá, gostaria de saber mais sobre o Volume Brasileiro." class="text-ray-pink text-sm font-semibold hover:underline">Saiba mais →</a>
                 </div>
-                <h3 class="text-xl font-serif text-gold mb-4">Volume Russo</h3>
-                <p class="text-gray-400 text-sm font-light mb-6">Luxo e densidade. Para mulheres que gostam de um olhar marcante e poderoso.</p>
-                <a href="#" class="text-xs uppercase tracking-widest text-white border-b border-brand-gold/50 pb-1">Ver Detalhes</a>
+
+                <!-- Card 3 -->
+                <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-2xl hover:border-ray-pink/50 transition duration-300 group fade-in-up" style="transition-delay: 200ms;">
+                    <div class="w-14 h-14 bg-zinc-800 rounded-full flex items-center justify-center mb-6 text-ray-pink group-hover:bg-ray-pink group-hover:text-black transition duration-300">
+                        <i data-lucide="sparkles" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Volume Egípcio</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                        Sofisticação e densidade. Técnica utilizando fios em formato de W para um olhar marcante e preenchido.
+                    </p>
+                    <a href="https://wa.me/5531983842310?text=Olá, gostaria de saber mais sobre o Volume Egípcio." class="text-ray-pink text-sm font-semibold hover:underline">Saiba mais →</a>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                 <a href="https://wa.me/5531983842310" class="inline-block border border-ray-pink text-ray-pink hover:bg-ray-pink hover:text-black px-8 py-3 rounded-full transition font-semibold">
+                    Ver Tabela de Valores
+                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Área de Cursos (Novo Destaque) -->
-    <section id="cursos" class="py-24 bg-brand-dark border-y border-white/5">
-        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row gap-12 items-center">
-            <div class="w-full md:w-1/2 fade-in">
-                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop" alt="Curso Lash Design" class="rounded-sm shadow-2xl border border-white/10 grayscale hover:grayscale-0 transition duration-500">
+    <!-- Care Section (Diferencial Profissional) -->
+    <section class="py-16 bg-white text-black">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="md:w-1/2 mb-8 md:mb-0">
+                    <span class="text-ray-pink-dark font-script text-2xl font-bold">Cuidados Essenciais</span>
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-black mt-2 mb-6">Para cílios lindos por mais tempo</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="flex items-start gap-3">
+                            <div class="bg-black text-white p-2 rounded-lg"><i data-lucide="droplets" class="w-4 h-4"></i></div>
+                            <p class="text-sm font-medium text-gray-700">Não molhar nas primeiras 24h</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="bg-black text-white p-2 rounded-lg"><i data-lucide="hand" class="w-4 h-4"></i></div>
+                            <p class="text-sm font-medium text-gray-700">Não esfregar os olhos</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="bg-black text-white p-2 rounded-lg"><i data-lucide="spray-can" class="w-4 h-4"></i></div>
+                            <p class="text-sm font-medium text-gray-700">Evitar produtos oleosos</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="bg-black text-white p-2 rounded-lg"><i data-lucide="brush" class="w-4 h-4"></i></div>
+                            <p class="text-sm font-medium text-gray-700">Pentear diariamente</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/3 flex justify-center">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-ray-pink rounded-full blur-xl opacity-30 animate-pulse"></div>
+                        <!-- Ícone ilustrativo de olho -->
+                        <div class="relative bg-black p-8 rounded-full border-4 border-ray-pink">
+                             <i data-lucide="eye" class="w-20 h-20 text-white"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="w-full md:w-1/2 fade-in">
-                <span class="text-brand-gold uppercase tracking-[0.2em] text-xs font-bold block mb-4">Academy</span>
-                <h2 class="text-4xl md:text-5xl font-serif text-white mb-6">Torne-se uma Especialista</h2>
-                <p class="text-gray-400 font-light mb-8">
-                    Não ensino apenas a colar cílios. Ensino você a construir uma carreira sólida, ter retenção de verdade e conquistar sua independência financeira na área da beleza.
-                </p>
-                
-                <ul class="space-y-4 mb-10">
-                    <li class="flex items-center text-gray-300 font-light">
-                        <i data-lucide="check" class="text-brand-gold w-5 h-5 mr-4"></i> Curso Iniciante ao Avançado
-                    </li>
-                    <li class="flex items-center text-gray-300 font-light">
-                        <i data-lucide="check" class="text-brand-gold w-5 h-5 mr-4"></i> Mentoria VIP (Individual)
-                    </li>
-                    <li class="flex items-center text-gray-300 font-light">
-                        <i data-lucide="check" class="text-brand-gold w-5 h-5 mr-4"></i> Suporte Pós-Curso Vitalício
-                    </li>
-                </ul>
+        </div>
+    </section>
 
-                <a href="https://wa.me/seunumerodewhatsapp" class="inline-block border border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-black px-10 py-3 transition uppercase text-xs font-bold tracking-widest">
-                    Informações sobre Turmas
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-ray-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-in-up">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-2">Galeria de Resultados</h2>
+                <p class="text-gray-400">Confira algumas das transformações realizadas.</p>
+            </div>
+            
+            <!-- Grid de Fotos estilo Mosaico -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]">
+                <!-- Item Grande -->
+                <div class="col-span-2 row-span-2 relative group overflow-hidden rounded-xl">
+                    <img src="https://media.istockphoto.com/id/1423975299/pt/foto/making-makeup-in-a-beauty-salon-applying-black-mascara-to-the-eyelashes-with-a-makeup-brush.jpg?s=612x612&w=0&k=20&c=yKbEk-uONJ5z4rJCXrJNLBjHpgRWePO5nY7OVA8Hxdo=" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" alt="Resultado Cílios 1">
+                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                        <span class="text-white font-serif italic">Volume Russo</span>
+                    </div>
+                </div>
+                <!-- Item Pequeno -->
+                <div class="col-span-1 row-span-1 relative group overflow-hidden rounded-xl">
+                    <img src="https://media.istockphoto.com/id/1617061737/pt/foto/young-woman-looking-at-the-camera-in-the-last-step-of-brushing-her-eyebrow.jpg?s=612x612&w=0&k=20&c=JY59DF8uSsQfw6P2Hca_NVhRYMhrGu_c2YjgllrbkhM=" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" alt="Resultado Cílios 2">
+                </div>
+                <!-- Item Pequeno -->
+                <div class="col-span-1 row-span-1 relative group overflow-hidden rounded-xl">
+                    <img src="https://media.istockphoto.com/id/1443199746/pt/foto/make-up-artist-makes-the-procedure-of-lamination-and-dyeing-of-eyelashes-to-a-beautiful-woman.jpg?s=612x612&w=0&k=20&c=KAEl5jU85HAn3G_o2Bic4UGidVNfroAmjh07VMl8FeI=" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" alt="Resultado Cílios 3">
+                </div>
+                <!-- Item Largo -->
+                <div class="col-span-2 row-span-1 relative group overflow-hidden rounded-xl">
+                    <img src="https://media.istockphoto.com/id/2189419177/pt/foto/young-woman-applying-mascara-while-wearing-bathrobe-and-towel.webp?a=1&b=1&s=612x612&w=0&k=20&c=aIh44eSe9TBQ3OdtlI08owIObtXdP7LTLTjVKQmX3r8=" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" alt="Resultado Cílios 4">
+                </div>
+            </div>
+             <div class="text-center mt-8">
+                <a href="https://instagram.com/studiorayanesant" target="_blank" class="text-gray-400 hover:text-ray-pink transition text-sm flex items-center justify-center gap-2">
+                    <i data-lucide="instagram" class="w-4 h-4"></i> Ver mais no Instagram
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Depoimentos / Alunas (Carrossel Estático) -->
-    <section class="py-20 bg-black">
-        <div class="max-w-7xl mx-auto px-4">
-            <h2 class="text-3xl font-serif text-center text-white mb-16">O que dizem minhas Alunas e Clientes</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Depoimento 1 -->
-                <div class="p-8 border border-white/10 bg-brand-dark/50 rounded-sm fade-in">
-                    <div class="flex text-brand-gold mb-4"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div>
-                    <p class="text-gray-400 text-sm italic mb-6">"O curso mudou minha visão sobre a profissão. A Andreza é extremamente detalhista e paciente. Hoje tenho minha agenda cheia!"</p>
-                    <div class="flex items-center gap-4">
-                        <div class="w-10 h-10 bg-gray-700 rounded-full overflow-hidden">
-                            <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-full h-full object-cover">
+    <!-- Location & Contact -->
+    <section id="contact" class="py-20 bg-black border-t border-zinc-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Informações -->
+                <div class="fade-in-up">
+                    <h2 class="text-3xl font-serif font-bold text-white mb-8">Entre em Contato</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="bg-zinc-900 p-3 rounded-full text-ray-pink">
+                                <i data-lucide="map-pin"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold">Localização</h4>
+                                <p class="text-gray-400 text-sm">Avenida Tereza Lourenço Rodrigues, nº 300<br>Palmital B, Santa Luzia - MG</p>
+                                <a href="https://maps.google.com/?q=Avenida+Tereza+Lourenço+Rodrigues,+300,+Santa+Luzia,+MG" target="_blank" class="text-ray-pink text-xs hover:underline mt-1 block">Abrir no GPS</a>
+                            </div>
                         </div>
-                        <div>
-                            <p class="text-white text-sm font-serif">Mariana S.</p>
-                            <p class="text-xs text-gray-600 uppercase">Ex-Aluna</p>
+
+                        <div class="flex items-start gap-4">
+                            <div class="bg-zinc-900 p-3 rounded-full text-ray-pink">
+                                <i data-lucide="phone"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold">WhatsApp</h4>
+                                <p class="text-gray-400 text-sm">(31) 98384-2310</p>
+                                <p class="text-gray-500 text-xs mt-1">Atendimento com horário marcado</p>
+                            </div>
                         </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="bg-zinc-900 p-3 rounded-full text-ray-pink">
+                                <i data-lucide="clock"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold">Horários</h4>
+                                <p class="text-gray-400 text-sm">Segunda a Sábado<br>09:00 - 19:00</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-10">
+                        <a href="https://wa.me/5531983842310" class="w-full md:w-auto bg-white text-black font-bold py-3 px-8 rounded-full hover:bg-gray-200 transition flex items-center justify-center gap-2">
+                            Agendar Horário Agora
+                        </a>
                     </div>
                 </div>
 
-                <!-- Depoimento 2 -->
-                <div class="p-8 border border-white/10 bg-brand-dark/50 rounded-sm fade-in">
-                    <div class="flex text-brand-gold mb-4"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div>
-                    <p class="text-gray-400 text-sm italic mb-6">"Faço meus cílios aqui há 2 anos e não troco. A durabilidade é incrível e meus fios naturais continuam saudáveis."</p>
-                    <div class="flex items-center gap-4">
-                        <div class="w-10 h-10 bg-gray-700 rounded-full overflow-hidden">
-                            <img src="https://randomuser.me/api/portraits/women/68.jpg" class="w-full h-full object-cover">
-                        </div>
-                        <div>
-                            <p class="text-white text-sm font-serif">Carla D.</p>
-                            <p class="text-xs text-gray-600 uppercase">Cliente</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Depoimento 3 -->
-                <div class="p-8 border border-white/10 bg-brand-dark/50 rounded-sm fade-in">
-                    <div class="flex text-brand-gold mb-4"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div>
-                    <p class="text-gray-400 text-sm italic mb-6">"Ambiente maravilhoso e atendimento impecável. Me sinto uma rainha toda vez que saio do estúdio."</p>
-                    <div class="flex items-center gap-4">
-                        <div class="w-10 h-10 bg-gray-700 rounded-full overflow-hidden">
-                            <img src="https://randomuser.me/api/portraits/women/12.jpg" class="w-full h-full object-cover">
-                        </div>
-                        <div>
-                            <p class="text-white text-sm font-serif">Fernanda L.</p>
-                            <p class="text-xs text-gray-600 uppercase">Cliente</p>
-                        </div>
-                    </div>
+                <!-- Mapa (Iframe Placeholder) -->
+                <div class="h-[400px] w-full bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 fade-in-up grayscale hover:grayscale-0 transition duration-500">
+                    <!-- Google Maps Embed -->
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3753.158529328456!2d-43.89678392576628!3d-19.833355935639144!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa69a7c3f3b0e4d%3A0x6a0b1b0b0b0b0b0b!2sAv.%20Tereza%20Louren%C3%A7o%20Rodrigues%2C%20300%20-%20Palmital%2C%20Santa%20Luzia%20-%20MG!5e0!3m2!1spt-BR!2sbr!4v1620000000000!5m2!1spt-BR!2sbr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer id="contato" class="bg-brand-black border-t border-brand-gold/10 pt-20 pb-10">
-        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
-            <div>
-                <span class="font-serif text-3xl text-gold block mb-6">Andreza Moreira</span>
-                <p class="text-gray-500 font-light text-sm mb-6">Especialista em extensão de cílios e formação profissional em Jundiaí e região.</p>
-                <div class="flex justify-center md:justify-start gap-4">
-                    <a href="#" class="text-gray-400 hover:text-brand-gold transition"><i data-lucide="instagram"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-brand-gold transition"><i data-lucide="facebook"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-brand-gold transition"><i data-lucide="mail"></i></a>
-                </div>
+    <footer class="bg-black border-t border-zinc-900 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center items-center gap-2 mb-4">
+                <span class="font-script text-2xl text-ray-pink">RS</span>
             </div>
-            
-            <div>
-                <h4 class="text-white font-serif text-lg mb-6">Links Rápidos</h4>
-                <ul class="space-y-3 text-sm text-gray-500 font-light">
-                    <li><a href="#inicio" class="hover:text-brand-gold transition">Início</a></li>
-                    <li><a href="#servicos" class="hover:text-brand-gold transition">Procedimentos</a></li>
-                    <li><a href="#cursos" class="hover:text-brand-gold transition">Cursos para Iniciantes</a></li>
-                    <li><a href="#contato" class="hover:text-brand-gold transition">Fale Conosco</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <h4 class="text-white font-serif text-lg mb-6">Contato</h4>
-                <p class="text-gray-500 font-light text-sm mb-2"><i data-lucide="map-pin" class="inline w-4 h-4 mr-2 text-brand-gold"></i> Jundiaí, SP</p>
-                <p class="text-gray-500 font-light text-sm mb-2"><i data-lucide="phone" class="inline w-4 h-4 mr-2 text-brand-gold"></i> (11) 99999-9999</p>
-                <a href="https://wa.me/seunumerodewhatsapp" class="btn-gold px-6 py-3 mt-6 inline-block rounded-sm text-xs font-bold tracking-widest uppercase">
-                    Chamar no WhatsApp
-                </a>
-            </div>
-        </div>
-        <div class="border-t border-white/5 mt-16 pt-8 text-center">
-            <p class="text-gray-700 text-xs">© 2024 Andreza Moreira Lash Design. Todos os direitos reservados.</p>
+            <p class="text-gray-600 text-sm">
+                &copy; 2024 Rayane Santos Lash Design. Todos os direitos reservados.
+            </p>
         </div>
     </footer>
 
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/5531983842310" target="_blank" class="whatsapp-float pulse" aria-label="Falar no WhatsApp">
+        <i data-lucide="message-circle" class="w-8 h-8"></i>
+    </a>
+
     <script>
+        // Inicializar ícones
         lucide.createIcons();
-        
-        // Intersection Observer para Animações
+
+        // Menu Mobile Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Navbar Mudança de Cor ao Rolar
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-black', 'shadow-lg');
+                navbar.classList.remove('bg-black/90');
+            } else {
+                navbar.classList.remove('bg-black', 'shadow-lg');
+                navbar.classList.add('bg-black/90');
+            }
+        });
+
+        // Animação de Entrada (Intersection Observer)
+        const observerOptions = {
+            threshold: 0.1
+        };
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
                 }
             });
-        }, { threshold: 0.1 });
+        }, observerOptions);
 
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+            observer.observe(el);
+        });
     </script>
 </body>
 </html>
