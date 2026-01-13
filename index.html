@@ -44,7 +44,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* --- VIDEO CONTAINER GLOW --- */
+        /* --- VIDEO CONTAINER --- */
         .video-glow-container {
             position: relative;
             border-radius: 20px;
@@ -71,7 +71,7 @@
         }
         .video-glow-container:hover .big-play-btn { transform: scale(1.1); background: var(--neon); border-color: var(--neon); color: black; }
 
-        /* --- MARQUEE (Texto correndo) --- */
+        /* --- MARQUEE --- */
         .marquee-container { overflow: hidden; white-space: nowrap; padding: 2rem 0; border-top: 1px solid #222; border-bottom: 1px solid #222; }
         .marquee-content { display: inline-block; animation: marquee 20s linear infinite; }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
@@ -101,7 +101,7 @@
             background: linear-gradient(to top, black, transparent);
         }
 
-        /* --- MASONRY GRID (Posts) --- */
+        /* --- MASONRY GRID --- */
         .masonry-grid { column-count: 2; column-gap: 1.5rem; }
         @media (min-width: 768px) { .masonry-grid { column-count: 3; } }
         
@@ -143,7 +143,7 @@
             </h1>
             
             <p class="text-gray-400 text-lg md:text-xl max-w-xl leading-relaxed">
-                Eu uso <strong class="text-white">Inteligência Artificial</strong> para codificar e <strong class="text-white">Criatividade Humana</strong> para projetar. O resultado são experiências digitais entregues em tempo recorde.
+                Profissional Híbrido: Uno a lógica do <strong>Suporte e Desenvolvimento</strong> com a estética do <strong>Design</strong>. Uso Inteligência Artificial para entregar soluções de alto nível.
             </p>
         </div>
 
@@ -193,18 +193,18 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div class="project-card reveal" onclick="window.open('https://synapse-br.vercel.app/')">
-                <img src="assets/IA.png" class="project-img object-top" onerror="this.src='https://synapse-br.vercel.app/assets/polvo_synapse.png'">
+                <img src="assents/image (1).png" class="project-img object-top" onerror="this.src='https://placehold.co/600x800/111/FFF?text=Synapse'">
                 <div class="project-info">
                     <h3 class="font-display text-3xl font-bold text-white mb-2">Synapse</h3>
                     <p class="text-gray-400 text-sm">SaaS Interface • Gamification Logic</p>
                 </div>
             </div>
 
-            <div class="project-card reveal" style="margin-top: 0 md:margin-top: 80px;" onclick="window.open('https://devs-br.vercel.app/sites/hamburgueria.html')">
-                <img src="assets/hamburguer.jpg" class="project-img" onerror="this.src='https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aGFtYnVyZ3VlcmlhfGVufDB8fDB8fHww'">
+            <div class="project-card reveal" style="margin-top: 0 md:margin-top: 80px;" onclick="window.location.href='sites.html'">
+                <img src="assents/hamburguer.jpg" class="project-img" onerror="this.src='https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?q=80&w=600'">
                 <div class="project-info">
-                    <h3 class="font-display text-3xl font-bold text-white mb-2">Bravus</h3>
-                    <p class="text-gray-400 text-sm">Delivery Landing Page • Sales Focus</p>
+                    <h3 class="font-display text-3xl font-bold text-white mb-2">Bravus & Sites</h3>
+                    <p class="text-gray-400 text-sm">Delivery & Landing Pages</p>
                 </div>
             </div>
         </div>
@@ -218,18 +218,32 @@
         <h2 class="font-display text-4xl mb-12 reveal text-center md:text-left">Selected<span class="text-[#D4FF00]">.Feed</span></h2>
         
         <div class="masonry-grid reveal">
-            <div class="masonry-item" onclick="openImage('assets/post1.jpg')"><img src="assents/The only financial app you’ll ever need..png" class="w-full" onerror="this.src='https://images.unsplash.com/photo-1626785774573-4b799314348d?w=300'"></div>
-            <div class="masonry-item" onclick="openImage('assets/post2.jpg')"><img src="assents/Black & Beige Simple Typography Cosmetic Brand Business Card (7).png" class="w-full" onerror="this.src='https://images.unsplash.com/photo-1626785774625-ddcddc3445e9?w=300'"></div>
+            <div class="masonry-item" onclick="openImage('assents/The only financial app you’ll ever need..png')">
+                <img src="assents/Black & Beige Simple Typography Cosmetic Brand Business Card (11).png" class="w-full" alt="Financial App">
+            </div>
+
+            <div class="masonry-item" onclick="openImage('assents/Black & Beige Simple Typography Cosmetic Brand Business Card (7).png')">
+                <img src="assents/Black & Beige Simple Typography Cosmetic Brand Business Card (7).png" class="w-full" alt="Business Card Design">
+            </div>
             
-            <div class="masonry-item relative group" onclick="openVideo('assets/video_extra.mp4')">
-                <img src="assets/thumb_extra.jpg" class="w-full" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=600'">
+            <div class="masonry-item relative group" onclick="openVideo('assents/v2.mp4')">
+                <img src="https://media.istockphoto.com/id/2189419177/pt/foto/young-woman-applying-mascara-while-wearing-bathrobe-and-towel.webp?a=1&b=1&s=612x612&w=0&k=20&c=aIh44eSe9TBQ3OdtlI08owIObtXdP7LTLTjVKQmX3r8=" class="w-full h-64 object-cover" alt="Video Thumb">
                 <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition bg-black/50">
                     <i data-lucide="play-circle" class="w-12 h-12 text-white"></i>
                 </div>
             </div>
 
-            <div class="masonry-item" onclick="openImage('assets/post3.jpg')"><img src="assets/post3.jpg" class="w-full" onerror="this.src='https://images.unsplash.com/photo-1561070791-2526d30994b5?w=300'"></div>
-            <div class="masonry-item" onclick="openImage('assets/post4.jpg')"><img src="assets/post4.jpg" class="w-full" onerror="this.src='https://images.unsplash.com/photo-1542206395-9feb3edaa68d?w=300'"></div>
+            <div class="masonry-item" onclick="openImage('assents/Black & Beige Simple Typography Cosmetic Brand Business Card (1).png')">
+                <img src="assents/The only financial app you’ll ever need..png" class="w-full" alt="Brand Identity">
+            </div>
+
+             <div class="masonry-item" onclick="openImage('assents/Black & Beige Simple Typography Cosmetic Brand Business Card (9).png')">
+                <img src="assents/Black & Beige Simple Typography Cosmetic Brand Business Card (9).png" class="w-full" alt="Brand Identity">
+            </div>
+
+             <div class="masonry-item" onclick="openImage('assents/Black & Beige Simple Typography Cosmetic Brand Business Card (10).png')">
+                <img src="assents/Black & Beige Simple Typography Cosmetic Brand Business Card (10).png" class="w-full" alt="Brand Identity">
+            </div>
         </div>
     </section>
 
@@ -238,29 +252,29 @@
             <div class="reveal">
                 <h2 class="font-display text-5xl font-bold mb-6">Kayque<br>Damas.</h2>
                 <div class="space-y-4 text-gray-400 text-lg">
-                    <p>Profissional Híbrido.</p>
-                    <p>Unindo suporte técnico, desenvolvimento e design.</p>
+                    <p>Estudante de Técnico em Informática com vivência corporativa em <strong>Suporte e Atendimento</strong>.</p>
+                    <p>Habilidade em resolver problemas de hardware e softwares, aliada à criatividade no desenvolvimento de interfaces e materiais visuais.</p>
                 </div>
                 <div class="mt-8 flex gap-4">
-                    <a href="assets/curriculo.pdf" target="_blank" class="px-6 py-3 bg-white text-black font-bold uppercase text-sm tracking-wider hover:bg-[#D4FF00] transition">Download CV</a>
+                    <a href="assents/curriculo.pdf" target="_blank" class="px-6 py-3 bg-white text-black font-bold uppercase text-sm tracking-wider hover:bg-[#D4FF00] transition">Download CV</a>
                 </div>
             </div>
             
             <div class="space-y-8 reveal">
                 <div class="border-b border-white/10 pb-4">
-                    <h4 class="text-[#D4FF00] font-mono text-xs uppercase mb-2">2025</h4>
+                    <h4 class="text-[#D4FF00] font-mono text-xs uppercase mb-2">Jul 2025 – Out 2025</h4>
                     <h3 class="text-2xl font-bold">Estagiário Suporte TI</h3>
-                    <p class="text-gray-500">Mdgeo • Infraestrutura & Redes</p>
+                    <p class="text-gray-500">Mdgeo • Suporte N1, Hardware & Redes (GLPI)</p>
                 </div>
                 <div class="border-b border-white/10 pb-4">
-                    <h4 class="text-[#D4FF00] font-mono text-xs uppercase mb-2">2024</h4>
+                    <h4 class="text-[#D4FF00] font-mono text-xs uppercase mb-2">Set 2024 – Jul 2025</h4>
                     <h3 class="text-2xl font-bold">Jovem Aprendiz</h3>
-                    <p class="text-gray-500">Unimed BH • Administrativo</p>
+                    <p class="text-gray-500">Unimed BH • Administrativo & Atendimento</p>
                 </div>
                 <div class="border-b border-white/10 pb-4">
-                    <h4 class="text-[#D4FF00] font-mono text-xs uppercase mb-2">Formação</h4>
+                    <h4 class="text-[#D4FF00] font-mono text-xs uppercase mb-2">Formação (2026)</h4>
                     <h3 class="text-2xl font-bold">Técnico em Informática</h3>
-                    <p class="text-gray-500">SENAI CTTI</p>
+                    <p class="text-gray-500">SENAI CTTI • Cibersegurança & Dev</p>
                 </div>
             </div>
         </div>

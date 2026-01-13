@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Projects | Kayque Damas</title>
+    <title>Galeria de Projetos | Kayque Damas</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -25,7 +25,7 @@
             color: #E0E0E0;
             font-family: 'Instrument Sans', sans-serif;
             background-image: 
-                radial-gradient(circle at 50% 0%, rgba(212, 255, 0, 0.05), transparent 40%);
+                radial-gradient(circle at 50% 0%, rgba(212, 255, 0, 0.03), transparent 40%);
             min-height: 100vh;
         }
 
@@ -41,6 +41,8 @@
             transition: all 0.4s ease;
             cursor: pointer;
             group: group;
+            display: flex;
+            flex-direction: column;
         }
 
         .project-card:hover {
@@ -50,7 +52,7 @@
         }
 
         .card-image {
-            height: 220px;
+            height: 240px;
             width: 100%;
             background-color: #111;
             position: relative;
@@ -69,9 +71,10 @@
             opacity: 1;
         }
 
+        /* Overlay com Ícone de Link Externo */
         .card-overlay {
             position: absolute; inset: 0;
-            background: rgba(0,0,0,0.4);
+            background: rgba(0,0,0,0.5);
             display: flex; align-items: center; justify-content: center;
             opacity: 0; transition: 0.3s;
         }
@@ -80,15 +83,16 @@
 
         .view-btn {
             background: var(--accent); color: black;
-            padding: 10px 24px; border-radius: 30px;
+            padding: 12px 28px; border-radius: 30px;
             font-weight: bold; font-size: 0.9rem;
             transform: translateY(10px); transition: 0.3s;
             display: flex; align-items: center; gap: 8px;
+            box-shadow: 0 0 20px rgba(212, 255, 0, 0.3);
         }
         
         .project-card:hover .view-btn { transform: translateY(0); }
 
-        .card-info { padding: 1.5rem; }
+        .card-info { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
 
         .category-tag {
             font-size: 0.7rem; text-transform: uppercase;
@@ -96,15 +100,15 @@
             margin-bottom: 0.5rem; display: block;
         }
         
-        h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; color: white; margin-bottom: 0.5rem; }
+        h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; color: white; margin-bottom: 0.5rem; }
         
-        p { font-size: 0.85rem; color: #aaa; line-height: 1.5; }
+        p { font-size: 0.9rem; color: #aaa; line-height: 1.5; }
 
         /* Grid Responsivo */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
             margin-top: 2rem;
         }
     </style>
@@ -113,124 +117,112 @@
 
     <div class="wrapper">
         
-        <header class="flex justify-between items-center mb-12 py-4 border-b border-white/10">
-            <div class="flex items-center gap-4">
-                <a href="index.html" class="p-2 bg-white/5 rounded-full hover:bg-white/10 transition border border-white/10 text-gray-400 hover:text-white">
-                    <i data-lucide="arrow-left" class="w-5 h-5"></i>
+        <header class="flex justify-between items-center mb-12 py-6 border-b border-white/10">
+            <div class="flex items-center gap-6">
+                <a href="index.html" class="group flex items-center gap-3 px-5 py-3 bg-white/5 rounded-full hover:bg-white hover:text-black transition border border-white/10 text-gray-300">
+                    <i data-lucide="arrow-left" class="w-5 h-5 group-hover:-translate-x-1 transition-transform"></i>
+                    <span class="font-bold text-sm">Voltar ao Portfólio</span>
                 </a>
-                <div>
-                    <h1 class="text-2xl font-bold text-white tracking-tight">Meus Projetos</h1>
-                    <p class="text-xs text-gray-500 uppercase tracking-widest">Web Design & Landing Pages</p>
-                </div>
             </div>
             
-            <a href="https://wa.me/5531982929523" target="_blank" class="hidden md:flex px-5 py-2 bg-[#D4FF00] text-black font-bold rounded-full hover:bg-[#b8dd00] transition items-center gap-2 text-sm">
-                Orçamento <i data-lucide="message-circle" class="w-4 h-4"></i>
-            </a>
+            <div class="text-right hidden md:block">
+                <h1 class="text-xl font-bold text-white tracking-tight">Projetos Web</h1>
+                <p class="text-xs text-gray-500 uppercase tracking-widest">5 Landing Pages Selecionadas</p>
+            </div>
         </header>
 
         <div class="projects-grid">
 
-            <div class="project-card" onclick="openSite('hamburgueria')">
+            <a href="sites/hamburgueria.html" target="_blank" class="project-card">
                 <div class="card-image">
-                    <img src="assets/hamburguer.jpg" onerror="this.src='https://images.unsplash.com/photo-1561758033-d89a9ad46330?q=80&w=800'">
+                    <img src="assents/hamburguer.jpg" onerror="this.src='https://images.unsplash.com/photo-1561758033-d89a9ad46330?q=80&w=800'">
                     <div class="card-overlay">
-                        <span class="view-btn">Ver Demo <i data-lucide="external-link" class="w-4 h-4"></i></span>
+                        <span class="view-btn">Acessar Site <i data-lucide="external-link" class="w-4 h-4"></i></span>
                     </div>
                 </div>
                 <div class="card-info">
-                    <span class="category-tag text-yellow-500">Delivery & Food</span>
-                    <h3>Bravus Burger</h3>
-                    <p>Landing Page completa para delivery com cardápio digital e integração WhatsApp.</p>
+                    <div>
+                        <span class="category-tag text-yellow-500">Delivery & Food</span>
+                        <h3>Bravus Burger</h3>
+                        <p>Landing Page completa para delivery com cardápio digital interativo.</p>
+                    </div>
                 </div>
-            </div>
+            </a>
 
-            <div class="project-card" onclick="openSite('moda')">
+            <a href="sites/moda.html" target="_blank" class="project-card">
                 <div class="card-image">
                     <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800">
                     <div class="card-overlay">
-                        <span class="view-btn">Ver Demo <i data-lucide="external-link" class="w-4 h-4"></i></span>
+                        <span class="view-btn">Acessar Site <i data-lucide="external-link" class="w-4 h-4"></i></span>
                     </div>
                 </div>
                 <div class="card-info">
-                    <span class="category-tag text-purple-400">E-commerce / Moda</span>
-                    <h3>Aura Fashion</h3>
-                    <p>Vitrine virtual estilo editorial de moda. Foco em fotografia e conversão.</p>
+                    <div>
+                        <span class="category-tag text-purple-400">E-commerce</span>
+                        <h3>Aura Fashion</h3>
+                        <p>Vitrine virtual estilo editorial de moda. Foco em fotografia e conversão.</p>
+                    </div>
                 </div>
-            </div>
+            </a>
 
-            <div class="project-card" onclick="openSite('estetica')">
+            <a href="sites/estetica.html" target="_blank" class="project-card">
                 <div class="card-image">
-                    <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=800">
+                    <img src="assents/Black & Beige Simple Typography Cosmetic Brand Business Card (11).png" class="object-cover h-full w-full" onerror="this.src='https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=800'">
                     <div class="card-overlay">
-                        <span class="view-btn">Ver Demo <i data-lucide="external-link" class="w-4 h-4"></i></span>
+                        <span class="view-btn">Acessar Site <i data-lucide="external-link" class="w-4 h-4"></i></span>
                     </div>
                 </div>
                 <div class="card-info">
-                    <span class="category-tag text-pink-400">Beleza & Estética</span>
-                    <h3>Lumière Clinic</h3>
-                    <p>Site institucional para clínicas de estética com sistema de agendamento visual.</p>
+                    <div>
+                        <span class="category-tag text-pink-400">Beleza & Estética</span>
+                        <h3>Lumière Clinic</h3>
+                        <p>Site institucional elegante para clínicas com sistema de agendamento.</p>
+                    </div>
                 </div>
-            </div>
+            </a>
 
-            <div class="project-card" onclick="openSite('cilios')">
+            <a href="sites/cilios.html" target="_blank" class="project-card">
                 <div class="card-image">
-                    <img src="https://images.unsplash.com/photo-1587613991119-fbbe8e90531d?q=80&w=800">
+                    <img src="assents/Black & Beige Simple Typography Cosmetic Brand Business Card (10).png" class="object-cover h-full w-full" onerror="this.src='https://images.unsplash.com/photo-1587613991119-fbbe8e90531d?q=80&w=800'">
                     <div class="card-overlay">
-                        <span class="view-btn">Ver Demo <i data-lucide="external-link" class="w-4 h-4"></i></span>
+                        <span class="view-btn">Acessar Site <i data-lucide="external-link" class="w-4 h-4"></i></span>
                     </div>
                 </div>
                 <div class="card-info">
-                    <span class="category-tag text-rose-400">Beauty Services</span>
-                    <h3>Lash Studio</h3>
-                    <p>Página de serviços focada em profissionais de beleza e extensão de cílios.</p>
+                    <div>
+                        <span class="category-tag text-rose-400">Beauty Services</span>
+                        <h3>Lash Studio</h3>
+                        <p>Página de serviços focada em profissionais de beleza e extensão de cílios.</p>
+                    </div>
                 </div>
-            </div>
+            </a>
 
-            <div class="project-card" onclick="openSite('reparos')">
+            <a href="sites/reparos.html" target="_blank" class="project-card">
                 <div class="card-image">
                     <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=800">
                     <div class="card-overlay">
-                        <span class="view-btn">Ver Demo <i data-lucide="external-link" class="w-4 h-4"></i></span>
+                        <span class="view-btn">Acessar Site <i data-lucide="external-link" class="w-4 h-4"></i></span>
                     </div>
                 </div>
                 <div class="card-info">
-                    <span class="category-tag text-blue-400">Manutenção</span>
-                    <h3>SOS Reparos</h3>
-                    <p>Site para prestadores de serviços técnicos e assistência técnica rápida.</p>
-                </div>
-            </div>
-
-            <div class="project-card" onclick="openSite('cliente1')">
-                <div class="card-image">
-                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800">
-                    <div class="card-overlay">
-                        <span class="view-btn">Ver Demo <i data-lucide="external-link" class="w-4 h-4"></i></span>
+                    <div>
+                        <span class="category-tag text-blue-400">Manutenção</span>
+                        <h3>SOS Reparos</h3>
+                        <p>Site para prestadores de serviços técnicos e assistência técnica rápida.</p>
                     </div>
                 </div>
-                <div class="card-info">
-                    <span class="category-tag text-green-400">Corporativo</span>
-                    <h3>Projeto Corporativo</h3>
-                    <p>Site institucional desenvolvido sob medida para empresa parceira.</p>
-                </div>
-            </div>
+            </a>
 
         </div>
 
-        <footer class="mt-20 pt-8 border-t border-white/10 text-center text-gray-600 text-sm">
-            <p>Todas as demos são funcionais e responsivas.</p>
+        <footer class="mt-20 pt-8 border-t border-white/10 text-center text-gray-600 text-sm pb-10">
+            <p>Clique em um projeto para visualizá-lo em tela cheia.</p>
         </footer>
 
     </div>
 
     <script>
         lucide.createIcons();
-
-        // Esta função usa o seu arquivo demo.html existente para abrir os sites
-        function openSite(siteName) {
-            // Redireciona para o visualizador (demo.html) passando o nome do site
-            window.location.href = `demo.html?site=${siteName}`;
-        }
     </script>
 </body>
 </html>
